@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-10-30T14:46:21+00:00",
+  "checkedAt": "2026-10-30T14:54:02+00:00",
   "difyVersion": "1.9.2",
   "dslFile": "memory-theatre-workflow.yml",
   "dslSha256": "8dc7cf485d3749a900d6d6d0aa7a2a1ba3989b911c51dd54e0ee1cbc8e9cbfd0",
-  "appId": "e2424161-bc79-44de-abef-c80b5a787729",
+  "appId": "d16748b5-918c-42bf-9dd1-1bad766b668d",
   "import": "completed",
   "publish": "success",
   "powercontextUrl": "http://127.0.0.1:8124",

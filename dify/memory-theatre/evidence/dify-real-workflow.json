@@ -1,16 +1,16 @@
 {
   "runtime": "Dify 1.9.2 Workflow + 本地 Code Executor 0.2.12 协议 + PowerContext 1.4.1 (SQLite)；无 mock、无外部模型",
-  "checkedAt": "2026-10-30T14:53:09+00:00",
-  "playerId": "theatre-player-ca2a3248",
+  "checkedAt": "2026-10-30T14:54:02+00:00",
+  "playerId": "theatre-player-ca99c15c",
   "turns": [
     {
       "action": "A 调查移动的出口",
-      "run_id": "8abbd46e-19e0-46e1-ae35-0a943b3a71de",
+      "run_id": "094f941d-c5e8-4c28-acf8-77074fe12d12",
       "answer": "第 1 幕 · 荒诞城门\n阿舟，这是你们第一次见面，阿铁把你的名字写在了会自己逃跑的登记簿上。\n▸ 你的行动：A 调查移动的出口\n你沿着墙根走了一圈，发现所有脚印都通向门里，没有一个走出来的。\n状态：信任 1 / 混乱 0 / 硬币 3\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
       "receipt": {
-        "scope_id": "scp_68bs5nvdrntv7z2421hqvpbjnc",
+        "scope_id": "scp_1zqqv709evts0eww80z43dbsmw",
         "memory_artifact": {
-          "artifact_id": "art_167d299a617143aeab21db31ebfc86d7",
+          "artifact_id": "art_e3893aae50964de3bc529daf005f6158",
           "revision": 1,
           "family": "atomic-memory",
           "kind": "decision",
@@ -31,19 +31,19 @@
           "grudge_used": false,
           "motto_used": false,
           "ending": "",
-          "player_id": "theatre-player-ca2a3248"
+          "player_id": "theatre-player-ca99c15c"
         }
       },
-      "elapsed_seconds": 0.625268
+      "elapsed_seconds": 0.550719
     },
     {
       "action": "B 整蛊鸽子议会",
-      "run_id": "2093ded3-f62b-44f5-bc1b-52143cb492c9",
+      "run_id": "fe01a89c-5481-4c20-8f3f-bd06002e940e",
       "answer": "第 2 幕 · 荒诞城门\n阿舟，门卫阿铁还记得你上一幕干的事：‘A 调查移动的出口’。\n▸ 你的行动：B 整蛊鸽子议会\n你把阿铁的帽子挂到了鸽子议会的告示牌上，全城的鸽子同时转过头来。\n状态：信任 1 / 混乱 1 / 硬币 3\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
       "receipt": {
-        "scope_id": "scp_68bs5nvdrntv7z2421hqvpbjnc",
+        "scope_id": "scp_1zqqv709evts0eww80z43dbsmw",
         "memory_artifact": {
-          "artifact_id": "art_ff8c993274c34d10aa31d33c98fbd13e",
+          "artifact_id": "art_7a9ec12c644a4f259f76363a6f926b72",
           "revision": 1,
           "family": "atomic-memory",
           "kind": "decision",
@@ -64,19 +64,19 @@
           "grudge_used": false,
           "motto_used": false,
           "ending": "",
-          "player_id": "theatre-player-ca2a3248"
+          "player_id": "theatre-player-ca99c15c"
         }
       },
-      "elapsed_seconds": 0.525426
+      "elapsed_seconds": 0.531912
     },
     {
       "action": "C 和门卫协商",
-      "run_id": "83e2c90b-fe2d-43a2-a55c-e27170ecac59",
+      "run_id": "3b9eba41-136c-437a-8c4f-73a14f7e88c8",
       "answer": "第 3 幕 · 荒诞城门\n阿舟，门卫阿铁还记得你上一幕干的事：‘B 整蛊鸽子议会’。\n而且阿铁翻起了旧账：‘上回你干的那事——B 整蛊鸽子议会——我到现在还记着。’\n▸ 你的行动：C 和门卫协商\n你压低声音问门卫的底线，他咳了一声：“别再喂鸽子了，它们记性太好。”\n状态：信任 3 / 混乱 1 / 硬币 2\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
       "receipt": {
-        "scope_id": "scp_68bs5nvdrntv7z2421hqvpbjnc",
+        "scope_id": "scp_1zqqv709evts0eww80z43dbsmw",
         "memory_artifact": {
-          "artifact_id": "art_357200ce113f4e3281e3bbb3acae6ca5",
+          "artifact_id": "art_dbf944b64d204972af53731d4ca1a3cb",
           "revision": 1,
           "family": "atomic-memory",
           "kind": "decision",
@@ -97,19 +97,19 @@
           "grudge_used": true,
           "motto_used": false,
           "ending": "",
-          "player_id": "theatre-player-ca2a3248"
+          "player_id": "theatre-player-ca99c15c"
         }
       },
-      "elapsed_seconds": 0.519059
+      "elapsed_seconds": 0.528066
     },
     {
       "action": "C 再次协商",
-      "run_id": "9cba147e-76df-449e-996d-0125d57359bc",
+      "run_id": "89b78882-f650-4f70-90ec-592e2ec99b21",
       "answer": "第 4 幕 · 荒诞城门\n阿舟，门卫阿铁还记得你上一幕干的事：‘C 和门卫协商’。\n▸ 你的行动：C 再次协商\n你压低声音问门卫的底线，他咳了一声：“别再喂鸽子了，它们记性太好。”\n达成结局【门卫合伙人】：阿铁把备用钥匙塞进你手里，说从今天起你替他值班。\n状态：信任 5 / 混乱 1 / 硬币 1\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
       "receipt": {
-        "scope_id": "scp_68bs5nvdrntv7z2421hqvpbjnc",
+        "scope_id": "scp_1zqqv709evts0eww80z43dbsmw",
         "memory_artifact": {
-          "artifact_id": "art_6ba65beb679c4eab902a03f664e03bdc",
+          "artifact_id": "art_47bd447b18304bf89e5d82a24eeb9b32",
           "revision": 1,
           "family": "atomic-memory",
           "kind": "decision",
@@ -130,21 +130,21 @@
           "grudge_used": false,
           "motto_used": false,
           "ending": "达成结局【门卫合伙人】：阿铁把备用钥匙塞进你手里，说从今天起你替他值班。",
-          "player_id": "theatre-player-ca2a3248"
+          "player_id": "theatre-player-ca99c15c"
         }
       },
-      "elapsed_seconds": 0.511616
+      "elapsed_seconds": 0.500624
     }
   ],
-  "scopeId": "scp_68bs5nvdrntv7z2421hqvpbjnc",
+  "scopeId": "scp_1zqqv709evts0eww80z43dbsmw",
   "isolatedPlayer": {
-    "playerId": "theatre-isolated-259024b5",
-    "run_id": "c8954ff8-f86a-434f-b1bf-f6fc5800f3ba",
+    "playerId": "theatre-isolated-5168d5b1",
+    "run_id": "6ec02957-3d57-4671-8312-8ab23acbfd5b",
     "answer": "第 1 幕 · 荒诞城门\n路人甲，这是你们第一次见面，阿铁把你的名字写在了会自己逃跑的登记簿上。\n▸ 你的行动：B 整蛊鸽子议会\n你给阿铁的登记簿喂了一页写着“今日放假”的纸，阿铁盯着它看了很久。\n状态：信任 0 / 混乱 1 / 硬币 3\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
     "receipt": {
-      "scope_id": "scp_6ptssjgvtn66r3k0mwghmrgtzd",
+      "scope_id": "scp_6zdf81df8jaqmxntawm31gtnkf",
       "memory_artifact": {
-        "artifact_id": "art_3524da030ad14f0c9b6d849da63a4f5b",
+        "artifact_id": "art_b36f2efdb6cd4a9b98565c9e363c3dee",
         "revision": 1,
         "family": "atomic-memory",
         "kind": "decision",
@@ -165,35 +165,35 @@
         "grudge_used": false,
         "motto_used": false,
         "ending": "",
-        "player_id": "theatre-isolated-259024b5"
+        "player_id": "theatre-isolated-5168d5b1"
       }
     }
   },
   "powerContextMemory": {
-    "scopeId": "scp_68bs5nvdrntv7z2421hqvpbjnc",
+    "scopeId": "scp_1zqqv709evts0eww80z43dbsmw",
     "mode": "text",
     "hitCount": 4,
     "hits": [
       {
-        "artifact_id": "art_167d299a617143aeab21db31ebfc86d7",
+        "artifact_id": "art_e3893aae50964de3bc529daf005f6158",
         "revision": 1,
         "kind": "decision",
         "text_head": "记忆剧场\n{\"message\": \"A 调查移动的出口\", \"answer\": \"第 1 幕 · 荒诞城门\\n阿舟，这是你们第一次见面，阿铁把你的名字写在了会自"
       },
       {
-        "artifact_id": "art_ff8c993274c34d10aa31d33c98fbd13e",
+        "artifact_id": "art_7a9ec12c644a4f259f76363a6f926b72",
         "revision": 1,
         "kind": "decision",
         "text_head": "记忆剧场\n{\"message\": \"B 整蛊鸽子议会\", \"answer\": \"第 2 幕 · 荒诞城门\\n阿舟，门卫阿铁还记得你上一幕干的事：‘A 调查移动的"
       },
       {
-        "artifact_id": "art_6ba65beb679c4eab902a03f664e03bdc",
+        "artifact_id": "art_47bd447b18304bf89e5d82a24eeb9b32",
         "revision": 1,
         "kind": "decision",
         "text_head": "记忆剧场\n{\"message\": \"C 再次协商\", \"answer\": \"第 4 幕 · 荒诞城门\\n阿舟，门卫阿铁还记得你上一幕干的事：‘C 和门卫协商’。"
       },
       {
-        "artifact_id": "art_357200ce113f4e3281e3bbb3acae6ca5",
+        "artifact_id": "art_dbf944b64d204972af53731d4ca1a3cb",
         "revision": 1,
         "kind": "decision",
         "text_head": "记忆剧场\n{\"message\": \"C 和门卫协商\", \"answer\": \"第 3 幕 · 荒诞城门\\n阿舟，门卫阿铁还记得你上一幕干的事：‘B 整蛊鸽子议会"
@@ -201,15 +201,15 @@
     ]
   },
   "afterServiceRestart": {
-    "checkedAt": "2026-10-30T14:53:42+00:00",
+    "checkedAt": "2026-10-30T14:54:32+00:00",
     "turn": {
       "ok": true,
-      "run_id": "6fab32a5-406c-41db-9e6b-6bb5d3bc79fb",
+      "run_id": "d571db3c-1577-48eb-be69-7b80f38277f9",
       "answer": "第 5 幕 · 荒诞城门\n阿舟，门卫阿铁还记得你上一幕干的事：‘C 再次协商’。\n▸ 你的行动：A 调查重启后仍在移动的出口\n你沿着墙根走了一圈，发现所有脚印都通向门里，没有一个走出来的。\n达成结局【门卫合伙人】：阿铁把备用钥匙塞进你手里，说从今天起你替他值班。\n状态：信任 6 / 混乱 1 / 硬币 1\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
       "receipt": {
-        "scope_id": "scp_68bs5nvdrntv7z2421hqvpbjnc",
+        "scope_id": "scp_1zqqv709evts0eww80z43dbsmw",
         "memory_artifact": {
-          "artifact_id": "art_19e599c5185c4071a14ef0a4d1bce01a",
+          "artifact_id": "art_ea4c6017a3204835bd02dad3a9154f68",
           "revision": 1,
           "family": "atomic-memory",
           "kind": "decision",
@@ -230,10 +230,10 @@
           "grudge_used": false,
           "motto_used": false,
           "ending": "达成结局【门卫合伙人】：阿铁把备用钥匙塞进你手里，说从今天起你替他值班。",
-          "player_id": "theatre-player-ca2a3248"
+          "player_id": "theatre-player-ca99c15c"
         }
       },
-      "elapsed_seconds": 0.536616,
+      "elapsed_seconds": 0.589408,
       "total_tokens": 0
     }
   }
