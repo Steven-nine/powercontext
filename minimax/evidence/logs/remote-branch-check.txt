@@ -1,0 +1,23 @@
+Remote branch reproducibility check
+===================================
+
+Date: 2026-10-30
+Repository: https://github.com/Steven-nine/2026OceanBase-PowerContext
+Branch: 2026-competition-ecosystem
+Commit: c43a5537 (checked out from the remote branch)
+
+Procedure:
+  git clone --branch 2026-competition-ecosystem --single-branch <repo> /tmp/mm-remote
+  cd /tmp/mm-remote/minimax
+  uv sync --extra dev
+  uv run mmctx ingest --root demo-app
+  DRY_RUN=1 bash scripts/demo.sh
+
+Observed results:
+  ingest: documents=5
+  dry-run demo: after-dryrun.log reports 7 passed, exit code 0
+  evidence files: context-before.json, prompt-for-minimax.md, before-dryrun.log,
+  after-dryrun.log
+
+Conclusion: the pushed branch is self-contained and reproduces the pipeline from
+a fresh clone using only public dependencies.
