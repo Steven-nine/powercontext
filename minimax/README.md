@@ -28,6 +28,17 @@ mcode login
 
 本作品使用 seekdb 嵌入式模式（`pylibseekdb`），不需要单独部署数据库服务；PowerContext 只使用显式记忆能力，因此不需要配置生成或向量模型。
 
+## 调用入口
+
+| 命令 | 输入 | 输出 |
+| --- | --- | --- |
+| `mmctx ingest --root demo-app` | 示例工程目录 | 入库文档数量 |
+| `mmctx context --task "<任务>" --root demo-app` | 任务文本 | `context.json`（`specs`/`code`/`tests`/`sources`/`progress`/`previous_state`）与 `prompt.md` |
+| `mmctx query --text "<关键词>" [--kind spec]` | 检索关键词 | 命中的来源路径与原文 |
+| `mmctx state save --task ... --status ...` | 任务状态字段 | 写入 PowerContext 的记忆记录 |
+| `mmctx state load --query ...` | 查询文本 | 已保存的任务状态 |
+| `mmctx test --root demo-app --label <名称>` | 测试标签 | pytest 输出、退出码与日志路径 |
+
 ## 安装与启动
 
 ```bash
