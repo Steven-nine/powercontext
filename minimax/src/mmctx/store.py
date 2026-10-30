@@ -200,4 +200,13 @@ class Store:
 
 
 def _terms(text: str) -> list[str]:
-    return [term for term in re.findall(r"[A-Za-z0-9_]{2,}", text.lower()) if term not in {"the", "and", "for"}]
+    ascii_terms = [
+        term for term in re.findall(r"[A-Za-z0-9_]{2,}", text.lower()) if term not in {"the", "and", "for"}
+    ]
+    cjk_terms: list[str] = []
+    for chunk in re.findall(r"[\u4e00-\u9fff]+", text):
+        if len(chunk) == 1:
+            cjk_terms.append(chunk)
+        else:
+            cjk_terms.extend(chunk[index : index + 2] for index in range(len(chunk) - 1))
+    return ascii_terms + cjk_terms
