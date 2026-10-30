@@ -1,0 +1,23 @@
+diff --git a/minimax/demo-app/src/orders.py b/minimax/demo-app/src/orders.py
+index ec7f38e8..a9d524ff 100644
+--- a/minimax/demo-app/src/orders.py
++++ b/minimax/demo-app/src/orders.py
+@@ -8,10 +8,15 @@ ORDERS = [
+ ]
+ 
+ 
+-def list_orders(status=None):
+-    """Returns orders filtered by status."""
++def list_orders(status=None, min_total=None):
++    """Returns orders filtered by status and minimum total."""
+ 
+-    return [order for order in ORDERS if status is None or order["status"] == status]
++    return [
++        order
++        for order in ORDERS
++        if (status is None or order["status"] == status)
++        and (min_total is None or order["total"] >= min_total)
++    ]
+ 
+ 
+ def total_revenue(status=None):

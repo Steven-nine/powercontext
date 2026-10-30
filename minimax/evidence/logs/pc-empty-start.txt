@@ -1,0 +1,24 @@
+Empty-state PowerContext check
+1) fresh database, save context state
+2) restart server
+3) load state after restart
+[
+  {
+    "task": "add min_total filter",
+    "status": "context-built",
+    "sources": [
+      "specs/orders.md",
+      "src/orders.py",
+      "tests/test_orders.py"
+    ],
+    "context_file": "/home/leonado/projects/pc-mm/minimax/demo-app/.mmcontext/context.json",
+    "updated_at": "2026-10-30T05:34:48.759989+00:00",
+    "done": [
+      "context package built from seekdb sources"
+    ],
+    "todo": [
+      "apply the code change",
+      "run target and regression tests"
+    ],
+    "verification": []
+  }

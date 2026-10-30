@@ -1,0 +1,32 @@
+[project]
+name = "papermind"
+version = "1.0.0"
+description = "PaperMind - 基于 seekdb 混合检索与 PowerContext 长期记忆的文献与笔记研读助手"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.32,<1",
+    "pyseekdb>=1.4.0",
+    "openai>=1.60,<3",
+    "httpx>=0.28,<1",
+    "python-dotenv>=1.0,<2",
+    "python-multipart>=0.0.9",
+    "pypdf>=5,<7",
+    "jieba>=0.42.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

@@ -1,0 +1,186 @@
+{
+  "task": "add min_total filter to list orders",
+  "generated_at": "2026-10-30T05:33:05.466855+00:00",
+  "specs": [
+    {
+      "kind": "spec",
+      "path": "specs/orders.md",
+      "title": "Orders Service Specification",
+      "body": "# Orders Service Specification\n\n## R1 Status filter\n\n`list_orders(status=None)` returns every order when `status` is `None`, and\nonly orders whose status equals the argument otherwise.\n\n## R2 Stable order\n\nResults keep the insertion order of the source list.\n\n## R3 Unknown status\n\nAn unknown status returns an empty list.\n\n## R4 Minimum total filter\n\n`list_orders(status=None, min_total=None)` also filters by `total >= min_total`\nwhen `min_total` is not `None`. Status and minimum total combine with logical\nAND. `total_revenue` keeps its current signature and behavior.\n",
+      "score": 1.5639022842389791
+    }
+  ],
+  "code": [
+    {
+      "kind": "code",
+      "path": "src/orders.py",
+      "title": "def list_orders(status=None)",
+      "body": "\"\"\"In-memory orders service used by the SDD demo.\"\"\"\n\nORDERS = [\n    {\"id\": 1, \"status\": \"pending\", \"total\": 25.0},\n    {\"id\": 2, \"status\": \"paid\", \"total\": 60.0},\n    {\"id\": 3, \"status\": \"paid\", \"total\": 90.0},\n    {\"id\": 4, \"status\": \"cancelled\", \"total\": 10.0},\n]\n\n\ndef list_orders(status=None):\n    \"\"\"Returns orders filtered by status.\"\"\"\n\n    return [order for order in ORDERS if status is None or order[\"status\"] == status]\n\n\ndef total_revenue(status=None):\n    \"\"\"Returns the sum of totals for the selected orders.\"\"\"\n\n    return sum(order[\"total\"] for order in list_orders(status))\n",
+      "score": 0.2755511022044088
+    }
+  ],
+  "tests": [
+    {
+      "kind": "test",
+      "path": "tests/test_orders.py",
+      "title": "def test_all_orders()",
+      "body": "from orders import list_orders, total_revenue\n\n\ndef test_all_orders():\n    assert [order[\"id\"] for order in list_orders()] == [1, 2, 3, 4]\n\n\ndef test_filter_status():\n    assert [order[\"id\"] for order in list_orders(status=\"paid\")] == [2, 3]\n\n\ndef test_unknown_status_returns_empty():\n    assert list_orders(status=\"refunded\") == []\n\n\ndef test_stable_order():\n    assert [order[\"id\"] for order in list_orders(status=\"paid\")] == [2, 3]\n\n\ndef test_total_revenue():\n    assert total_revenue() == 185.0\n    assert total_revenue(status=\"paid\") == 150.0\n\n\ndef test_filter_min_total():\n    assert [order[\"id\"] for order in list_orders(min_total=60)] == [2, 3]\n\n\ndef test_filter_status_and_min_total():\n    assert [order[\"id\"] for order in list_orders(status=\"paid\", min_total=70)] == [3]\n",
+      "score": 0.28122788156305795
+    }
+  ],
+  "sources": [
+    "specs/orders.md",
+    "src/orders.py",
+    "tests/test_orders.py"
+  ],
+  "progress": {
+    "done": [
+      "context package built from seekdb sources"
+    ],
+    "todo": [
+      "apply the code change",
+      "run target and regression tests"
+    ],
+    "verification": []
+  },
+  "previous_state": [
+    {
+      "task": "add min_total filter to list orders",
+      "status": "tests-failing",
+      "notes": "",
+      "phase": "before"
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "tests-passing",
+      "notes": "",
+      "phase": "after"
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "context-built",
+      "sources": [
+        "specs/orders.md",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "context_file": "/home/leonado/projects/pc-mm/minimax/demo-app/.mmcontext/context.json",
+      "updated_at": "2026-10-30T05:20:26.504679+00:00"
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "context-built",
+      "sources": [
+        "specs/orders.md",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "context_file": "/home/leonado/projects/pc-mm/minimax/demo-app/.mmcontext/context.json",
+      "updated_at": "2026-10-30T05:20:29.068213+00:00"
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "context-built",
+      "sources": [
+        "specs/orders.md",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "context_file": "/home/leonado/projects/pc-mm/minimax/demo-app/.mmcontext/context.json",
+      "updated_at": "2026-10-30T05:16:50.785739+00:00"
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "tests-passing",
+      "notes": "",
+      "phase": "after",
+      "done": [
+        "context built from seekdb",
+        "code modified",
+        "tests run"
+      ],
+      "todo": [
+        "none"
+      ],
+      "verification": [
+        "pytest tests passed (evidence/logs/after.log)"
+      ]
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "context-built",
+      "sources": [
+        "specs/orders.md",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "context_file": "/tmp/mm-clean/minimax/demo-app/.mmcontext/context.json",
+      "updated_at": "2026-10-30T05:30:17.955712+00:00",
+      "done": [
+        "context package built from seekdb sources"
+      ],
+      "todo": [
+        "apply the code change",
+        "run target and regression tests"
+      ],
+      "verification": []
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "context-built",
+      "sources": [
+        "specs/orders.md",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "context_file": "/tmp/mm-clean/minimax/demo-app/.mmcontext/context.json",
+      "updated_at": "2026-10-30T05:30:15.393872+00:00",
+      "done": [
+        "context package built from seekdb sources"
+      ],
+      "todo": [
+        "apply the code change",
+        "run target and regression tests"
+      ],
+      "verification": []
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "context-built",
+      "sources": [
+        "specs/orders.md",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "context_file": "/home/leonado/projects/pc-mm/minimax/demo-app/.mmcontext/context.json",
+      "updated_at": "2026-10-30T05:32:40.250886+00:00",
+      "done": [
+        "context package built from seekdb sources"
+      ],
+      "todo": [
+        "apply the code change",
+        "run target and regression tests"
+      ],
+      "verification": []
+    },
+    {
+      "task": "add min_total filter to list orders",
+      "status": "context-built",
+      "sources": [
+        "specs/orders.md",
+        "src/orders.py",
+        "tests/test_orders.py"
+      ],
+      "context_file": "/home/leonado/projects/pc-mm/minimax/demo-app/.mmcontext/context.json",
+      "updated_at": "2026-10-30T05:32:42.871934+00:00",
+      "done": [
+        "context package built from seekdb sources"
+      ],
+      "todo": [
+        "apply the code change",
+        "run target and regression tests"
+      ],
+      "verification": []
+    }
+  ]
+}

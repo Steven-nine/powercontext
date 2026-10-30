@@ -1,0 +1,8 @@
+[
+  {
+    "task": "restart-check",
+    "status": "before-restart",
+    "notes": "",
+    "phase": "restart"
+  }
+]

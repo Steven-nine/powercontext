@@ -1,0 +1,203 @@
+{
+  "runtime": "Dify 1.9.2 Workflow + 本地 Code Executor 0.2.12 协议 + PowerContext 1.4.1 (SQLite)；无 mock、无外部模型",
+  "checkedAt": "2026-10-30T14:55:59+00:00",
+  "playerId": "theatre-player-59adc4b3",
+  "turns": [
+    {
+      "action": "A 调查移动的出口",
+      "run_id": "e18e2554-b85a-4697-a069-b31625049326",
+      "answer": "第 1 幕 · 荒诞城门\n阿舟，这是你们第一次见面，阿铁把你的名字写在了会自己逃跑的登记簿上。\n▸ 你的行动：A 调查移动的出口\n你沿着墙根走了一圈，发现所有脚印都通向门里，没有一个走出来的。\n状态：信任 1 / 混乱 0 / 硬币 3\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
+      "receipt": {
+        "scope_id": "scp_35dj2pw8x30csy92wztndkhpfd",
+        "memory_artifact": {
+          "artifact_id": "art_c280a96f2cb64987824e87dcd49863f7",
+          "revision": 1,
+          "family": "atomic-memory",
+          "kind": "decision",
+          "state": "active"
+        },
+        "read_back_hits": 1,
+        "read_back_verified": true,
+        "round": {
+          "turn": 1,
+          "trust": 1,
+          "chaos": 0,
+          "coins": 3,
+          "action_kind": "investigate",
+          "channel": "surreal",
+          "history_found": 0,
+          "history_hits": 0,
+          "recalled_previous": false,
+          "grudge_used": false,
+          "motto_used": false,
+          "ending": "",
+          "player_id": "theatre-player-59adc4b3"
+        }
+      },
+      "elapsed_seconds": 1.112973
+    },
+    {
+      "action": "B 整蛊鸽子议会",
+      "run_id": "37c0db50-4851-4d2e-ac7e-4d977d61cdb0",
+      "answer": "第 2 幕 · 荒诞城门\n阿舟，门卫阿铁还记得你上一幕干的事：‘A 调查移动的出口’。\n▸ 你的行动：B 整蛊鸽子议会\n你把阿铁的帽子挂到了鸽子议会的告示牌上，全城的鸽子同时转过头来。\n状态：信任 1 / 混乱 1 / 硬币 3\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
+      "receipt": {
+        "scope_id": "scp_35dj2pw8x30csy92wztndkhpfd",
+        "memory_artifact": {
+          "artifact_id": "art_b508f362082941d89c38a94ab0d4ed6f",
+          "revision": 1,
+          "family": "atomic-memory",
+          "kind": "decision",
+          "state": "active"
+        },
+        "read_back_hits": 2,
+        "read_back_verified": true,
+        "round": {
+          "turn": 2,
+          "trust": 1,
+          "chaos": 1,
+          "coins": 3,
+          "action_kind": "prank",
+          "channel": "surreal",
+          "history_found": 1,
+          "history_hits": 1,
+          "recalled_previous": true,
+          "grudge_used": false,
+          "motto_used": false,
+          "ending": "",
+          "player_id": "theatre-player-59adc4b3"
+        }
+      },
+      "elapsed_seconds": 0.505659
+    },
+    {
+      "action": "C 和门卫协商",
+      "run_id": "943fc8c7-351a-4907-ad29-2b5f4df09df2",
+      "answer": "第 3 幕 · 荒诞城门\n阿舟，门卫阿铁还记得你上一幕干的事：‘B 整蛊鸽子议会’。\n而且阿铁翻起了旧账：‘上回你干的那事——B 整蛊鸽子议会——我到现在还记着。’\n▸ 你的行动：C 和门卫协商\n你压低声音问门卫的底线，他咳了一声：“别再喂鸽子了，它们记性太好。”\n状态：信任 3 / 混乱 1 / 硬币 2\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
+      "receipt": {
+        "scope_id": "scp_35dj2pw8x30csy92wztndkhpfd",
+        "memory_artifact": {
+          "artifact_id": "art_22417ba4e3034bd79cbe6382d194c256",
+          "revision": 1,
+          "family": "atomic-memory",
+          "kind": "decision",
+          "state": "active"
+        },
+        "read_back_hits": 3,
+        "read_back_verified": true,
+        "round": {
+          "turn": 3,
+          "trust": 3,
+          "chaos": 1,
+          "coins": 2,
+          "action_kind": "negotiate",
+          "channel": "surreal",
+          "history_found": 2,
+          "history_hits": 2,
+          "recalled_previous": true,
+          "grudge_used": true,
+          "motto_used": false,
+          "ending": "",
+          "player_id": "theatre-player-59adc4b3"
+        }
+      },
+      "elapsed_seconds": 0.475781
+    },
+    {
+      "action": "C 再次协商",
+      "run_id": "7bcbb551-7625-4896-b4c6-6fefed58695c",
+      "answer": "第 4 幕 · 荒诞城门\n阿舟，门卫阿铁还记得你上一幕干的事：‘C 和门卫协商’。\n▸ 你的行动：C 再次协商\n你压低声音问门卫的底线，他咳了一声：“别再喂鸽子了，它们记性太好。”\n达成结局【门卫合伙人】：阿铁把备用钥匙塞进你手里，说从今天起你替他值班。\n状态：信任 5 / 混乱 1 / 硬币 1\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
+      "receipt": {
+        "scope_id": "scp_35dj2pw8x30csy92wztndkhpfd",
+        "memory_artifact": {
+          "artifact_id": "art_ec8e5f7c31b14fb0a9874e964fb0f9d5",
+          "revision": 1,
+          "family": "atomic-memory",
+          "kind": "decision",
+          "state": "active"
+        },
+        "read_back_hits": 4,
+        "read_back_verified": true,
+        "round": {
+          "turn": 4,
+          "trust": 5,
+          "chaos": 1,
+          "coins": 1,
+          "action_kind": "negotiate",
+          "channel": "surreal",
+          "history_found": 3,
+          "history_hits": 3,
+          "recalled_previous": true,
+          "grudge_used": false,
+          "motto_used": false,
+          "ending": "达成结局【门卫合伙人】：阿铁把备用钥匙塞进你手里，说从今天起你替他值班。",
+          "player_id": "theatre-player-59adc4b3"
+        }
+      },
+      "elapsed_seconds": 0.465371
+    }
+  ],
+  "scopeId": "scp_35dj2pw8x30csy92wztndkhpfd",
+  "isolatedPlayer": {
+    "playerId": "theatre-isolated-72a18d02",
+    "run_id": "3ff943a1-fae4-431b-b0c3-e6959bdfba6f",
+    "answer": "第 1 幕 · 荒诞城门\n路人甲，这是你们第一次见面，阿铁把你的名字写在了会自己逃跑的登记簿上。\n▸ 你的行动：B 整蛊鸽子议会\n你给阿铁的登记簿喂了一页写着“今日放假”的纸，阿铁盯着它看了很久。\n状态：信任 0 / 混乱 1 / 硬币 3\n下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。",
+    "receipt": {
+      "scope_id": "scp_5y5h1cr590x4jvb7806ywx325g",
+      "memory_artifact": {
+        "artifact_id": "art_6300ea83952b446b97faad2d3c780310",
+        "revision": 1,
+        "family": "atomic-memory",
+        "kind": "decision",
+        "state": "active"
+      },
+      "read_back_hits": 1,
+      "read_back_verified": true,
+      "round": {
+        "turn": 1,
+        "trust": 0,
+        "chaos": 1,
+        "coins": 3,
+        "action_kind": "prank",
+        "channel": "surreal",
+        "history_found": 0,
+        "history_hits": 0,
+        "recalled_previous": false,
+        "grudge_used": false,
+        "motto_used": false,
+        "ending": "",
+        "player_id": "theatre-isolated-72a18d02"
+      }
+    }
+  },
+  "powerContextMemory": {
+    "scopeId": "scp_35dj2pw8x30csy92wztndkhpfd",
+    "mode": "text",
+    "hitCount": 4,
+    "hits": [
+      {
+        "artifact_id": "art_c280a96f2cb64987824e87dcd49863f7",
+        "revision": 1,
+        "kind": "decision",
+        "text_head": "记忆剧场\n{\"message\": \"A 调查移动的出口\", \"answer\": \"第 1 幕 · 荒诞城门\\n阿舟，这是你们第一次见面，阿铁把你的名字写在了会自"
+      },
+      {
+        "artifact_id": "art_b508f362082941d89c38a94ab0d4ed6f",
+        "revision": 1,
+        "kind": "decision",
+        "text_head": "记忆剧场\n{\"message\": \"B 整蛊鸽子议会\", \"answer\": \"第 2 幕 · 荒诞城门\\n阿舟，门卫阿铁还记得你上一幕干的事：‘A 调查移动的"
+      },
+      {
+        "artifact_id": "art_ec8e5f7c31b14fb0a9874e964fb0f9d5",
+        "revision": 1,
+        "kind": "decision",
+        "text_head": "记忆剧场\n{\"message\": \"C 再次协商\", \"answer\": \"第 4 幕 · 荒诞城门\\n阿舟，门卫阿铁还记得你上一幕干的事：‘C 和门卫协商’。"
+      },
+      {
+        "artifact_id": "art_22417ba4e3034bd79cbe6382d194c256",
+        "revision": 1,
+        "kind": "decision",
+        "text_head": "记忆剧场\n{\"message\": \"C 和门卫协商\", \"answer\": \"第 3 幕 · 荒诞城门\\n阿舟，门卫阿铁还记得你上一幕干的事：‘B 整蛊鸽子议会"
+      }
+    ]
+  }
+}

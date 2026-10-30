@@ -1,0 +1,24 @@
+# 凭据
+.env
+.env.*
+!.env.example
+config/powercontext.env
+
+# 运行时数据（保留示例语料）
+data/seekdb/
+data/uploads/
+data/scopes.json
+data/*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv-win/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# 日志与临时文件
+*.log
+site/.PaperMind.qoder.site

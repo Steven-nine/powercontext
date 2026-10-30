@@ -1,0 +1,16 @@
+[
+  {
+    "kind": "spec",
+    "path": "specs/orders.md",
+    "title": "Orders Service Specification",
+    "body": "# Orders Service Specification\n\n## R1 Status filter\n\n`list_orders(status=None)` returns every order when `status` is `None`, and\nonly orders whose status equals the argument otherwise.\n\n## R2 Stable order\n\nResults keep the insertion order of the source list.\n\n## R3 Unknown status\n\nAn unknown status returns an empty list.\n\n## R4 Minimum total filter\n\n`list_orders(status=None, min_total=None)` also filters by `total >= min_total`\nwhen `min_total` is not `None`. Status and minimum total combine with logical\nAND. `total_revenue` keeps its current signature and behavior.\n",
+    "score": 0.456111027695448
+  },
+  {
+    "kind": "test",
+    "path": "tests/test_orders.py",
+    "title": "from orders import list_orders, total_revenue",
+    "body": "from orders import list_orders, total_revenue\n\n\ndef test_all_orders():\n    assert [order[\"id\"] for order in list_orders()] == [1, 2, 3, 4]\n\n\ndef test_filter_status():\n    assert [order[\"id\"] for order in list_orders(status=\"paid\")] == [2, 3]\n\n\ndef test_unknown_status_returns_empty():\n    assert list_orders(status=\"refunded\") == []\n\n\ndef test_stable_order():\n    assert [order[\"id\"] for order in list_orders(status=\"paid\")] == [2, 3]\n\n\ndef test_total_revenue():\n    assert total_revenue() == 185.0\n    assert total_revenue(status=\"paid\") == 150.0\n\n\ndef test_filter_min_total():\n    assert [order[\"id\"] for order in list_orders(min_total=60)] == [2, 3]\n\n\ndef test_filter_status_and_min_total():\n    assert [order[\"id\"] for order in list_orders(status=\"paid\", min_total=70)] == [3]\n",
+    "score": 0.14627659574468085
+  }
+]

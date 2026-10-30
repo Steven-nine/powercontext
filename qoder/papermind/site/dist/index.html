@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PaperMind · 用 seekdb 找证据，用 PowerContext 记住你</title>
+<meta name="description" content="PaperMind 是一个文献与笔记研读助手：seekdb 做中文混合检索并给出可核对的引用，PowerContext 记住回答偏好与研究结论。基于 Qoder 构建，参加 Qoder × OceanBase 比赛。" />
+<meta name="theme-color" content="#f7f3ea" />
+<meta property="og:title" content="PaperMind · 读过的每一篇，都算数" />
+<meta property="og:description" content="seekdb 混合检索 + PowerContext 长期记忆的文献研读助手。答案带 [n] 引用，检索过程可查，偏好跨会话生效。" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f5b4c'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' fill='%23f7f3ea' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="topbar" id="top">
+  <div class="topbar-inner">
+    <a class="brand" href="#top" aria-label="PaperMind 首页">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <span class="brand-text">
+        <strong>PaperMind</strong>
+        <em>文献与笔记研读助手</em>
+      </span>
+    </a>
+    <nav class="nav" aria-label="页面导航">
+      <a href="#gap">问题</a>
+      <a href="#engines">两个引擎</a>
+      <a href="#flow">工作流</a>
+      <a href="#evidence">证据</a>
+      <a href="#run">运行</a>
+    </nav>
+    <a class="nav-cta" href="#run">在本机跑起来</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="kicker"><span class="dot dot-teal"></span>Qoder × OceanBase 比赛作品<span class="sep">/</span>学习与科研提效</p>
+      <h1 id="hero-title">读过的每一篇，<br /><span class="hl">都算数</span>。</h1>
+      <p class="lead">
+        PaperMind 是一个文献与笔记研读助手。提问时，<strong>seekdb</strong> 同时做向量与中文全文检索，
+        用 RRF 融出一份可核对的证据；<strong>PowerContext</strong> 记住你的回答偏好与已确认结论，
+        下一次提问不必从头解释。答案里的 [n] 能回到原文那一段。
+      </p>
+      <div class="chips" aria-label="技术栈">
+        <span class="chip">seekdb 1.4 · vector + IK · RRF</span>
+        <span class="chip">PowerContext 1.4.1 · Scope 记忆</span>
+        <span class="chip">FastAPI · 原生前端</span>
+        <span class="chip">通义 text-embedding-v3</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="#flow">看一次完整链路</a>
+        <a class="btn btn-ghost" href="#verify">复现验证样例</a>
+      </div>
+      <p class="hero-note">无需 API Key 也能跑通检索与记忆；配置 DashScope 后由 qwen-plus 生成成文答案。</p>
+
+      <figure class="browser reveal" id="hero-shot">
+        <div class="browser-bar" aria-hidden="true">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="addr">127.0.0.1:8080 — PaperMind</span>
+          <span class="bar-hint">资料库 · 对话与引用 · 检索追踪</span>
+        </div>
+        <img src="assets/img/app-answer.png" width="1500" height="1000"
+             alt="PaperMind 界面：中间是带 [1]–[6] 引用的回答，右侧检索追踪列出 IK 关键词、RRF Top-6、向量通道距离与全文通道命中。" />
+        <figcaption>
+          一次真实提问：中间的 [1]–[6] 对应检索片段，右侧「检索追踪」把关键词、两路召回与 RRF 融合结果原样摊开。
+        </figcaption>
+      </figure>
+
+      <dl class="stats reveal">
+        <div><dt>示例资料</dt><dd><b>6</b> 篇</dd></div>
+        <div><dt>检索切片</dt><dd><b>26</b> 片</dd></div>
+        <div><dt>召回与融合</dt><dd><b>2</b> 路 → <b>1</b> 次 RRF</dd></div>
+        <div><dt>自动验证</dt><dd><b>7/7</b> 通过</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ================= GAP ================= -->
+  <section class="section" id="gap" aria-labelledby="gap-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="num">01</span>
+        <div>
+          <p class="kicker">The gap</p>
+          <h2 id="gap-title">资料在硬盘里，答案却不在。</h2>
+          <p class="section-lead">读研、做项目、长期跟踪一个方向的人，常在同三个地方卡住。</p>
+        </div>
+      </header>
+
+      <div class="gap-grid">
+        <article class="gap-item reveal">
+          <span class="gap-no">01</span>
+          <h3>搜不到</h3>
+          <p>关键词搜不到同义改写；纯向量又对术语、型号和编号不敏感。中文技术资料里，两边的短板都很具体。</p>
+        </article>
+        <article class="gap-item reveal">
+          <span class="gap-no">02</span>
+          <h3>记不住</h3>
+          <p>回答偏好、研究范围、已经确认的结论分散在不同会话里。每开一次新对话，就要重新交代一次自己。</p>
+        </article>
+        <article class="gap-item reveal">
+          <span class="gap-no">03</span>
+          <h3>对不上</h3>
+          <p>没有出处的答案，在科研里等于没有答案。话说得再顺，也要能回到原文那一段核对。</p>
+        </article>
+      </div>
+
+      <blockquote class="pull reveal">
+        <p>所以 PaperMind 只做两件事：<span class="u-teal">让证据找得到</span>，<span class="u-amber">让上下文留得下</span>。</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ================= ENGINES ================= -->
+  <section class="section section-tint" id="engines" aria-labelledby="engines-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="num">02</span>
+        <div>
+          <p class="kicker">The engines</p>
+          <h2 id="engines-title">一个负责找证据，<br />一个负责记住你。</h2>
+          <p class="section-lead">两者在同一次提问里各司其职。不是“装了但没用”，而是链路里各有不可替代的一段。</p>
+        </div>
+      </header>
+
+      <div class="engine-grid">
+        <article class="engine engine-teal reveal">
+          <header class="engine-head">
+            <span class="engine-tag">检索层</span>
+            <h3>seekdb</h3>
+            <p>向量与全文，在同一个数据库里融合。</p>
+          </header>
+          <ul class="spec">
+            <li><b>同库双索引</b>HNSW 向量索引（1024 维，cosine）与 IK 中文全文索引建在同一批切片上。</li>
+            <li><b>两路并行召回</b>向量 KNN 与全文 MATCH 各取 24 个候选，由 <code>hybrid_search</code> 在库内完成 RRF 融合。</li>
+            <li><b>先过滤再融合</b>资料类型与年份条件同时下发给两路，避免“先融合再筛掉”的候选浪费。</li>
+          </ul>
+          <p class="engine-out"><span>输出</span>Top-6 证据片段，附每一路各自的候选与距离。</p>
+        </article>
+
+        <article class="engine engine-amber reveal">
+          <header class="engine-head">
+            <span class="engine-tag">记忆层</span>
+            <h3>PowerContext</h3>
+            <p>把“你这个人怎么读资料”留下来。</p>
+          </header>
+          <ul class="spec">
+            <li><b>按 Scope 隔离</b>每个使用者一个 Scope，记忆分为 fact / preference / decision / working_note。</li>
+            <li><b>提问前注入</b>active 偏好每轮全量生效；关键词命中的结论与进展由 <code>prepare</code> 打包，预算 3000 字节。</li>
+            <li><b>回答后回写</b>本轮结论存为工作记忆；用户说「以后…」时，同一句话固化为长期偏好。</li>
+          </ul>
+          <p class="engine-out"><span>输出</span>一段带信任边界的长期上下文，而不是整段聊天记录。</p>
+        </article>
+      </div>
+
+      <div class="converge reveal" aria-label="两层的汇合方式">
+        <span class="cv-part cv-teal">seekdb 证据</span>
+        <span class="cv-op">+</span>
+        <span class="cv-part cv-amber">长期上下文</span>
+        <span class="cv-op">→</span>
+        <span class="cv-part cv-ink">只依据材料作答</span>
+        <span class="cv-op">→</span>
+        <span class="cv-part cv-out">[n] 引用可回溯</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FLOW ================= -->
+  <section class="section" id="flow" aria-labelledby="flow-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="num">03</span>
+        <div>
+          <p class="kicker">One question</p>
+          <h2 id="flow-title">一次提问，五步，<br />每一步都能查。</h2>
+          <p class="section-lead">从输入框到带引用的回答，中间没有黑盒：关键词、候选、融合名次、注入的上下文都可以在界面上看到。</p>
+        </div>
+      </header>
+
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step-no">1</span>
+          <div class="step-body">
+            <h3>拆词与过滤</h3>
+            <p>用 jieba 从问题里抽出不超过 8 个关键词，同时读取资料类型与年份过滤条件。关键词既用于全文通道，也用于记忆检索。</p>
+            <p class="where">app/retrieval.py</p>
+          </div>
+        </li>
+        <li class="step reveal">
+          <span class="step-no">2</span>
+          <div class="step-body">
+            <h3>两路召回</h3>
+            <p>seekdb 在同一批切片上执行向量 KNN 与全文 <code>MATCH ... AGAINST</code>，两路各保留 24 个候选。向量擅长同义改写，IK 全文保住术语与编号。</p>
+            <p class="where">app/store.py:223</p>
+          </div>
+        </li>
+        <li class="step reveal">
+          <span class="step-no">3</span>
+          <div class="step-body">
+            <h3>RRF 融合</h3>
+            <p>只使用名次，不混用余弦距离和全文分数；<code>k = 60</code>，融合后取 Top-6。融合分只用于排序，界面展示的也是排名而非“像不像”。</p>
+            <p class="where">app/store.py:234</p>
+          </div>
+        </li>
+        <li class="step reveal">
+          <span class="step-no">4</span>
+          <div class="step-body">
+            <h3>注入长期上下文</h3>
+            <p>先按 kind 列出 active 偏好（每轮生效，不依赖本轮是否命中关键词），再合并命中的记忆与 <code>prepare</code> 返回的上下文，按 3000 字节控制预算。</p>
+            <p class="where">app/service.py:132</p>
+          </div>
+        </li>
+        <li class="step reveal">
+          <span class="step-no">5</span>
+          <div class="step-body">
+            <h3>作答与回写</h3>
+            <p>提示词限定“只依据片段”，每个论断标注 [n]；本轮摘要写回工作记忆，检测到「以后 / 请始终」等表达时，额外写入一条偏好。</p>
+            <p class="where">app/llm.py · app/service.py:148</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="code-pair">
+        <figure class="code-card reveal">
+          <figcaption><span class="code-dot code-dot-teal"></span>app/store.py · 两路召回在 seekdb 内部融合</figcaption>
+<pre><code>fused = chunks.hybrid_search(
+    query={"where_document": {"$contains": keywords},
+           "n_results": 24},
+    knn={"query_texts": [question], "n_results": 24},
+    rank={"rrf": {"rank_window_size": 60,
+                  "rank_constant": 60}},
+    n_results=6,
+)</code></pre>
+        </figure>
+        <figure class="code-card reveal">
+          <figcaption><span class="code-dot code-dot-amber"></span>app/service.py · 偏好不依赖本轮命中</figcaption>
+<pre><code>preferences = pc.preferences(scope_id)   # active 偏好
+prepared = pc.prepare(scope_id, keywords,
+                      max_bytes=3000)
+context = _render_memory(preferences, prepared,
+                         hits)
+answer = llm.answer(question, citations, context)</code></pre>
+        </figure>
+      </div>
+      <p class="code-note reveal">以上为实际调用（省略了锁与 <code>where</code> 过滤的细节）。RRF 的 <code>rank_constant</code> 就是文档里的 k。</p>
+    </div>
+  </section>
+
+  <!-- ================= EVIDENCE ================= -->
+  <section class="section section-tint" id="evidence" aria-labelledby="evidence-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="num">04</span>
+        <div>
+          <p class="kicker">Evidence</p>
+          <h2 id="evidence-title">不看承诺，<br />看中间结果。</h2>
+          <p class="section-lead">下面是真实运行截图与验证日志。截图使用零凭据模式，所以检索与记忆的中间结果全部可见。</p>
+        </div>
+      </header>
+
+      <figure class="shot shot-wide reveal">
+        <img src="assets/img/app-answer.png" width="1500" height="1000"
+             alt="完整界面截图：左侧资料库，中间回答带 6 条引用，右侧检索追踪面板。" />
+        <figcaption>
+          <span class="fig-no">图 1</span>一次混合检索提问的完整界面：左侧资料库，中间带引用的回答，右侧检索追踪。
+        </figcaption>
+      </figure>
+
+      <ol class="annot-list annot-row" aria-label="截图中的三处关键信息">
+        <li class="reveal"><b>检索方式</b><code>hybrid_search · vector KNN + fulltext (IK) + RRF</code>，一行写清本轮走了什么；下方是 IK 分词后的关键词。</li>
+        <li class="reveal"><b>两路明细</b>向量通道给出 cosine 距离，全文通道给出命中的片段，RRF Top-6 只按名次融合。</li>
+        <li class="reveal"><b>记忆计数</b>回答底部标注本轮命中与回写条数，与右侧「长期记忆」标签页对应。</li>
+      </ol>
+
+      <div class="verify" id="verify">
+        <div class="verify-head reveal">
+          <div>
+            <p class="kicker">scripts/verify_demo.py</p>
+            <h3>七项自动检查，全部通过。</h3>
+          </div>
+          <span class="stamp">2026-10-30 · 零凭据模式</span>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <caption class="sr-only">PaperMind 验证样例的七项自动检查及结果</caption>
+            <thead>
+              <tr><th scope="col">检查</th><th scope="col">实际观察</th><th scope="col">结果</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>seekdb 已建立索引</td><td>6 篇 / 26 片，collection = <code>chunks_local</code></td><td><span class="pass">PASS</span></td></tr>
+              <tr><td>混合检索返回引用</td><td>6 条引用，均带 doc_id 与 section</td><td><span class="pass">PASS</span></td></tr>
+              <tr><td>向量通道有命中</td><td>距离 0.72 – 0.87</td><td><span class="pass">PASS</span></td></tr>
+              <tr><td>全文通道有命中</td><td>IK 命中「混合 / 检索 / 融合」</td><td><span class="pass">PASS</span></td></tr>
+              <tr><td>PowerContext 可用</td><td><code>/health/live</code> 返回 200</td><td><span class="pass">PASS</span></td></tr>
+              <tr><td>偏好被写入记忆</td><td>写入 preference：「…控制在 400 字以内」</td><td><span class="pass">PASS</span></td></tr>
+              <tr><td>后续提问复用偏好</td><td><code>memory_context</code> 首段为【用户长期偏好】</td><td><span class="pass">PASS</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">完整日志（含 RRF 分数、两路候选与注入内容）见仓库 <code>docs/verification-log.txt</code>；运行方式见 <code>docs/RUNBOOK.md</code>。</p>
+      </div>
+
+      <div class="memory-proof">
+        <figure class="shot shot-narrow reveal">
+          <img src="assets/img/memory-panel.png" width="360" height="540"
+               alt="长期记忆面板：一条长期偏好与三条会话摘要，偏好使用琥珀色卡片标出。" />
+          <figcaption><span class="fig-no">图 2</span>「长期记忆」标签页：偏好被单独标出，会话摘要按时间排列。</figcaption>
+        </figure>
+        <div class="proof-text reveal">
+          <h3>偏好是怎么“复用”的</h3>
+          <p>第三轮提问时，模型实际收到的上下文开头是这样的——不是界面上的一句提示，而是真正进入提示词的内容：</p>
+          <pre class="ctx"><code>【用户长期偏好】
+- 以后回答请先给结论，再给依据，控制在 400 字以内。</code></pre>
+          <p>代码先按 <code>kind=preference</code> 列出 active 记忆，再与关键词命中的结论合并，因此偏好不依赖本轮提问是否恰好命中相关词。同一轮里，记忆命中 1 条、回写 1 条，都能在界面上核对。</p>
+          <p class="small">摘录自 <code>docs/verification-log.txt</code> 第 5 节「新问题的记忆复用」。</p>
+        </div>
+      </div>
+
+      <div class="honest reveal">
+        <span class="honest-tag">口径说明</span>
+        <p>
+          上面的日志在<strong>零凭据模式</strong>下生成：本地 384 维哈希向量 + 证据清单回答，因此能看到全部中间结果。
+          填入 DashScope Key 后，同一链路改用 <code>text-embedding-v3</code>（1024 维）与 <code>qwen-plus</code> 生成成文答案，
+          引用与记忆机制不变；两种模式的集合分开命名，避免维度冲突。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RUN ================= -->
+  <section class="section" id="run" aria-labelledby="run-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="num">05</span>
+        <div>
+          <p class="kicker">Run it</p>
+          <h2 id="run-title">五条命令，<br />在本机跑通。</h2>
+          <p class="section-lead">推荐 WSL2 / Linux。嵌入式 seekdb 不支持 Windows 原生运行；完整步骤、Docker 方案与排错见仓库运行说明。</p>
+        </div>
+      </header>
+
+      <div class="run-grid">
+        <figure class="terminal reveal">
+          <div class="term-bar">
+            <span class="lights"><i></i><i></i><i></i></span>
+            <span>bash — papermind</span>
+            <button class="copy" type="button" data-copy>复制</button>
+          </div>
+<pre><code id="run-code"><span class="c"># 1. 安装 PowerContext 1.4.1</span>
+uv tool install --force "powercontext[cli,server]==1.4.1"
+
+<span class="c"># 2. 配置（只放在本地，.env 已 gitignore）</span>
+cp .env.example .env
+cp config/powercontext.env.example config/powercontext.env
+
+<span class="c"># 3. 安装应用</span>
+uv venv &amp;&amp; uv pip install -e .
+
+<span class="c"># 4. 起记忆服务（终端 A），导入示例资料（终端 B）</span>
+powercontext server run --env-file config/powercontext.env
+python -m scripts.seed
+
+<span class="c"># 5. 起应用并自动验证</span>
+uvicorn app.main:app --host 127.0.0.1 --port 8080
+python -m scripts.verify_demo</code></pre>
+        </figure>
+
+        <aside class="run-notes">
+          <div class="note reveal">
+            <h3>两个端口</h3>
+            <p>应用 <code>8080</code>，PowerContext <code>8123</code>。顶部两个状态药丸分别报告切片数与记忆连接。</p>
+          </div>
+          <div class="note reveal">
+            <h3>没有 Key 也能演示</h3>
+            <p><code>EMBEDDING_BACKEND=local</code> 时使用本地哈希向量，回答降级为证据清单；检索、引用与记忆读写照常发生。</p>
+          </div>
+          <div class="note reveal">
+            <h3>数据目录别放 /mnt</h3>
+            <p>WSL 下把数据放到 <code>~/papermind-runtime/data</code>。放在 <code>/mnt/d</code> 这类 DrvFs 挂载点会得到 <code>seekdb_open failed</code>。</p>
+          </div>
+          <div class="note reveal">
+            <h3>五分钟检查单</h3>
+            <ol>
+              <li>打开应用，顶部显示 6 篇 / 26 片</li>
+              <li>问一句示例问题，右侧出现 RRF Top-6</li>
+              <li>说「以后…」，长期记忆里出现琥珀色偏好卡</li>
+              <li>换一个问题，回答底部显示记忆命中 1 条</li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LIMITS ================= -->
+  <section class="section section-tint" id="limits" aria-labelledby="limits-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="num">06</span>
+        <div>
+          <p class="kicker">Limits</p>
+          <h2 id="limits-title">也说清楚，<br />它现在做不到什么。</h2>
+          <p class="section-lead">比赛作品最容易被夸大的部分，恰恰是评审最该核对的部分。</p>
+        </div>
+      </header>
+
+      <ul class="limits">
+        <li class="reveal"><h3>语料规模</h3><p>示例语料 6 篇 / 26 片，单机嵌入式 seekdb。更大规模应切到 seekdb Server，并重做切片与检索评测。</p></li>
+        <li class="reveal"><h3>向量质量</h3><p>零凭据模式的 384 维哈希向量只保证链路可演示，语义能力有限；真实效果依赖 <code>text-embedding-v3</code> 与领域语料。</p></li>
+        <li class="reveal"><h3>记忆检索方式</h3><p>PowerContext 文本检索是词项匹配（多词为 AND 语义）。所以偏好改为按 kind 全量注入，结论类记忆仍依赖关键词命中。</p></li>
+        <li class="reveal"><h3>平台约束</h3><p>嵌入式 seekdb 仅支持 Linux / macOS；Windows 需要 WSL2 或 Docker。没有配置对话模型时，只输出证据清单，不会假装作答。</p></li>
+      </ul>
+
+      <div class="next reveal">
+        <span class="next-label">下一步</span>
+        <p>接入 rerank 与引用级评测；把记忆写入的去重做成可审查的合并流程；支持按课题隔离的多资料库。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="foot-brand">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <div>
+        <strong>PaperMind</strong>
+        <p>用 Qoder 构建 · 基于 seekdb 与 PowerContext</p>
+      </div>
+    </div>
+    <div class="foot-links">
+      <a href="https://github.com/oceanbase/powercontext/tree/2026-competition-ecosystem" target="_blank" rel="noreferrer">PowerContext 比赛分支</a>
+      <a href="https://github.com/oceanbase/seekdb" target="_blank" rel="noreferrer">seekdb</a>
+      <span class="foot-meta">Qoder × OceanBase · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

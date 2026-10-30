@@ -1,0 +1,597 @@
+app:
+  name: 记忆剧场 · 门卫阿铁
+  mode: workflow
+  icon: 🎭
+  icon_background: '#FEF3C7'
+  description: Dify 编排的即兴荒诞剧场：门卫阿铁会记住你的每一次恶作剧，并在之后翻旧账。记忆由 PowerContext 持久化。
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.4.0
+dependencies: []
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - id: powercontext-url
+    name: POWERCONTEXT_URL
+    value: http://127.0.0.1:8124
+    value_type: string
+    description: Dify API 容器可访问的 PowerContext 地址（无 /v1 后缀）
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    nodes:
+    - id: start
+      type: custom
+      position:
+        x: 0
+        y: 260
+      positionAbsolute:
+        x: 0
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: start
+        title: 玩家输入
+        desc: ''
+        selected: false
+        variables:
+        - variable: player_id
+          label: 玩家标识
+          type: text-input
+          required: true
+          max_length: 120
+          options: []
+          description: 同一个标识对应同一条 PowerContext 记忆线。
+        - variable: player_name
+          label: 玩家称呼
+          type: text-input
+          required: false
+          max_length: 40
+          options: []
+          description: 留空则显示为「旅人」。
+        - variable: action
+          label: 这一幕你想做什么
+          type: paragraph
+          required: true
+          max_length: 1000
+          options: []
+          description: 例如：A 调查移动的出口 / B 整蛊鸽子议会 / C 和门卫协商，也可以写自己的行动。
+        - variable: channel
+          label: 剧场频道
+          type: text-input
+          required: false
+          max_length: 30
+          options: []
+          description: surreal（荒诞喜剧，默认）/ mystery（午夜悬疑）/ cyber（赛博朋克）。
+    - id: scope_req
+      type: custom
+      position:
+        x: 280
+        y: 260
+      positionAbsolute:
+        x: 280
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 准备记忆空间请求
+        desc: ''
+        selected: false
+        code_language: python3
+        variables:
+        - variable: player_id
+          value_selector:
+          - start
+          - player_id
+        code: "def main(player_id: str) -> dict:\n    import json\n    pid = (player_id or '').strip()\n    if not pid:\n        raise ValueError('缺少 player_id')\n    body = {\n        'title': '记忆剧场 · ' + pid,\n        'summary': '一个玩家在记忆剧场里的全部幕次与记忆。',\n        'idempotency_key': 'memory-theatre-' + pid,\n    }\n    return {'scope_body': json.dumps(body, ensure_ascii=False)}\n"
+        outputs:
+          scope_body:
+            type: string
+    - id: scope_create
+      type: custom
+      position:
+        x: 560
+        y: 260
+      positionAbsolute:
+        x: 560
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: http-request
+        title: 打开玩家记忆空间
+        desc: ''
+        selected: false
+        method: post
+        url: '{{#env.POWERCONTEXT_URL#}}/v1/scopes'
+        authorization:
+          type: no-auth
+        headers: Content-Type:application/json
+        params: ''
+        body:
+          type: raw-text
+          data:
+          - type: text
+            key: ''
+            value: '{{#scope_req.scope_body#}}'
+        timeout:
+          connect: 10
+          read: 60
+          write: 10
+        ssl_verify: true
+    - id: scope_parse
+      type: custom
+      position:
+        x: 840
+        y: 260
+      positionAbsolute:
+        x: 840
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 取出 scope_id
+        desc: ''
+        selected: false
+        code_language: python3
+        variables:
+        - variable: body
+          value_selector:
+          - scope_create
+          - body
+        - variable: status_code
+          value_selector:
+          - scope_create
+          - status_code
+        code: "def main(body: str, status_code: int) -> dict:\n    import json\n    if status_code not in (200, 201):\n        raise ValueError('PowerContext 创建记忆空间失败: ' + (body or '')[:300])\n    data = json.loads(body or '{}')\n    scope_id = data.get('scope_id')\n    if not scope_id:\n        raise ValueError('PowerContext 没有返回 scope_id')\n    search = {'scope_id': scope_id, 'query': '记忆剧场', 'limit': 50}\n    return {'scope_id': scope_id, 'search_body': json.dumps(search, ensure_ascii=False)}\n"
+        outputs:
+          scope_id:
+            type: string
+          search_body:
+            type: string
+    - id: search
+      type: custom
+      position:
+        x: 1120
+        y: 260
+      positionAbsolute:
+        x: 1120
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: http-request
+        title: 检索该玩家的历史记忆
+        desc: ''
+        selected: false
+        method: post
+        url: '{{#env.POWERCONTEXT_URL#}}/v1/memory/search'
+        authorization:
+          type: no-auth
+        headers: Content-Type:application/json
+        params: ''
+        body:
+          type: raw-text
+          data:
+          - type: text
+            key: ''
+            value: '{{#scope_parse.search_body#}}'
+        timeout:
+          connect: 10
+          read: 60
+          write: 10
+        ssl_verify: true
+    - id: rules
+      type: custom
+      position:
+        x: 1400
+        y: 260
+      positionAbsolute:
+        x: 1400
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 剧情规则引擎
+        desc: ''
+        selected: false
+        code_language: python3
+        variables:
+        - variable: search_json
+          value_selector:
+          - search
+          - body
+        - variable: status_code
+          value_selector:
+          - search
+          - status_code
+        - variable: player_id
+          value_selector:
+          - start
+          - player_id
+        - variable: player_name
+          value_selector:
+          - start
+          - player_name
+        - variable: action
+          value_selector:
+          - start
+          - action
+        - variable: channel
+          value_selector:
+          - start
+          - channel
+        code: "\"\"\"记忆剧场 · 门卫阿铁 —— 剧情规则引擎。\n\n这个文件有两个用途，必须保持一致：\n1. 被 scripts/build_dsl.py 原样嵌入 Dify Workflow 的 Code 节点；\n2. 被 tests/test_rules.py 直接 import 做单元测试。\n\n所以这里不写任何模块级 import（Dify Sandbox 会拒绝模块级 import，\n`import json` 必须写在函数体内部），只使用纯 Python 内置能力。\n\"\"\"\n\nMEMORY_TAG = \"记忆剧场\"\nMAX_BYTES = 8192\nMAX_TURNS = 12\n\nCHANNELS = {\n    \"surreal\": {\n        \"scene\": \"荒诞城门\",\n        \"npc\": \"门卫阿铁\",\n        \"events\": {\n            \"investigate\": [\n                \"阿铁掏出一张倒着印的地图，出口在纸面上缓缓挪动，他坚持说自己从没画过这张图。\",\n                \"你沿着墙根走了一圈，发现所有脚印都通向门里，没有一个走出来的。\",\n                \"阿铁承认城门每天换一个名字，但拒绝说出今天的名字，说那属于“机密”。\",\n            ],\n            \"prank\": [\n                \"你把阿铁的帽子挂到了鸽子议会的告示牌上，全城的鸽子同时转过头来。\",\n                \"你偷偷把门口的铜铃换成会自己鼓掌的小铃铛，阿铁鼓掌鼓了整整一炷香。\",\n                \"你给阿铁的登记簿喂了一页写着“今日放假”的纸，阿铁盯着它看了很久。\",\n            ],\n            \"negotiate\": [\n                \"你用一枚硬币换来阿铁的秘密：城门每天都会忘记自己的名字。\",\n                \"阿铁把城门钥匙在掌心转了三圈，说这是他唯一敢告诉外人的事。\",\n                \"你压低声音问门卫的底线，他咳了一声：“别再喂鸽子了，它们记性太好。”\",\n            ],\n            \"free\": [\n                \"你刚说完一句话，一枚发光的螺丝钉便自封为城门的临时市长。\",\n                \"阿铁认真地在登记簿上记下你的话，字迹像一排逃跑的鸡。\",\n                \"城门发出一声像被烫到的呻吟，出口换了个方向继续挪动。\",\n            ],\n        },\n    },\n    \"mystery\": {\n        \"scene\": \"午夜档案室\",\n        \"npc\": \"守档人阿铁\",\n        \"events\": {\n            \"investigate\": [\n                \"你在积灰的卷宗里翻到一张照片，照片上的你正朝镜头外的自己挥手。\",\n                \"档案室的灯泡忽明忽暗，每闪一次，抽屉编号就往后跳一位。\",\n                \"阿铁说这里的每一卷档案都还在被某个人续写，笔迹和你的一模一样。\",\n            ],\n            \"prank\": [\n                \"你把档案室的座钟拨快了三小时，所有卷宗同时发出了翻页声。\",\n                \"你偷偷替换了阿铁的墨水瓶，他写的字从此全部变成了弹簧字。\",\n                \"你给一卷档案贴上了“已结案”的标签，深夜的走廊开始排队领号。\",\n            ],\n            \"negotiate\": [\n                \"你用一枚硬币买下了阿铁的一句实话：午夜十二点，档案室会多出一层。\",\n                \"阿铁压低声音说，别在午夜打开写着你自己名字的卷宗。\",\n                \"他用红笔在一张便签上写下“可交换”，然后把那支笔推向你。\",\n            ],\n            \"free\": [\n                \"你的话音落下，档案室深处传来拉链被拉开的声音。\",\n                \"阿铁在登记簿上写下你的话，字迹慢慢洇开，像泡过水。\",\n                \"墙上所有编号同时转向你，午夜的风从抽屉缝里挤了出来。\",\n            ],\n        },\n    },\n    \"cyber\": {\n        \"scene\": \"轨道太空港\",\n        \"npc\": \"值班门卫阿铁\",\n        \"events\": {\n            \"investigate\": [\n                \"你调出闸机日志，发现每班闸机都在记录一个尚未出生的人。\",\n                \"货运列车的到站时间全部显示为“昨天”，阿铁说这里的时间轴漏了一格。\",\n                \"阿铁指着监控屏上静止的自己说：“那是我，明天的我，别去搭话。”\",\n            ],\n            \"prank\": [\n                \"你把闸机的语音包换成了鸽子的咕咕声，全站的闸机开始集体让路。\",\n                \"你把安检门换成旋转门，门卫第一次被自己的工牌拦在了外面。\",\n                \"你给站台的广告屏投了一行字：今日停运。列车准点停下，全员鼓掌。\",\n            ],\n            \"negotiate\": [\n                \"你用一枚硬币换来阿铁的通行证，代价是他要记住你三分钟。\",\n                \"阿铁说这里的记忆可以外包，但只能按秒计费，他建议你买长期套餐。\",\n                \"他在闸机上加了一道只有你能过的指纹，然后假装什么都没发生。\",\n            ],\n            \"free\": [\n                \"你的话音被自动翻译成了八种语言，广播里同时回放了你的声音。\",\n                \"阿铁在登记簿上敲了一串乱码，屏幕显示“已记录，但无法解析”。\",\n                \"太空站的光忽然切到夜班模式，所有舷窗一起闪成了深海的蓝。\",\n            ],\n        },\n    },\n}\n\nDEFAULT_STATE = {\"turn\": 0, \"trust\": 0, \"chaos\": 0, \"coins\": 3, \"grudge\": \"\", \"motto\": \"\"}\n\nACTION_HINTS = [\n    (\"prank\", [\"整蛊\", \"捉弄\", \"恶作剧\", \"整蛊鸽子\", \"B\", \"b\"]),\n    (\"negotiate\", [\"协商\", \"谈判\", \"交易\", \"交换\", \"谈\", \"C\", \"c\"]),\n    (\"investigate\", [\"调查\", \"调查移动\", \"查\", \"搜索\", \"观察\", \"A\", \"a\"]),\n]\n\n\ndef classify(action: str) -> str:\n    \"\"\"把玩家的一句话归类到四种行动之一。\"\"\"\n    text = (action or \"\").strip()\n    for kind, hints in ACTION_HINTS:\n        for hint in hints:\n            if hint in text:\n                return kind\n    return \"free\"\n\n\ndef _pick(pool, seed: int):\n    return pool[seed % len(pool)]\n\n\ndef _seed(turn: int, action: str) -> int:\n    # 不依赖 hashlib（Sandbox 白名单更严格），用可复现的字符和。\n    return turn * 7 + sum(ord(ch) for ch in (action or \"\"))\n\n\ndef _records_from_hits(hits):\n    \"\"\"从 PowerContext 检索结果里还原历史回合记录。\"\"\"\n    import json\n\n    records = []\n    for\
+          \ hit in hits or []:\n        memory = hit.get(\"memory\") if isinstance(hit, dict) else None\n        text = \"\"\n        if isinstance(memory, dict):\n            text = memory.get(\"text\") or \"\"\n        elif isinstance(hit, dict):\n            text = hit.get(\"text\") or \"\"\n        if not isinstance(text, str) or not text.startswith(MEMORY_TAG + \"\\n\"):\n            continue\n        try:\n            record = json.loads(text.split(\"\\n\", 1)[1])\n        except (ValueError, TypeError):\n            continue\n        if isinstance(record, dict) and isinstance(record.get(\"state\"), dict):\n            records.append(record)\n    return records\n\n\ndef _ending(state):\n    if state[\"trust\"] >= 5:\n        return \"达成结局【门卫合伙人】：阿铁把备用钥匙塞进你手里，说从今天起你替他值班。\"\n    if state[\"chaos\"] >= 5:\n        return \"达成结局【混乱市长】：鸽子议会全票通过，任命你为这座城门的新市长。\"\n    if state[\"coins\"] <= 0 and state[\"trust\"] < 2:\n        return \"达成结局【被城门除名】：你的名字从登记簿上蒸发了，门在你身后轻轻关上。\"\n    if state[\"turn\"] >= MAX_TURNS:\n        return \"达成结局【长夜未央】：城门终于不动了，阿铁说这是他三百年来第一次下班。\"\n    return \"\"\n\n\ndef main(\n    search_json: str,\n    status_code: int,\n    player_id: str,\n    player_name: str,\n    action: str,\n    channel: str,\n) -> dict:\n    import json\n\n    if status_code != 200:\n        raise ValueError(\"PowerContext 检索失败: \" + (search_json or \"\")[:300])\n\n    payload = json.loads(search_json or \"{}\")\n    hits = payload.get(\"hits\")\n    if not isinstance(hits, list):\n        raise ValueError(\"PowerContext 返回的 hits 格式不正确\")\n\n    channel_key = channel if channel in CHANNELS else \"surreal\"\n    profile = CHANNELS[channel_key]\n\n    history = _records_from_hits(hits)\n    previous = max(history, key=lambda item: item[\"state\"].get(\"turn\", 0), default=None)\n    state = dict(DEFAULT_STATE)\n    if previous:\n        for key, value in previous[\"state\"].items():\n            if key in DEFAULT_STATE:\n                state[key] = value\n    state[\"turn\"] = int(state[\"turn\"]) + 1\n\n    text = (action or \"\").strip()\n    if not text:\n        raise ValueError(\"请先写下一句你想做的事\")\n    kind = classify(text)\n\n    if kind == \"investigate\":\n        state[\"trust\"] += 1\n    elif kind == \"prank\":\n        state[\"chaos\"] += 1\n        state[\"grudge\"] = text[:80]\n    elif kind == \"negotiate\":\n        state[\"coins\"] = max(0, int(state[\"coins\"]) - 1)\n        state[\"trust\"] += 2\n    else:\n        state[\"chaos\"] += 1\n        if not state[\"motto\"]:\n            state[\"motto\"] = text[:40]\n\n    npc = profile[\"npc\"]\n    scene = profile[\"scene\"]\n    event = _pick(profile[\"events\"][kind], _seed(state[\"turn\"], text))\n\n    # —— 记忆复用的三个证据点 ——\n    recall = \"这是你们第一次见面，阿铁把你的名字写在了会自己逃跑的登记簿上。\"\n    if previous:\n        recall = npc + \"还记得你上一幕干的事：‘\" + str(previous.get(\"message\", \"\"))[:60] + \"’。\"\n    grudge_line = \"\"\n    if previous and str(previous.get(\"kind\", \"\")) == \"prank\":\n        grudge_line = (\n            \"而且阿铁翻起了旧账：‘上回你干的那事——\"\n            + str(previous.get(\"message\", \"\"))[:40]\n            + \"——我到现在还记着。’\"\n        )\n    motto_line = \"\"\n    if state[\"motto\"] and state[\"turn\"] >= 2:\n        motto_line = \"门卫又在念叨你那句‘\" + state[\"motto\"] + \"’，念得像一句咒语。\"\n\n    ending = _ending(state)\n    lines = [\n        \"第 \" + str(state[\"turn\"]) + \" 幕 · \" + scene,\n        (player_name or \"旅人\") + \"，\" + recall,\n    ]\n    if grudge_line:\n        lines.append(grudge_line)\n    if motto_line:\n        lines.append(motto_line)\n    lines.append(\"▸ 你的行动：\" + text)\n    lines.append(event)\n    if ending:\n        lines.append(ending)\n    lines.append(\n        \"状态：信任 \"\n        + str(state[\"trust\"])\n        + \" / 混乱 \"\n        + str(state[\"chaos\"])\n        + \" / 硬币 \"\n        + str(state[\"coins\"])\n    )\n    lines.append(\"下一步：A 调查移动的出口 · B 整蛊鸽子议会 · C 和门卫协商 · 或者写下你自己的行动。\")\n    answer = \"\\n\".join(lines)\n\n    record = {\n        \"message\": text,\n        \"answer\": answer,\n        \"state\": state,\n        \"channel\": channel_key,\n\
+          \        \"kind\": kind,\n    }\n    payload_text = MEMORY_TAG + \"\\n\" + json.dumps(record, ensure_ascii=False)\n    if len(payload_text.encode(\"utf-8\")) > MAX_BYTES:\n        record[\"answer\"] = answer[:600]\n        payload_text = MEMORY_TAG + \"\\n\" + json.dumps(record, ensure_ascii=False)\n    if len(payload_text.encode(\"utf-8\")) > MAX_BYTES:\n        raise ValueError(\"本轮互动超出 PowerContext 单条记忆 8192 字节上限\")\n\n    save_body = {\n        \"scope_id\": \"\",\n        \"kind\": \"decision\",\n        \"text\": payload_text,\n    }\n    meta = {        \"turn\": state[\"turn\"],\n        \"trust\": state[\"trust\"],\n        \"chaos\": state[\"chaos\"],\n        \"coins\": state[\"coins\"],\n        \"action_kind\": kind,\n        \"channel\": channel_key,\n        \"history_found\": len(history),\n        \"history_hits\": len(hits),\n        \"recalled_previous\": bool(previous),\n        \"grudge_used\": bool(grudge_line),\n        \"motto_used\": bool(motto_line),\n        \"ending\": ending,\n        \"player_id\": player_id,\n    }\n    return {\n        \"answer\": answer,\n        \"save_text\": payload_text,\n        \"meta\": json.dumps(meta, ensure_ascii=False),\n    }\n"
+        outputs:
+          answer:
+            type: string
+          save_text:
+            type: string
+          meta:
+            type: string
+    - id: remember_req
+      type: custom
+      position:
+        x: 1680
+        y: 260
+      positionAbsolute:
+        x: 1680
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 组装记忆写入请求
+        desc: ''
+        selected: false
+        code_language: python3
+        variables:
+        - variable: scope_id
+          value_selector:
+          - scope_parse
+          - scope_id
+        - variable: save_text
+          value_selector:
+          - rules
+          - save_text
+        code: "def main(scope_id: str, save_text: str) -> dict:\n    import json\n    body = {'scope_id': scope_id, 'kind': 'decision', 'text': save_text}\n    return {'remember_body': json.dumps(body, ensure_ascii=False)}\n"
+        outputs:
+          remember_body:
+            type: string
+    - id: remember
+      type: custom
+      position:
+        x: 1960
+        y: 260
+      positionAbsolute:
+        x: 1960
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: http-request
+        title: 写入本幕记忆
+        desc: ''
+        selected: false
+        method: post
+        url: '{{#env.POWERCONTEXT_URL#}}/v1/memory/remember'
+        authorization:
+          type: no-auth
+        headers: Content-Type:application/json
+        params: ''
+        body:
+          type: raw-text
+          data:
+          - type: text
+            key: ''
+            value: '{{#remember_req.remember_body#}}'
+        timeout:
+          connect: 10
+          read: 60
+          write: 10
+        ssl_verify: true
+    - id: verify_req
+      type: custom
+      position:
+        x: 2240
+        y: 260
+      positionAbsolute:
+        x: 2240
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 校验写入结果
+        desc: ''
+        selected: false
+        code_language: python3
+        variables:
+        - variable: body
+          value_selector:
+          - remember
+          - body
+        - variable: status_code
+          value_selector:
+          - remember
+          - status_code
+        - variable: scope_id
+          value_selector:
+          - scope_parse
+          - scope_id
+        code: "def main(body: str, status_code: int, scope_id: str) -> dict:\n    import json\n    if status_code != 200:\n        raise ValueError('PowerContext 写入记忆失败: ' + (body or '')[:300])\n    data = json.loads(body or '{}')\n    if not data.get('changed'):\n        raise ValueError('PowerContext 没有确认记忆变更')\n    records = data.get('records') or []\n    if not records:\n        raise ValueError('PowerContext 没有返回记忆条目')\n    artifact = records[0].get('artifact') or {}\n    verify = {'scope_id': scope_id, 'query': '记忆剧场', 'limit': 10}\n    info = {\n        'artifact_id': artifact.get('artifact_id'),\n        'revision': artifact.get('revision'),\n        'family': artifact.get('family'),\n        'kind': records[0].get('kind'),\n        'state': records[0].get('state'),\n    }\n    return {'verify_body': json.dumps(verify, ensure_ascii=False), 'saved': json.dumps(info, ensure_ascii=False)}\n"
+        outputs:
+          verify_body:
+            type: string
+          saved:
+            type: string
+    - id: verify_read
+      type: custom
+      position:
+        x: 2520
+        y: 260
+      positionAbsolute:
+        x: 2520
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: http-request
+        title: 读回校验本幕记忆
+        desc: ''
+        selected: false
+        method: post
+        url: '{{#env.POWERCONTEXT_URL#}}/v1/memory/search'
+        authorization:
+          type: no-auth
+        headers: Content-Type:application/json
+        params: ''
+        body:
+          type: raw-text
+          data:
+          - type: text
+            key: ''
+            value: '{{#verify_req.verify_body#}}'
+        timeout:
+          connect: 10
+          read: 60
+          write: 10
+        ssl_verify: true
+    - id: receipt
+      type: custom
+      position:
+        x: 2800
+        y: 260
+      positionAbsolute:
+        x: 2800
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 生成记忆回执
+        desc: ''
+        selected: false
+        code_language: python3
+        variables:
+        - variable: body
+          value_selector:
+          - verify_read
+          - body
+        - variable: status_code
+          value_selector:
+          - verify_read
+          - status_code
+        - variable: saved
+          value_selector:
+          - verify_req
+          - saved
+        - variable: save_text
+          value_selector:
+          - rules
+          - save_text
+        - variable: meta
+          value_selector:
+          - rules
+          - meta
+        - variable: scope_id
+          value_selector:
+          - scope_parse
+          - scope_id
+        code: "def main(body: str, status_code: int, saved: str, save_text: str, meta: str, scope_id: str) -> dict:\n    import json\n    if status_code != 200:\n        raise ValueError('PowerContext 读回失败: ' + (body or '')[:300])\n    data = json.loads(body or '{}')\n    hits = data.get('hits') or []\n    found = False\n    for hit in hits:\n        memory = hit.get('memory') or {}\n        if memory.get('text') == save_text:\n            found = True\n            break\n    if not found:\n        raise ValueError('写入的记忆没有在 PowerContext 中读回')\n    receipt = {\n        'scope_id': scope_id,\n        'memory_artifact': json.loads(saved or '{}'),\n        'read_back_hits': len(hits),\n        'read_back_verified': True,\n        'round': json.loads(meta or '{}'),\n    }\n    return {'receipt': json.dumps(receipt, ensure_ascii=False)}\n"
+        outputs:
+          receipt:
+            type: string
+    - id: end
+      type: custom
+      position:
+        x: 3080
+        y: 260
+      positionAbsolute:
+        x: 3080
+        y: 260
+      width: 244
+      height: 100
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: end
+        title: 本幕剧情与记忆回执
+        desc: ''
+        selected: false
+        outputs:
+        - variable: answer
+          value_selector:
+          - rules
+          - answer
+        - variable: receipt
+          value_selector:
+          - receipt
+          - receipt
+    edges:
+    - id: start-scope_req
+      type: custom
+      source: start
+      sourceHandle: source
+      target: scope_req
+      targetHandle: target
+      data:
+        sourceType: start
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: scope_req-scope_create
+      type: custom
+      source: scope_req
+      sourceHandle: source
+      target: scope_create
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: http-request
+        isInIteration: false
+        isInLoop: false
+    - id: scope_create-scope_parse
+      type: custom
+      source: scope_create
+      sourceHandle: source
+      target: scope_parse
+      targetHandle: target
+      data:
+        sourceType: http-request
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: scope_parse-search
+      type: custom
+      source: scope_parse
+      sourceHandle: source
+      target: search
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: http-request
+        isInIteration: false
+        isInLoop: false
+    - id: search-rules
+      type: custom
+      source: search
+      sourceHandle: source
+      target: rules
+      targetHandle: target
+      data:
+        sourceType: http-request
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: rules-remember_req
+      type: custom
+      source: rules
+      sourceHandle: source
+      target: remember_req
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: remember_req-remember
+      type: custom
+      source: remember_req
+      sourceHandle: source
+      target: remember
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: http-request
+        isInIteration: false
+        isInLoop: false
+    - id: remember-verify_req
+      type: custom
+      source: remember
+      sourceHandle: source
+      target: verify_req
+      targetHandle: target
+      data:
+        sourceType: http-request
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: verify_req-verify_read
+      type: custom
+      source: verify_req
+      sourceHandle: source
+      target: verify_read
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: http-request
+        isInIteration: false
+        isInLoop: false
+    - id: verify_read-receipt
+      type: custom
+      source: verify_read
+      sourceHandle: source
+      target: receipt
+      targetHandle: target
+      data:
+        sourceType: http-request
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: receipt-end
+      type: custom
+      source: receipt
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: end
+        isInIteration: false
+        isInLoop: false
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.55

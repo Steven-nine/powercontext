@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>记忆剧场 · 门卫阿铁</title>
+<style>
+  :root {
+    --bg: #14121c;
+    --panel: #1e1b2b;
+    --panel-2: #262238;
+    --ink: #f3efe6;
+    --muted: #a89fc0;
+    --accent: #f0b429;
+    --accent-2: #7c5cff;
+    --ok: #5ac48a;
+    --err: #e8705f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: radial-gradient(1200px 700px at 20% -10%, #2b2340 0%, var(--bg) 60%);
+    color: var(--ink); font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 18px 60px; }
+  header { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; justify-content: space-between; }
+  h1 { font-size: 26px; margin: 0; letter-spacing: 1px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .panel { background: var(--panel); border: 1px solid #322c48; border-radius: 14px; padding: 16px; }
+  .layout { display: grid; grid-template-columns: 1fr 300px; gap: 16px; margin-top: 18px; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  .log { min-height: 320px; max-height: 58vh; overflow-y: auto; padding-right: 6px; }
+  .act { border-left: 3px solid var(--accent-2); padding: 8px 12px; margin-bottom: 12px; border-radius: 0 10px 10px 0; background: var(--panel-2); white-space: pre-wrap; line-height: 1.65; font-size: 15px; }
+  .act.you { border-left-color: var(--accent); }
+  .act .who { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  button {
+    background: var(--panel-2); color: var(--ink); border: 1px solid #3a3352; border-radius: 10px;
+    padding: 9px 14px; cursor: pointer; font-size: 14px; transition: .15s;
+  }
+  button:hover { border-color: var(--accent); transform: translateY(-1px); }
+  button.primary { background: linear-gradient(135deg, var(--accent-2), #4b3bb0); border-color: transparent; }
+  input, select {
+    background: #14121f; color: var(--ink); border: 1px solid #3a3352; border-radius: 10px;
+    padding: 9px 12px; font-size: 14px;
+  }
+  input[type=text] { flex: 1 1 220px; min-width: 160px; }
+  .side h3 { margin: 0 0 10px; font-size: 14px; color: var(--muted); font-weight: 600; letter-spacing: .5px; }
+  .kv { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; padding: 5px 0; border-bottom: 1px dashed #322c48; }
+  .kv span:last-child { color: var(--accent); text-align: right; word-break: break-all; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+  .pill.on { background: rgba(90,196,138,.15); color: var(--ok); }
+  .pill.off { background: rgba(232,112,95,.15); color: var(--err); }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 10px; line-height: 1.6; }
+  .mem { border-left: 2px solid #3a3352; padding: 4px 0 6px 8px; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+  .mem .aid { color: var(--accent-2); word-break: break-all; }
+  .mem .txt { color: var(--ink); opacity: .85; margin-top: 3px; white-space: pre-wrap; word-break: break-all; max-height: 88px; overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>记忆剧场 · <span>门卫阿铁</span></h1>
+      <div class="sub">Dify 编排的即兴剧场。门卫阿铁会记住你干过的每一件事——包括恶作剧。</div>
+    </div>
+    <div class="row">
+      <span class="pill off" id="pill-dify">Dify 检测中</span>
+      <span class="pill off" id="pill-pc">PowerContext 检测中</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section class="panel">
+      <div class="log" id="log"></div>
+      <div class="row">
+        <input type="text" id="action" placeholder="写下你想做的事，例如：我把门卫的帽子藏到了鸽子议会" maxlength="1000" />
+        <button class="primary" id="send">行动</button>
+      </div>
+      <div class="row">
+        <button data-quick="A 调查移动的出口">A 调查移动的出口</button>
+        <button data-quick="B 整蛊鸽子议会">B 整蛊鸽子议会</button>
+        <button data-quick="C 和门卫协商">C 和门卫协商</button>
+        <button id="clear">清空画面，保留记忆</button>
+        <button id="newplayer">换个新身份</button>
+      </div>
+      <div class="hint">提示：同一个「身份」的记忆会一直保存在 PowerContext 里，重启服务也不会丢；换新身份就是一条全新的故事线。</div>
+    </section>
+
+    <aside class="panel side">
+      <h3>角色</h3>
+      <div class="row" style="margin-top:0">
+        <input type="text" id="name" placeholder="你的称呼" maxlength="40" />
+        <select id="channel">
+          <option value="surreal">荒诞喜剧</option>
+          <option value="mystery">午夜悬疑</option>
+          <option value="cyber">赛博朋克</option>
+        </select>
+      </div>
+      <h3 style="margin-top:18px">记忆回执</h3>
+      <div id="trace"><div class="kv"><span>状态</span><span>还没有开始</span></div></div>
+      <h3 style="margin-top:18px">门卫的笔记本
+        <button id="reload-mem" style="padding:2px 8px;font-size:12px;margin-left:6px">刷新</button>
+      </h3>
+      <div id="notebook" class="hint">还没有查到记忆条目。</div>
+      <div class="hint">回执来自 Dify 工作流的最后一个节点：它会把刚写入的记忆再检索一次，确认真的落库后才算成功。</div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const KEY_ID = "theatre-player", KEY_NAME = "theatre-name", KEY_CHANNEL = "theatre-channel";
+const $ = (id) => document.getElementById(id);
+const log = $("log");
+
+function playerId() {
+  let id = localStorage.getItem(KEY_ID);
+  if (!id) { id = "player-" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); localStorage.setItem(KEY_ID, id); }
+  return id;
+}
+function addAct(text, who) {
+  const box = document.createElement("div");
+  box.className = "act" + (who === "你" ? " you" : "");
+  const head = document.createElement("div");
+  head.className = "who";
+  head.textContent = who;
+  const body = document.createElement("div");
+  body.textContent = text;
+  box.appendChild(head); box.appendChild(body);
+  log.appendChild(box); log.scrollTop = log.scrollHeight;
+}
+function renderTrace(receipt) {
+  const box = $("trace");
+  const rows = [];
+  if (!receipt) { box.innerHTML = '<div class="kv"><span>状态</span><span>还没有开始</span></div>'; return; }
+  const round = receipt.round || {};
+  rows.push(["幕次", round.turn]);
+  rows.push(["信任 / 混乱 / 硬币", (round.trust ?? "-") + " / " + (round.chaos ?? "-") + " / " + (round.coins ?? "-")]);
+  rows.push(["历史命中", round.history_hits ?? 0]);
+  rows.push(["复用上一幕", round.recalled_previous ? "是" : "否"]);
+  rows.push(["翻旧账", round.grudge_used ? "是" : "否"]);
+  rows.push(["记忆空间", receipt.scope_id]);
+  rows.push(["记忆条目", (receipt.memory_artifact || {}).artifact_id]);
+  rows.push(["读回校验", receipt.read_back_verified ? "通过（" + receipt.read_back_hits + " 条）" : "未通过"]);
+  box.innerHTML = rows.map(([k, v]) => `<div class="kv"><span>${k}</span><span>${v}</span></div>`).join("");
+}
+async function health() {
+  try {
+    const res = await fetch("/api/health");
+    const data = await res.json();
+    $("pill-dify").textContent = "Dify " + (data.dify && data.dify.status === 200 ? "在线" : "未连接");
+    $("pill-dify").className = "pill " + (data.dify && data.dify.status === 200 ? "on" : "off");
+    $("pill-pc").textContent = "PowerContext " + (data.powerContext && data.powerContext.status === 200 ? "在线" : "未连接");
+    $("pill-pc").className = "pill " + (data.powerContext && data.powerContext.status === 200 ? "on" : "off");
+  } catch (e) {
+    $("pill-dify").textContent = "Dify 未连接"; $("pill-dify").className = "pill off";
+    $("pill-pc").textContent = "PowerContext 未连接"; $("pill-pc").className = "pill off";
+  }
+}
+async function loadMemories() {
+  const box = $("notebook");
+  try {
+    const res = await fetch("/api/memories?playerId=" + encodeURIComponent(playerId()));
+    const data = await res.json();
+    if (!data.ok) { box.textContent = data.error || "查询失败"; return; }
+    if (!data.count) { box.textContent = "还没有查到记忆条目。"; return; }
+    box.innerHTML = data.entries.map((e) =>
+      `<div class="mem"><div class="aid">${e.artifact_id} · rev ${e.revision} · ${e.kind}</div>` +
+      `<div class="txt">${(e.text || "").replace(/</g, "&lt;")}</div></div>`).join("") +
+      `<div class="hint">共 ${data.count} 条，scope ${data.scope_id}</div>`;
+  } catch (e) {
+    box.textContent = "查询失败：" + e;
+  }
+}
+async function send(message) {
+  const text = (message || "").trim();
+  if (!text) return;
+  addAct(text, "你");
+  $("send").disabled = true;
+  try {
+    const res = await fetch("/api/turn", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: text,
+        playerId: playerId(),
+        playerName: $("name").value.trim(),
+        channel: $("channel").value,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) { addAct("（舞台灯光突然熄灭）" + (data.error || "未知错误"), "系统"); return; }
+    addAct(data.answer, "门卫阿铁");
+    renderTrace(data.receipt);
+    loadMemories();
+  } catch (e) {
+    addAct("（联系不上后台）" + e, "系统");
+  } finally {
+    $("send").disabled = false;
+  }
+}
+$("send").onclick = () => { const v = $("action").value; $("action").value = ""; send(v); };
+$("action").addEventListener("keydown", (e) => { if (e.key === "Enter") { const v = $("action").value; $("action").value = ""; send(v); } });
+document.querySelectorAll("[data-quick]").forEach((btn) => { btn.onclick = () => send(btn.dataset.quick); });
+$("clear").onclick = () => { log.innerHTML = ""; renderTrace(null); };
+$("newplayer").onclick = () => {
+  localStorage.removeItem(KEY_ID);
+  log.innerHTML = ""; renderTrace(null);
+  addAct("（你换了一个身份，门卫阿铁还没记住你）", "系统");
+  loadMemories();
+};
+$("reload-mem").onclick = loadMemories;
+$("name").value = localStorage.getItem(KEY_NAME) || "小小探险家";
+$("channel").value = localStorage.getItem(KEY_CHANNEL) || "surreal";
+$("name").onchange = () => localStorage.setItem(KEY_NAME, $("name").value);
+$("channel").onchange = () => localStorage.setItem(KEY_CHANNEL, $("channel").value);
+addAct("欢迎来到记忆剧场。门卫阿铁值班三百年，最擅长的事是记住旅人对他做过的每一件坏事。\n先试试上面的三个按钮，或者直接写一句你想做的事。", "系统");
+health();
+loadMemories();
+setInterval(health, 15000);
+</script>
+</body>
+</html>
