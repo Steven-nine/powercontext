@@ -1,0 +1,25 @@
+Clean-environment reproduction check
+====================================
+
+Date: 2026-10-30
+Host: WSL2 Ubuntu 24.04.3, Python 3.12.3, uv 0.13.6
+Python packages: pylibseekdb 1.4.0.post2, pytest 9.2.0
+
+Procedure (no local state carried over):
+  git archive HEAD minimax | tar -x -C /tmp/mm-clean
+  cd /tmp/mm-clean/minimax
+  uv sync --extra dev
+  uv run mmctx ingest --root demo-app
+  uv run mmctx context --task "add min_total filter" --root demo-app
+  uv run mmctx test --root demo-app --label before
+  DRY_RUN=1 bash scripts/demo.sh
+
+Observed results:
+  ingest: documents=5
+  context: specs/orders.md, src/orders.py, tests/test_orders.py
+  before: 2 failed, 5 passed (exit code 1)
+  after:  7 passed (exit code 0)
+  PowerContext state save/load: succeeded on the first run of the server
+
+Conclusion: a fresh checkout reproduces the acceptance flow without relying on
+files or state from the development machine.

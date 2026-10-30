@@ -30,5 +30,7 @@ uv run mmctx state save --task "$TASK" --status "tests-passing" --phase after \
   --todo "none" \
   --verification "pytest tests passed (evidence/logs/after.log)"
 uv run mmctx context --task "$TASK" --root demo-app > evidence/logs/context-after.json
-git diff -- demo-app > evidence/logs/code.diff || true
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  git diff -- demo-app > evidence/logs/code.diff || true
+fi
 echo "Evidence written under evidence/logs."

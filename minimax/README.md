@@ -82,8 +82,7 @@ DRY_RUN=1 bash scripts/demo.sh
 ### 重置方法
 
 ```bash
-git checkout -- demo-app/src/orders.py
-rm -rf .data demo-app/.mmcontext evidence/logs/*.log
+bash scripts/clean.sh
 ```
 
 PowerContext 状态位于其自身数据库中，可用新的 Scope 标题重新开始，或按需清理记忆条目。
