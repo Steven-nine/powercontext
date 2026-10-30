@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PaperMind · 文献与笔记研读助手</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="mark">P</div>
+      <div>
+        <h1>PaperMind</h1>
+        <p>seekdb 混合检索 × PowerContext 长期记忆</p>
+      </div>
+    </div>
+    <div class="status" id="status">
+      <span class="pill" id="pill-seekdb">seekdb …</span>
+      <span class="pill" id="pill-memory">PowerContext …</span>
+      <span class="pill" id="pill-llm">模型 …</span>
+    </div>
+    <label class="userbox">
+      使用者
+      <input id="user-id" value="demo" spellcheck="false" />
+    </label>
+  </header>
+
+  <main class="layout">
+    <aside class="panel library">
+      <div class="panel-head">
+        <h2>资料库</h2>
+        <button class="btn small" id="open-import">＋ 导入</button>
+      </div>
+
+      <div class="filters">
+        <select id="filter-type">
+          <option value="all">全部类型</option>
+          <option value="paper">论文</option>
+          <option value="note">笔记</option>
+          <option value="book">书籍</option>
+        </select>
+        <select id="filter-year">
+          <option value="0">全部年份</option>
+          <option value="2024">2024 起</option>
+          <option value="2020">2020 起</option>
+          <option value="2015">2015 起</option>
+        </select>
+      </div>
+
+      <ul class="doc-list" id="doc-list"></ul>
+      <p class="empty" id="doc-empty">还没有资料，点击「导入」添加论文或笔记。</p>
+    </aside>
+
+    <section class="panel chat">
+      <div class="chat-scroll" id="chat">
+        <div class="chat-empty" id="chat-empty">
+          <h3>从资料里找答案，从记忆里找上下文</h3>
+          <p>导入论文、笔记或 PDF 后提问，答案里的 [1] 可直接定位到原文片段；你的偏好与结论会跨会话保留。</p>
+          <div class="samples">
+            <button data-q="混合检索里向量通道和全文通道分别擅长什么？RRF 的 k 一般取多少？">混合检索两路召回各自的优势？</button>
+            <button data-q="以后回答请先给结论，再给依据，控制在 400 字以内。">记住我的回答偏好</button>
+            <button data-q="请按我的回答偏好来：文档切片重叠一般设多少？">切片重叠比例怎么设？</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer">
+        <textarea id="question" rows="2" placeholder="问点什么，例如：混合检索里向量和全文各自解决什么问题？"></textarea>
+        <div class="composer-actions">
+          <span class="hint">Enter 发送 · Shift+Enter 换行</span>
+          <button class="btn primary" id="ask-btn">提问</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel insight">
+      <div class="tabs">
+        <button class="tab active" data-tab="trace">检索追踪</button>
+        <button class="tab" data-tab="memory">长期记忆</button>
+      </div>
+
+      <div class="tab-body" id="tab-trace">
+        <p class="empty">提问后这里会显示 seekdb 的检索过程：关键词、结构化过滤、向量通道、全文通道与 RRF 融合结果。</p>
+      </div>
+
+      <div class="tab-body hidden" id="tab-memory">
+        <div class="memory-actions">
+          <input id="mem-input" placeholder="手动记住一条（如：我主要研究 RAG 评测）" />
+          <button class="btn small" id="mem-save">记住</button>
+        </div>
+        <ul class="mem-list" id="mem-list"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <div class="modal hidden" id="import-modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>导入资料</h3>
+        <button class="icon-btn" id="close-import">×</button>
+      </div>
+      <div class="modal-tabs">
+        <button class="tab active" data-import="file">上传文件</button>
+        <button class="tab" data-import="text">粘贴文本</button>
+      </div>
+
+      <div class="import-pane" id="pane-file">
+        <label class="drop" id="drop-zone">
+          <input type="file" id="file-input" accept=".md,.markdown,.txt,.pdf" hidden />
+          <strong>点击选择或拖入</strong>
+          <span>支持 .md / .txt / .pdf</span>
+        </label>
+        <p class="filename" id="file-name"></p>
+      </div>
+
+      <div class="import-pane hidden" id="pane-text">
+        <input id="text-title" placeholder="标题" />
+        <textarea id="text-content" rows="8" placeholder="粘贴笔记正文，支持 Markdown（用 # 标题分节会切成更精准的片段）"></textarea>
+      </div>
+
+      <div class="form-row">
+        <select id="meta-type">
+          <option value="paper">论文</option>
+          <option value="note">笔记</option>
+          <option value="book">书籍</option>
+        </select>
+        <input id="meta-year" placeholder="年份" inputmode="numeric" />
+        <input id="meta-tags" placeholder="标签，逗号分隔" />
+      </div>
+
+      <div class="modal-foot">
+        <span class="hint" id="import-hint"></span>
+        <button class="btn primary" id="do-import">导入</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
