@@ -93,10 +93,11 @@ PowerContext 状态位于其自身数据库中，可用新的 Scope 标题重新
 | --- | --- | --- |
 | 能够运行 | `scripts/setup.sh` + `scripts/demo.sh`，不依赖未交付的本地状态 | `evidence/logs/` |
 | MiniMax 实际参与 | `mcode exec` 读取上下文包并修改 `src/orders.py` | `evidence/logs/mcode-stream.json`、`code.diff` |
-| 上下文正确 | FTS 检索规格/代码/测试；重新 ingest 后使用更新后的规格 | `context-before.json`、`context-after.json` |
+| 上下文正确 | FTS 检索规格/代码/测试；重新 ingest 后使用更新后的规格 | `context-before.json`、`context-spec-update.json` |
 | 数据库实际参与 | 文档与索引存于 seekdb，`mmctx query` 返回来源 | `evidence/logs/seekdb-query.txt` |
 | 状态能够复用 | PowerContext 记忆保存任务状态，重启后读取 | `evidence/logs/pc-restart.txt` |
 | 代码修改有效 | 修改前目标测试失败，修改后全部通过 | `before.log`、`after.log` |
+| 交给 MiniMax 的上下文 | 上下文包与提示词原样留档 | `context-for-minimax.json`、`prompt-for-minimax.md` |
 
 ## 已知限制
 
