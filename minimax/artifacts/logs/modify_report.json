@@ -1,0 +1,34 @@
+{
+  "model": "MiniMax-M3.1-Flash",
+  "attempts": [
+    {
+      "index": 1,
+      "call_id": "call-20261030T145408-001",
+      "response_id": "0733e29033ae12b7720b8ce5682e75ee",
+      "usage": {
+        "total_tokens": 4644,
+        "total_characters": 0,
+        "prompt_tokens": 3866,
+        "completion_tokens": 778,
+        "completion_tokens_details": {
+          "reasoning_tokens": 319
+        },
+        "prompt_tokens_details": {
+          "cached_tokens": 3840
+        }
+      },
+      "applied": [
+        {
+          "path": "minimax/business/shopcalc/pricing.py",
+          "action": "modified",
+          "hunks": "3"
+        }
+      ],
+      "apply_error": "",
+      "patch": "diff --git a/minimax/business/shopcalc/pricing.py b/minimax/business/shopcalc/pricing.py\nindex 76f6e0b..1a4d51c 100644\n--- a/minimax/business/shopcalc/pricing.py\n+++ b/minimax/business/shopcalc/pricing.py\n@@ -1,6 +1,6 @@\n \"\"\"商品金额与运费计算。\n \n-规格来源：``specs/settlement_spec.md`` 中的 SPEC-PRICE-001 与 SPEC-SHIP-001。\n+规格来源：``specs/settlement_spec.md`` 中的 SPEC-PRICE-001、SPEC-SHIP-001 与 SPEC-SHIP-002。\n \"\"\"\n \n from __future__ import annotations\n@@ -12,8 +12,13 @@ CENT = Decimal(\"0.01\")\n FREE_SHIPPING_THRESHOLD = Decimal(\"99\")\n #: 普通地区运费（SPEC-SHIP-001）。\n STANDARD_SHIPPING_FEE = Decimal(\"8\")\n+#: 偏远地区（SPEC-SHIP-002）。\n+REMOTE_REGIONS = frozenset({\"新疆\", \"西藏\", \"内蒙古\"})\n+#: 偏远地区固定运费，优先于普通地区免运费规则（SPEC-SHIP-002）。\n+REMOTE_SHIPPING_FEE = Decimal(\"20\")\n \n \n def subtotal(order: Order) -> Decimal:\n@@ -29,12 +34,16 @@ def discounted_subtotal(order: Order) -> Decimal:\n \n \n def shipping_fee(order: Order) -> Decimal:\n-    \"\"\"按 SPEC-SHIP-001 计算运费。\n+    \"\"\"按 SPEC-SHIP-001 与 SPEC-SHIP-002 计算运费。\n \n-    优惠后商品金额达到免运费门槛时运费为 0，否则收取普通地区运费。\n+    偏远地区固定收取 20 元运费；其他地区在优惠后商品金额达到免运费门槛时\n+    免收运费，否则收取普通地区运费。\n     \"\"\"\n \n+    if order.region in REMOTE_REGIONS:\n+        return REMOTE_SHIPPING_FEE\n     if discounted_subtotal(order) >= FREE_SHIPPING_THRESHOLD:\n         return ZERO\n     return STANDARD_SHIPPING_FEE\n",
+      "test_exit_code": 0,
+      "test_passed": true
+    }
+  ],
+  "accepted": true
+}

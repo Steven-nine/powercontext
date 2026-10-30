@@ -1,0 +1,550 @@
+{
+  "task": {
+    "text": "实现 SPEC-SHIP-002 偏远地区运费规则 shipping_fee：新疆、西藏、内蒙古订单固定收取 ¥20 运费，且优先于满 99 免运费规则",
+    "spec_ids": [
+      "SPEC-SHIP-002"
+    ]
+  },
+  "generated_at": "2026-10-30T22:54:18+08:00",
+  "specs": [
+    {
+      "kind": "spec",
+      "id": "SPEC-SHIP-002",
+      "title": "偏远地区运费",
+      "source": {
+        "path": "specs/settlement_spec.md",
+        "exists": true
+      },
+      "score": 617.6402,
+      "detail": "- 收货地区属于 **新疆、西藏、内蒙古** 时，运费固定为 **¥20.00**。\n- 该规则 **优先于** SPEC-SHIP-001：即使优惠后商品金额满 ¥99.00，仍收取 ¥20.00 运费。\n- 运费金额不计入商品金额，也不参与免运费门槛的计算。",
+      "spec_version": "1.2",
+      "revision": 2,
+      "doc_id": "settlement-spec",
+      "task_targeted": true
+    },
+    {
+      "kind": "spec",
+      "id": "SPEC-CPN-001",
+      "title": "优惠券",
+      "source": {
+        "path": "specs/settlement_spec.md",
+        "exists": true
+      },
+      "score": 517.7402,
+      "detail": "- 优惠券门槛 `min_subtotal` 未达成时，优惠券不生效，商品金额保持不变。\n- `percent_off` 为百分比折扣，`0.2` 表示减免 20%；`amount_off` 为固定减免金额。\n- 固定减免在百分比折扣之后计算；优惠后商品金额不得小于 0。",
+      "spec_version": "1.2",
+      "revision": 2,
+      "doc_id": "settlement-spec",
+      "task_targeted": false
+    },
+    {
+      "kind": "spec",
+      "id": "SPEC-SHIP-001",
+      "title": "普通地区运费",
+      "source": {
+        "path": "specs/settlement_spec.md",
+        "exists": true
+      },
+      "score": 517.0402,
+      "detail": "- 优惠后商品金额 **大于等于 ¥99.00** 时免运费，运费为 ¥0.00。\n- 否则收取普通地区运费 **¥8.00**。\n- 免运费门槛只看优惠后商品金额，**不包含运费本身**。",
+      "spec_version": "1.2",
+      "revision": 2,
+      "doc_id": "settlement-spec",
+      "task_targeted": false
+    },
+    {
+      "kind": "spec",
+      "id": "SPEC-SETTLE-001",
+      "title": "订单应付金额",
+      "source": {
+        "path": "specs/settlement_spec.md",
+        "exists": true
+      },
+      "score": 516.1402,
+      "detail": "- 订单应付金额 = 优惠后商品金额 + 运费。",
+      "spec_version": "1.2",
+      "revision": 2,
+      "doc_id": "settlement-spec",
+      "task_targeted": false
+    },
+    {
+      "kind": "spec",
+      "id": "SPEC-PRICE-001",
+      "title": "商品金额计算",
+      "source": {
+        "path": "specs/settlement_spec.md",
+        "exists": true
+      },
+      "score": 466.4402,
+      "detail": "- 订单商品小计 = 所有订单行 `unit_price × quantity` 之和。\n- 优惠后商品金额先应用优惠券（SPEC-CPN-001），再应用会员折扣（SPEC-MEM-001）。\n- 优惠后商品金额四舍五入保留两位小数。",
+      "spec_version": "1.2",
+      "revision": 2,
+      "doc_id": "settlement-spec",
+      "task_targeted": false
+    },
+    {
+      "kind": "spec",
+      "id": "SPEC-MEM-001",
+      "title": "会员折扣",
+      "source": {
+        "path": "specs/settlement_spec.md",
+        "exists": true
+      },
+      "score": 465.9402,
+      "detail": "- 会员等级 `silver` 折扣率 0.95，`gold` 折扣率 0.90，普通会员折扣率 1。\n- 会员折扣在优惠券之后计算。",
+      "spec_version": "1.2",
+      "revision": 2,
+      "doc_id": "settlement-spec",
+      "task_targeted": false
+    }
+  ],
+  "code": [
+    {
+      "kind": "code",
+      "id": "shipping_fee",
+      "title": "function shipping_fee",
+      "source": {
+        "path": "business/shopcalc/pricing.py",
+        "exists": true
+      },
+      "score": 51.6648,
+      "detail": "shipping_fee(order)",
+      "signature": "shipping_fee(order)",
+      "symbol_kind": "function",
+      "line_start": 36,
+      "line_end": 44,
+      "cited_specs": [
+        "SPEC-SHIP-001"
+      ],
+      "task_targeted": false,
+      "content": "def shipping_fee(order: Order) -> Decimal:\n    \"\"\"按 SPEC-SHIP-001 计算运费。\n\n    优惠后商品金额达到免运费门槛时运费为 0，否则收取普通地区运费。\n    \"\"\"\n\n    if discounted_subtotal(order) >= FREE_SHIPPING_THRESHOLD:\n        return ZERO\n    return STANDARD_SHIPPING_FEE"
+    },
+    {
+      "kind": "code",
+      "id": "apply_coupon",
+      "title": "function apply_coupon",
+      "source": {
+        "path": "business/shopcalc/discounts.py",
+        "exists": true
+      },
+      "score": 41.2561,
+      "detail": "apply_coupon(subtotal, coupon)",
+      "signature": "apply_coupon(subtotal, coupon)",
+      "symbol_kind": "function",
+      "line_start": 22,
+      "line_end": 38,
+      "cited_specs": [
+        "SPEC-CPN-001"
+      ],
+      "task_targeted": false,
+      "content": "def apply_coupon(subtotal: Decimal, coupon: Coupon | None) -> Decimal:\n    \"\"\"按 SPEC-CPN-001 计算优惠券后的商品金额。\n\n    - 优惠券门槛未达成时，商品金额保持不变；\n    - ``percent_off`` 为百分比折扣（``0.2`` 表示减免 20%）；\n    - ``amount_off`` 为固定减免金额，在百分比折扣之后计算；\n    - 结果不小于 0。\n    \"\"\"\n\n    if coupon is None or not coupon.is_applicable(subtotal):\n        return subtotal\n    total = subtotal\n    if coupon.percent_off > ZERO:\n        total = total * (ONE - coupon.percent_off)\n    if coupon.amount_off > ZERO:\n        total = total - coupon.amount_off\n    return max(total, ZERO)"
+    },
+    {
+      "kind": "code",
+      "id": "total",
+      "title": "function total",
+      "source": {
+        "path": "business/shopcalc/pricing.py",
+        "exists": true
+      },
+      "score": 40.1648,
+      "detail": "total(order)",
+      "signature": "total(order)",
+      "symbol_kind": "function",
+      "line_start": 47,
+      "line_end": 50,
+      "cited_specs": [],
+      "task_targeted": false,
+      "content": "def total(order: Order) -> Decimal:\n    \"\"\"订单应付金额 = 优惠后商品金额 + 运费。\"\"\"\n\n    return discounted_subtotal(order) + shipping_fee(order)"
+    },
+    {
+      "kind": "code",
+      "id": "member_rate",
+      "title": "function member_rate",
+      "source": {
+        "path": "business/shopcalc/discounts.py",
+        "exists": true
+      },
+      "score": 38.2561,
+      "detail": "member_rate(member_level)",
+      "signature": "member_rate(member_level)",
+      "symbol_kind": "function",
+      "line_start": 41,
+      "line_end": 44,
+      "cited_specs": [
+        "SPEC-MEM-001"
+      ],
+      "task_targeted": false,
+      "content": "def member_rate(member_level: str) -> Decimal:\n    \"\"\"返回会员等级折扣率；普通会员返回 1（SPEC-MEM-001）。\"\"\"\n\n    return MEMBER_DISCOUNTS.get(member_level, ONE)"
+    },
+    {
+      "kind": "code",
+      "id": "discounted_subtotal",
+      "title": "function discounted_subtotal",
+      "source": {
+        "path": "business/shopcalc/pricing.py",
+        "exists": true
+      },
+      "score": 37.6648,
+      "detail": "discounted_subtotal(order)",
+      "signature": "discounted_subtotal(order)",
+      "symbol_kind": "function",
+      "line_start": 28,
+      "line_end": 33,
+      "cited_specs": [
+        "SPEC-CPN-001",
+        "SPEC-MEM-001"
+      ],
+      "task_targeted": false,
+      "content": "def discounted_subtotal(order: Order) -> Decimal:\n    \"\"\"优惠后商品金额：先优惠券（SPEC-CPN-001），再会员折扣（SPEC-MEM-001）。\"\"\"\n\n    total = apply_coupon(subtotal(order), order.coupon)\n    total = total * member_rate(order.member_level)\n    return total.quantize(CENT)"
+    },
+    {
+      "kind": "code",
+      "id": "subtotal",
+      "title": "function subtotal",
+      "source": {
+        "path": "business/shopcalc/pricing.py",
+        "exists": true
+      },
+      "score": 37.6648,
+      "detail": "subtotal(order)",
+      "signature": "subtotal(order)",
+      "symbol_kind": "function",
+      "line_start": 22,
+      "line_end": 25,
+      "cited_specs": [],
+      "task_targeted": false,
+      "content": "def subtotal(order: Order) -> Decimal:\n    \"\"\"订单商品小计（未优惠）。\"\"\"\n\n    return sum((item.line_total for item in order.items), ZERO)"
+    },
+    {
+      "kind": "code",
+      "id": "Coupon",
+      "title": "class Coupon",
+      "source": {
+        "path": "business/shopcalc/models.py",
+        "exists": true
+      },
+      "score": 17.1574,
+      "detail": "class Coupon",
+      "signature": "class Coupon",
+      "symbol_kind": "class",
+      "line_start": 31,
+      "line_end": 42,
+      "cited_specs": [],
+      "task_targeted": false,
+      "content": "class Coupon:\n    \"\"\"优惠券：满减、折扣或二者组合。\"\"\"\n\n    code: str\n    amount_off: Decimal = ZERO\n    percent_off: Decimal = ZERO\n    min_subtotal: Decimal = ZERO\n\n    def is_applicable(self, subtotal: Decimal) -> bool:\n        \"\"\"门槛判断：商品金额达到 ``min_subtotal`` 时优惠券才可使用。\"\"\"\n\n        return subtotal >= self.min_subtotal"
+    },
+    {
+      "kind": "code",
+      "id": "Order",
+      "title": "class Order",
+      "source": {
+        "path": "business/shopcalc/models.py",
+        "exists": true
+      },
+      "score": 17.1574,
+      "detail": "class Order",
+      "signature": "class Order",
+      "symbol_kind": "class",
+      "line_start": 46,
+      "line_end": 53,
+      "cited_specs": [],
+      "task_targeted": false,
+      "content": "class Order:\n    \"\"\"订单聚合根。\"\"\"\n\n    order_id: str\n    items: tuple[OrderItem, ...] = ()\n    region: str = \"\"\n    coupon: Coupon | None = None\n    member_level: str = \"normal\""
+    },
+    {
+      "kind": "code",
+      "id": "OrderItem",
+      "title": "class OrderItem",
+      "source": {
+        "path": "business/shopcalc/models.py",
+        "exists": true
+      },
+      "score": 17.1574,
+      "detail": "class OrderItem",
+      "signature": "class OrderItem",
+      "symbol_kind": "class",
+      "line_start": 12,
+      "line_end": 27,
+      "cited_specs": [],
+      "task_targeted": false,
+      "content": "class OrderItem:\n    \"\"\"订单行：单价与数量。\"\"\"\n\n    sku: str\n    unit_price: Decimal\n    quantity: int\n\n    def __post_init__(self) -> None:\n        if self.quantity < 0:\n            raise ValueError(\"quantity must not be negative\")\n        if self.unit_price < ZERO:\n            raise ValueError(\"unit_price must not be negative\")\n\n    @property\n    def line_total(self) -> Decimal:\n        return self.unit_price * self.quantity"
+    },
+    {
+      "kind": "code",
+      "id": "Coupon.is_applicable",
+      "title": "method Coupon.is_applicable",
+      "source": {
+        "path": "business/shopcalc/models.py",
+        "exists": true
+      },
+      "score": 16.6574,
+      "detail": "Coupon.is_applicable(self, subtotal)",
+      "signature": "Coupon.is_applicable(self, subtotal)",
+      "symbol_kind": "method",
+      "line_start": 39,
+      "line_end": 42,
+      "cited_specs": [],
+      "task_targeted": false,
+      "content": "    def is_applicable(self, subtotal: Decimal) -> bool:\n        \"\"\"门槛判断：商品金额达到 ``min_subtotal`` 时优惠券才可使用。\"\"\"\n\n        return subtotal >= self.min_subtotal"
+    }
+  ],
+  "tests": [
+    {
+      "kind": "test",
+      "id": "test_remote_region_shipping_fee_is_fixed_twenty_yuan",
+      "title": "test_remote_region_shipping_fee_is_fixed_twenty_yuan",
+      "source": {
+        "path": "business/tests/test_shipping.py",
+        "exists": true
+      },
+      "score": 150.6648,
+      "detail": "偏远地区运费固定 ¥20.00（SPEC-SHIP-002）。",
+      "role": "target",
+      "cited_specs": [
+        "SPEC-SHIP-002"
+      ],
+      "line_start": 64,
+      "line_end": 67
+    },
+    {
+      "kind": "test",
+      "id": "test_remote_region_shipping_fee_overrides_free_shipping_threshold",
+      "title": "test_remote_region_shipping_fee_overrides_free_shipping_threshold",
+      "source": {
+        "path": "business/tests/test_shipping.py",
+        "exists": true
+      },
+      "score": 150.6648,
+      "detail": "SPEC-SHIP-002 优先于 SPEC-SHIP-001：满 ¥99 仍收 ¥20 运费。",
+      "role": "target",
+      "cited_specs": [
+        "SPEC-SHIP-001",
+        "SPEC-SHIP-002"
+      ],
+      "line_start": 71,
+      "line_end": 74
+    },
+    {
+      "kind": "test",
+      "id": "test_coupon_amount_off_is_applied_after_percent_off",
+      "title": "test_coupon_amount_off_is_applied_after_percent_off",
+      "source": {
+        "path": "business/tests/test_discounts.py",
+        "exists": true
+      },
+      "score": 4.7018,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 19,
+      "line_end": 21
+    },
+    {
+      "kind": "test",
+      "id": "test_coupon_is_not_applied_when_threshold_is_not_reached",
+      "title": "test_coupon_is_not_applied_when_threshold_is_not_reached",
+      "source": {
+        "path": "business/tests/test_discounts.py",
+        "exists": true
+      },
+      "score": 4.7018,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 9,
+      "line_end": 11
+    },
+    {
+      "kind": "test",
+      "id": "test_coupon_never_produces_negative_amount",
+      "title": "test_coupon_never_produces_negative_amount",
+      "source": {
+        "path": "business/tests/test_discounts.py",
+        "exists": true
+      },
+      "score": 4.7018,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 24,
+      "line_end": 26
+    },
+    {
+      "kind": "test",
+      "id": "test_coupon_percent_off_is_applied",
+      "title": "test_coupon_percent_off_is_applied",
+      "source": {
+        "path": "business/tests/test_discounts.py",
+        "exists": true
+      },
+      "score": 4.7018,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 14,
+      "line_end": 16
+    },
+    {
+      "kind": "test",
+      "id": "test_member_rate_for_each_level",
+      "title": "test_member_rate_for_each_level",
+      "source": {
+        "path": "business/tests/test_discounts.py",
+        "exists": true
+      },
+      "score": 4.7018,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 29,
+      "line_end": 33
+    },
+    {
+      "kind": "test",
+      "id": "test_discounted_subtotal_applies_coupon_before_member_discount",
+      "title": "test_discounted_subtotal_applies_coupon_before_member_discount",
+      "source": {
+        "path": "business/tests/test_pricing.py",
+        "exists": true
+      },
+      "score": 4.2683,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 20,
+      "line_end": 28
+    },
+    {
+      "kind": "test",
+      "id": "test_order_item_rejects_negative_quantity",
+      "title": "test_order_item_rejects_negative_quantity",
+      "source": {
+        "path": "business/tests/test_pricing.py",
+        "exists": true
+      },
+      "score": 4.2683,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 39,
+      "line_end": 43
+    },
+    {
+      "kind": "test",
+      "id": "test_subtotal_sums_all_order_lines",
+      "title": "test_subtotal_sums_all_order_lines",
+      "source": {
+        "path": "business/tests/test_pricing.py",
+        "exists": true
+      },
+      "score": 4.2683,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 9,
+      "line_end": 17
+    },
+    {
+      "kind": "test",
+      "id": "test_total_is_discounted_subtotal_plus_shipping_fee",
+      "title": "test_total_is_discounted_subtotal_plus_shipping_fee",
+      "source": {
+        "path": "business/tests/test_pricing.py",
+        "exists": true
+      },
+      "score": 4.2683,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 31,
+      "line_end": 36
+    },
+    {
+      "kind": "test",
+      "id": "test_non_remote_region_keeps_standard_shipping_fee",
+      "title": "test_non_remote_region_keeps_standard_shipping_fee",
+      "source": {
+        "path": "business/tests/test_shipping.py",
+        "exists": true
+      },
+      "score": 50.6648,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 57,
+      "line_end": 58
+    },
+    {
+      "kind": "test",
+      "id": "test_shipping_fee_is_eight_yuan_when_subtotal_below_threshold",
+      "title": "test_shipping_fee_is_eight_yuan_when_subtotal_below_threshold",
+      "source": {
+        "path": "business/tests/test_shipping.py",
+        "exists": true
+      },
+      "score": 50.6648,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 29,
+      "line_end": 30
+    },
+    {
+      "kind": "test",
+      "id": "test_shipping_fee_is_not_counted_into_the_free_shipping_threshold",
+      "title": "test_shipping_fee_is_not_counted_into_the_free_shipping_threshold",
+      "source": {
+        "path": "business/tests/test_shipping.py",
+        "exists": true
+      },
+      "score": 50.6648,
+      "detail": "运费不参与免运费门槛计算：门槛只看优惠后商品金额。",
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 49,
+      "line_end": 54
+    },
+    {
+      "kind": "test",
+      "id": "test_shipping_fee_uses_discounted_subtotal_not_raw_subtotal",
+      "title": "test_shipping_fee_uses_discounted_subtotal_not_raw_subtotal",
+      "source": {
+        "path": "business/tests/test_shipping.py",
+        "exists": true
+      },
+      "score": 50.6648,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 33,
+      "line_end": 46
+    },
+    {
+      "kind": "test",
+      "id": "test_shipping_is_free_when_subtotal_reaches_threshold",
+      "title": "test_shipping_is_free_when_subtotal_reaches_threshold",
+      "source": {
+        "path": "business/tests/test_shipping.py",
+        "exists": true
+      },
+      "score": 50.6648,
+      "role": "regression",
+      "cited_specs": [],
+      "line_start": 25,
+      "line_end": 26
+    }
+  ],
+  "state": {
+    "scope_id": "scp_6vz8jsv07e5r9ka7symnn1tfjq",
+    "objective": "实现 SPEC-SHIP-002 偏远地区运费规则 shipping_fee：新疆、西藏、内蒙古订单固定收取 ¥20 运费，且优先于满 99 免运费规则",
+    "done": [
+      "MiniMax 第 1 次尝试产出补丁并通过全部测试"
+    ],
+    "todo": [],
+    "verifications": [
+      "pytest 全量测试通过（exit=0）"
+    ],
+    "decisions": [],
+    "latest_handoff": {
+      "objective": "实现 SPEC-SHIP-002 偏远地区运费规则 shipping_fee：新疆、西藏、内蒙古订单固定收取 ¥20 运费，且优先于满 99 免运费规则",
+      "disposition": "complete",
+      "state": [
+        "已按 SPEC-SHIP-002 修改 minimax/business/shopcalc/pricing.py",
+        "目标测试与回归测试全部通过（exit=0）"
+      ],
+      "next_action": "提交代码差异与验证记录",
+      "omissions": [],
+      "status": "resolved"
+    },
+    "continuity_events": 4
+  }
+}

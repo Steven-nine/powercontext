@@ -1,0 +1,16 @@
+# PowerContext 状态读回（新进程）
+- 命令：python -m sddctx state show --task-id ship-002
+- 退出码：0
+
+```
+Scope: scp_6vz8jsv07e5r9ka7symnn1tfjq
+目标: 实现 SPEC-SHIP-002 偏远地区运费规则 shipping_fee：新疆、西藏、内蒙古订单固定收取 ¥20 运费，且优先于满 99 免运费规则
+已完成事项 (1):
+  - MiniMax 第 1 次尝试产出补丁并通过全部测试
+待办事项 (0):
+已有验证结果 (1):
+  - pytest 全量测试通过（exit=0）
+最新里程碑: {"objective": "实现 SPEC-SHIP-002 偏远地区运费规则 shipping_fee：新疆、西藏、内蒙古订单固定收取 ¥20 运费，且优先于满 99 免运费规则", "disposition": "complete", "state": ["已按 SPEC-SHIP-002 修改 minimax/business/shopcalc/pricing.py", "目标测试与回归测试全部通过（exit=0）"], "next_action": "提交代码差异与验证记录", "omissions": [], "status": "resolved"}
+
+
+```

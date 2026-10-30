@@ -1,0 +1,27 @@
+# 修改前 · 回归测试
+- 执行时间：2026-10-30T22:54:06+08:00
+- 工作目录：C:\Users\29296\Documents\deepseek-harness\default-workspace\pc-eco\minimax\business
+- 命令：D:\DeepSeek缓存\minimax-sdd\venv12\Scripts\python.exe -m pytest -q --no-header -rA --deselect=tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan --deselect=tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold tests
+- 退出码：0
+- 结论：通过
+
+```
+..............                                                           [100%]
+=================================== PASSES ====================================
+=========================== short test summary info ===========================
+PASSED tests/test_discounts.py::test_coupon_is_not_applied_when_threshold_is_not_reached
+PASSED tests/test_discounts.py::test_coupon_percent_off_is_applied
+PASSED tests/test_discounts.py::test_coupon_amount_off_is_applied_after_percent_off
+PASSED tests/test_discounts.py::test_coupon_never_produces_negative_amount
+PASSED tests/test_discounts.py::test_member_rate_for_each_level
+PASSED tests/test_pricing.py::test_subtotal_sums_all_order_lines
+PASSED tests/test_pricing.py::test_discounted_subtotal_applies_coupon_before_member_discount
+PASSED tests/test_pricing.py::test_total_is_discounted_subtotal_plus_shipping_fee
+PASSED tests/test_pricing.py::test_order_item_rejects_negative_quantity
+PASSED tests/test_shipping.py::test_shipping_is_free_when_subtotal_reaches_threshold
+PASSED tests/test_shipping.py::test_shipping_fee_is_eight_yuan_when_subtotal_below_threshold
+PASSED tests/test_shipping.py::test_shipping_fee_uses_discounted_subtotal_not_raw_subtotal
+PASSED tests/test_shipping.py::test_shipping_fee_is_not_counted_into_the_free_shipping_threshold
+PASSED tests/test_shipping.py::test_non_remote_region_keeps_standard_shipping_fee
+
+```

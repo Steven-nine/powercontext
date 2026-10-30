@@ -1,0 +1,40 @@
+diff --git a/minimax/business/shopcalc/pricing.py b/minimax/business/shopcalc/pricing.py
+index 76f6e0b..1a4d51c 100644
+--- a/minimax/business/shopcalc/pricing.py
++++ b/minimax/business/shopcalc/pricing.py
+@@ -1,6 +1,6 @@
+ """商品金额与运费计算。
+ 
+-规格来源：``specs/settlement_spec.md`` 中的 SPEC-PRICE-001 与 SPEC-SHIP-001。
++规格来源：``specs/settlement_spec.md`` 中的 SPEC-PRICE-001、SPEC-SHIP-001 与 SPEC-SHIP-002。
+ """
+ 
+ from __future__ import annotations
+@@ -12,8 +12,13 @@ CENT = Decimal("0.01")
+ FREE_SHIPPING_THRESHOLD = Decimal("99")
+ #: 普通地区运费（SPEC-SHIP-001）。
+ STANDARD_SHIPPING_FEE = Decimal("8")
++#: 偏远地区（SPEC-SHIP-002）。
++REMOTE_REGIONS = frozenset({"新疆", "西藏", "内蒙古"})
++#: 偏远地区固定运费，优先于普通地区免运费规则（SPEC-SHIP-002）。
++REMOTE_SHIPPING_FEE = Decimal("20")
+ 
+ 
+ def subtotal(order: Order) -> Decimal:
+@@ -29,12 +34,16 @@ def discounted_subtotal(order: Order) -> Decimal:
+ 
+ 
+ def shipping_fee(order: Order) -> Decimal:
+-    """按 SPEC-SHIP-001 计算运费。
++    """按 SPEC-SHIP-001 与 SPEC-SHIP-002 计算运费。
+ 
+-    优惠后商品金额达到免运费门槛时运费为 0，否则收取普通地区运费。
++    偏远地区固定收取 20 元运费；其他地区在优惠后商品金额达到免运费门槛时
++    免收运费，否则收取普通地区运费。
+     """
+ 
++    if order.region in REMOTE_REGIONS:
++        return REMOTE_SHIPPING_FEE
+     if discounted_subtotal(order) >= FREE_SHIPPING_THRESHOLD:
+         return ZERO
+     return STANDARD_SHIPPING_FEE

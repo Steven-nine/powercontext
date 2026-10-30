@@ -1,0 +1,19 @@
+# 修改后 · 目标测试（SPEC-SHIP-002）
+- 执行时间：2026-10-30T22:54:15+08:00
+- 工作目录：C:\Users\29296\Documents\deepseek-harness\default-workspace\pc-eco\minimax\business
+- 命令：D:\DeepSeek缓存\minimax-sdd\venv12\Scripts\python.exe -m pytest -q --no-header -rA tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold
+- 退出码：0
+- 结论：通过
+
+```
+......                                                                   [100%]
+=================================== PASSES ====================================
+=========================== short test summary info ===========================
+PASSED tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u65b0\u7586]
+PASSED tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u897f\u85cf]
+PASSED tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u5185\u8499\u53e4]
+PASSED tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u65b0\u7586]
+PASSED tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u897f\u85cf]
+PASSED tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u5185\u8499\u53e4]
+
+```

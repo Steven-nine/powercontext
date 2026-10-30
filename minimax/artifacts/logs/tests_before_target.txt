@@ -1,0 +1,109 @@
+# 修改前 · 目标测试（SPEC-SHIP-002）
+- 执行时间：2026-10-30T22:54:06+08:00
+- 工作目录：C:\Users\29296\Documents\deepseek-harness\default-workspace\pc-eco\minimax\business
+- 命令：D:\DeepSeek缓存\minimax-sdd\venv12\Scripts\python.exe -m pytest -q --no-header -rA tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold
+- 退出码：1
+- 结论：失败（符合修改前的预期）
+
+```
+FFFFFF                                                                   [100%]
+================================== FAILURES ===================================
+_____ test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u65b0\u7586] ______
+
+region = '新疆'
+
+    @pytest.mark.parametrize("region", REMOTE_REGIONS)
+    def test_remote_region_shipping_fee_is_fixed_twenty_yuan(region):
+        """偏远地区运费固定 ¥20.00（SPEC-SHIP-002）。"""
+    
+>       assert shipping_fee(make_order("50", region=region)) == Decimal("20")
+E       AssertionError: assert Decimal('8') == Decimal('20')
+E        +  where Decimal('8') = shipping_fee(Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('50'), quantity=1),), region='新疆', coupon=None, member_level='normal'))
+E        +    where Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('50'), quantity=1),), region='新疆', coupon=None, member_level='normal') = make_order('50', region='新疆')
+E        +  and   Decimal('20') = Decimal('20')
+
+tests\test_shipping.py:67: AssertionError
+_____ test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u897f\u85cf] ______
+
+region = '西藏'
+
+    @pytest.mark.parametrize("region", REMOTE_REGIONS)
+    def test_remote_region_shipping_fee_is_fixed_twenty_yuan(region):
+        """偏远地区运费固定 ¥20.00（SPEC-SHIP-002）。"""
+    
+>       assert shipping_fee(make_order("50", region=region)) == Decimal("20")
+E       AssertionError: assert Decimal('8') == Decimal('20')
+E        +  where Decimal('8') = shipping_fee(Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('50'), quantity=1),), region='西藏', coupon=None, member_level='normal'))
+E        +    where Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('50'), quantity=1),), region='西藏', coupon=None, member_level='normal') = make_order('50', region='西藏')
+E        +  and   Decimal('20') = Decimal('20')
+
+tests\test_shipping.py:67: AssertionError
+__ test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u5185\u8499\u53e4] ___
+
+region = '内蒙古'
+
+    @pytest.mark.parametrize("region", REMOTE_REGIONS)
+    def test_remote_region_shipping_fee_is_fixed_twenty_yuan(region):
+        """偏远地区运费固定 ¥20.00（SPEC-SHIP-002）。"""
+    
+>       assert shipping_fee(make_order("50", region=region)) == Decimal("20")
+E       AssertionError: assert Decimal('8') == Decimal('20')
+E        +  where Decimal('8') = shipping_fee(Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('50'), quantity=1),), region='内蒙古', coupon=None, member_level='normal'))
+E        +    where Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('50'), quantity=1),), region='内蒙古', coupon=None, member_level='normal') = make_order('50', region='内蒙古')
+E        +  and   Decimal('20') = Decimal('20')
+
+tests\test_shipping.py:67: AssertionError
+_ test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u65b0\u7586] _
+
+region = '新疆'
+
+    @pytest.mark.parametrize("region", REMOTE_REGIONS)
+    def test_remote_region_shipping_fee_overrides_free_shipping_threshold(region):
+        """SPEC-SHIP-002 优先于 SPEC-SHIP-001：满 ¥99 仍收 ¥20 运费。"""
+    
+>       assert shipping_fee(make_order("500", region=region)) == Decimal("20")
+E       AssertionError: assert Decimal('0') == Decimal('20')
+E        +  where Decimal('0') = shipping_fee(Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('500'), quantity=1),), region='新疆', coupon=None, member_level='normal'))
+E        +    where Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('500'), quantity=1),), region='新疆', coupon=None, member_level='normal') = make_order('500', region='新疆')
+E        +  and   Decimal('20') = Decimal('20')
+
+tests\test_shipping.py:74: AssertionError
+_ test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u897f\u85cf] _
+
+region = '西藏'
+
+    @pytest.mark.parametrize("region", REMOTE_REGIONS)
+    def test_remote_region_shipping_fee_overrides_free_shipping_threshold(region):
+        """SPEC-SHIP-002 优先于 SPEC-SHIP-001：满 ¥99 仍收 ¥20 运费。"""
+    
+>       assert shipping_fee(make_order("500", region=region)) == Decimal("20")
+E       AssertionError: assert Decimal('0') == Decimal('20')
+E        +  where Decimal('0') = shipping_fee(Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('500'), quantity=1),), region='西藏', coupon=None, member_level='normal'))
+E        +    where Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('500'), quantity=1),), region='西藏', coupon=None, member_level='normal') = make_order('500', region='西藏')
+E        +  and   Decimal('20') = Decimal('20')
+
+tests\test_shipping.py:74: AssertionError
+_ test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u5185\u8499\u53e4] _
+
+region = '内蒙古'
+
+    @pytest.mark.parametrize("region", REMOTE_REGIONS)
+    def test_remote_region_shipping_fee_overrides_free_shipping_threshold(region):
+        """SPEC-SHIP-002 优先于 SPEC-SHIP-001：满 ¥99 仍收 ¥20 运费。"""
+    
+>       assert shipping_fee(make_order("500", region=region)) == Decimal("20")
+E       AssertionError: assert Decimal('0') == Decimal('20')
+E        +  where Decimal('0') = shipping_fee(Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('500'), quantity=1),), region='内蒙古', coupon=None, member_level='normal'))
+E        +    where Order(order_id='O-1001', items=(OrderItem(sku='SKU-1', unit_price=Decimal('500'), quantity=1),), region='内蒙古', coupon=None, member_level='normal') = make_order('500', region='内蒙古')
+E        +  and   Decimal('20') = Decimal('20')
+
+tests\test_shipping.py:74: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u65b0\u7586]
+FAILED tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u897f\u85cf]
+FAILED tests/test_shipping.py::test_remote_region_shipping_fee_is_fixed_twenty_yuan[\u5185\u8499\u53e4]
+FAILED tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u65b0\u7586]
+FAILED tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u897f\u85cf]
+FAILED tests/test_shipping.py::test_remote_region_shipping_fee_overrides_free_shipping_threshold[\u5185\u8499\u53e4]
+
+```

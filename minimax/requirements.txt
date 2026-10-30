@@ -1,0 +1,12 @@
+# 运行依赖（版本已固定，评审环境可直接复现）
+#
+# 说明：
+#   - powercontext 1.2.0 提供本模块使用的 runtime.memory / runtime.work / runtime.handoff 接口；
+#     1.4.x 已重构为 runtime.atomic_memory，如需升级请同步改造 sddctx/state.py。
+#   - pymysql 为纯 Python 驱动，Windows 与 Linux 通用；seekdb 通过 MySQL 协议访问。
+#   - 若在 Linux/macOS 上希望使用 PowerContext 的内嵌 seekdb 后端，可额外安装
+#     `powercontext[seekdb]`（pylibseekdb 仅支持 Linux/macOS）。
+powercontext[builtin]==1.2.0
+pymysql>=1.2,<1.2.1
+requests>=2.31,<3
+pytest>=8,<10

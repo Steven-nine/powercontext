@@ -1,0 +1,12 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# 本地环境
+.venv/
+venv/
+.env
+
+# 本地运行产生的临时文件（评审证据保存在 artifacts/ 下，纳入版本管理）
+*.log.tmp
