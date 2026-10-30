@@ -85,7 +85,7 @@ DRY_RUN=1 bash scripts/demo.sh
 bash scripts/clean.sh
 ```
 
-PowerContext 状态位于其自身数据库中，可用新的 Scope 标题重新开始，或按需清理记忆条目。
+PowerContext 默认把状态存于 `~/.local/share/powercontext/powercontext.db`；停止服务后删除该文件即可从空状态重新验证。已从空库验证一次「保存 → 重启 → 读取」流程，见 `evidence/logs/pc-empty-start.txt`。
 
 ## 验收项对照
 

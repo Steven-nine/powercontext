@@ -12,6 +12,7 @@
 | `mcode-final.json` | MiniMax Code 最终消息与结果（真实执行时生成） |
 | `code.diff` | 代码修改差异 |
 | `pc-restart.txt` | PowerContext 保存状态、重启服务后读取成功 |
+| `pc-empty-start.txt` | 空数据库开始保存状态、重启后读取成功 |
 | `seekdb-query.txt` | seekdb 检索结果（来源路径与命中内容） |
 | `before-dryrun.log` / `after-dryrun.log` | 无额度时用参考补丁验证流水线的记录 |
 
