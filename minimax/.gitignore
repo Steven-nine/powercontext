@@ -5,4 +5,3 @@
 **/__pycache__/
 *.egg-info/
 demo-app/.mmcontext/
-evidence/logs/*.log

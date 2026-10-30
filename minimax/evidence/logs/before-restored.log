@@ -1,0 +1,22 @@
+.....FF                                                                  [100%]
+=================================== FAILURES ===================================
+____________________________ test_filter_min_total _____________________________
+
+    def test_filter_min_total():
+>       assert [order["id"] for order in list_orders(min_total=60)] == [2, 3]
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: list_orders() got an unexpected keyword argument 'min_total'
+
+tests/test_orders.py:26: TypeError
+_______________________ test_filter_status_and_min_total _______________________
+
+    def test_filter_status_and_min_total():
+>       assert [order["id"] for order in list_orders(status="paid", min_total=70)] == [3]
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: list_orders() got an unexpected keyword argument 'min_total'
+
+tests/test_orders.py:30: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_orders.py::test_filter_min_total - TypeError: list_orders()...
+FAILED tests/test_orders.py::test_filter_status_and_min_total - TypeError: li...
+2 failed, 5 passed in 0.02s
