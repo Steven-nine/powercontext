@@ -1,0 +1,8 @@
+.data/
+.venv/
+.pytest_cache/
+**/.pytest_cache/
+**/__pycache__/
+*.egg-info/
+demo-app/.mmcontext/
+evidence/logs/*.log
