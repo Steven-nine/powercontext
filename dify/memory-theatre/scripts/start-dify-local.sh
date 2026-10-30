@@ -85,16 +85,38 @@ ensure_container arcade-postgres --env-file "$ENV_FILE" -v arcade-postgres:/var/
   "${PREFIX}postgres:15-alpine" postgres -p 5433 -c listen_addresses=127.0.0.1
 ensure_container arcade-redis "${PREFIX}redis:6-alpine" redis-server --port 6381 --bind 127.0.0.1
 
-SANDBOX_KEY=$(sed -n 's/^CODE_EXECUTION_API_KEY=//p' "$ENV_FILE")
-ensure_container arcade-sandbox -e API_KEY="$SANDBOX_KEY" -e GIN_MODE=release -e ENABLE_NETWORK=true \
-  "${PREFIX}langgenius/dify-sandbox:0.2.12"
-
 for _ in $(seq 1 30); do
   if docker exec arcade-postgres pg_isready -p 5433 -U postgres >/dev/null 2>&1; then break; fi
   sleep 1
 done
 
+# Code 节点的执行端点：
+#   THEATRE_CODE_EXECUTOR=local   （默认）用本仓库自带的 Code Executor，任何内核都能跑
+#   THEATRE_CODE_EXECUTOR=official 用官方 dify-sandbox 容器（普通 Linux 主机上可用）
+CODE_EXECUTION_ENDPOINT_VALUE="http://127.0.0.1:8194"
+EXECUTOR_MODE="${THEATRE_CODE_EXECUTOR:-local}"
+if [ "$EXECUTOR_MODE" = "local" ]; then
+  EXECUTOR_PORT="${CODE_EXECUTOR_PORT:-8195}"
+  SANDBOX_KEY=$(sed -n 's/^CODE_EXECUTION_API_KEY=//p' "$ENV_FILE")
+  if [ -f "$RUNTIME_DIR/code-executor.pid" ] && kill -0 "$(cat "$RUNTIME_DIR/code-executor.pid")" 2>/dev/null; then
+    echo "Code Executor 已在运行（pid $(cat "$RUNTIME_DIR/code-executor.pid")）"
+  else
+    CODE_EXECUTION_API_KEY="$SANDBOX_KEY" CODE_EXECUTOR_PORT="$EXECUTOR_PORT" \
+      nohup python3 scripts/code_executor.py >"$RUNTIME_DIR/code-executor.log" 2>&1 &
+    echo $! >"$RUNTIME_DIR/code-executor.pid"
+    echo "started bundled Code Executor on port $EXECUTOR_PORT (log: $RUNTIME_DIR/code-executor.log)"
+  fi
+  CODE_EXECUTION_ENDPOINT_VALUE="http://127.0.0.1:${EXECUTOR_PORT}"
+else
+  SANDBOX_KEY=$(sed -n 's/^CODE_EXECUTION_API_KEY=//p' "$ENV_FILE")
+  ensure_container arcade-sandbox -e API_KEY="$SANDBOX_KEY" -e GIN_MODE=release -e ENABLE_NETWORK=true \
+    "${PREFIX}langgenius/dify-sandbox:0.2.12"
+fi
+
+# Dify API 每次都用当前配置重建（数据都在 named volume 里，重建不会丢应用与数据库）
+docker rm -f arcade-api >/dev/null 2>&1 || true
 ensure_container arcade-api --env-file "$ENV_FILE" -e MODE=api -e SERVER_WORKER_AMOUNT=1 \
+  -e CODE_EXECUTION_ENDPOINT="$CODE_EXECUTION_ENDPOINT_VALUE" \
   -v arcade-storage:/app/api/storage "${PREFIX}langgenius/dify-api:1.9.2"
 
 python3 - <<'PY'

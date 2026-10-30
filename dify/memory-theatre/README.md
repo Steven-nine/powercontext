@@ -117,9 +117,12 @@ cd dify/memory-theatre
 bash scripts/start-dify-local.sh
 ```
 
-脚本使用 host networking，依次拉起 4 个容器：
-`arcade-postgres`（5433）、`arcade-redis`（6381）、`arcade-sandbox`（8194）、`arcade-api`（5001）。
+脚本使用 host networking，依次拉起容器：`arcade-postgres`（5433）、`arcade-redis`（6381）、`arcade-api`（5001），
+并默认启动**本仓库自带的 Code Executor**（8195，见 §6.2）作为 Dify Code 节点的执行端点。
 随机凭据写在 `.runtime/dify.env`（已在 `.gitignore` 中），数据库与 Dify 存储保存在 Docker named volumes 里，重启即续用。
+
+> 如果你的环境里官方 `dify-sandbox` 一切正常（普通 Linux 主机），想让 Dify 用官方沙箱：
+> `THEATRE_CODE_EXECUTOR=official bash scripts/start-dify-local.sh`（此时会额外拉起 `arcade-sandbox` 容器，端口 8194）。
 
 Docker Hub 不可达时可加镜像前缀：
 
@@ -136,18 +139,15 @@ bash scripts/start-powercontext.sh
 
 数据文件在 `.runtime/powercontext/memory-theatre.sqlite3`；停止后再执行同一条命令即可续用（记忆不丢）。
 
-### 5.3 启动 Code Executor（推荐，见 §6.2）
+### 5.3 Code Executor（默认已由 §5.1 启动）
+
+`start-dify-local.sh` 默认会把 Dify 的 `CODE_EXECUTION_ENDPOINT` 指向本仓库自带的 Code Executor
+（`http://127.0.0.1:8195`）。如果需要手动启动或换端口：
 
 ```bash
 KEY=$(sed -n 's/^CODE_EXECUTION_API_KEY=//p' .runtime/dify.env)
 CODE_EXECUTION_API_KEY="$KEY" CODE_EXECUTOR_PORT=8195 nohup python3 scripts/code_executor.py \
   >.runtime/code-executor.log 2>&1 &
-
-docker rm -f arcade-api
-docker run -d --name arcade-api --restart unless-stopped --network host \
-  --env-file .runtime/dify.env -e MODE=api -e SERVER_WORKER_AMOUNT=1 \
-  -e CODE_EXECUTION_ENDPOINT=http://127.0.0.1:8195 \
-  -v arcade-storage:/app/api/storage langgenius/dify-api:1.9.2
 ```
 
 > 如果你的 Dify Sandbox 一切正常（Linux 主机上官方沙箱可用），**可以跳过这一步**，
@@ -253,7 +253,13 @@ python3 scripts/verify.py             # 端到端：4 幕 + 玩家隔离 + 读�
 # 重启服务之后：
 python3 scripts/verify.py --resume   # 第 5 幕：证明记忆跨重启存活
 bash scripts/export-node-evidence.sh  # 从 Dify PostgreSQL 导出节点执行记录
+# 可选：网页截图（需要 pip install playwright；本机已装 Edge 时无需额外下载浏览器）
+python3 scripts/capture-ui.py
 ```
+
+从零复现（停掉全部服务后按 §5 的命令重来一遍）已在作者环境实测通过：
+`start-dify-local.sh` → `start-powercontext.sh` → `configure-local.py --initialize` → `verify.py` → `tests/test_rules.py`，
+每一步均返回成功。
 
 详细步骤、预期表现与实际输出见 **[VERIFICATION.md](VERIFICATION.md)**。
 
