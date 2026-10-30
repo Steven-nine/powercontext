@@ -19,6 +19,13 @@ minimax/
 - PowerContext Server（默认 `http://127.0.0.1:8000`）
 - MiniMax Code CLI（`mcode`，用于真实代码修改）
 
+安装 MiniMax Code 后把启动器加入 PATH，并登录一次：
+
+```bash
+export PATH="$HOME/.minimax-code/bin:$PATH"
+mcode login
+```
+
 本作品使用 seekdb 嵌入式模式（`pylibseekdb`），不需要单独部署数据库服务；PowerContext 只使用显式记忆能力，因此不需要配置生成或向量模型。
 
 ## 安装与启动
