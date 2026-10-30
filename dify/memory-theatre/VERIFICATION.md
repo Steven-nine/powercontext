@@ -132,10 +132,12 @@ python3 tests/test_rules.py
 `python3 scripts/serve.py` 后打开 <http://127.0.0.1:8787>：
 
 1. 右侧「记忆回执」面板实时显示幕次、信任/混乱/硬币、历史命中数、记忆空间 ID、记忆条目 ID、读回校验结果；
-2. 点击 `B 整蛊鸽子议会` → 页面出现门卫的回应，右侧回执出现 `art_…` 与 `读回校验 通过（1 条）`；
-3. 再点一次 `C 和门卫协商` → 台词里出现「翻起了旧账」，回执的「复用上一幕」变为「是」；
-4. 点「清空画面，保留记忆」→ 画面清空但身份不变，再点一次按钮仍能接着第 3 幕；
-5. 点「换个新身份」→ 重新回到「第 1 幕」，且历史命中数为 0（隔离生效）。
+2. 右侧「门卫的笔记本」列出**直接从 PowerContext 查回来的记忆条目**（`art_…` 条目 ID + 正文），
+   点「刷新」或每次行动后自动刷新——这里看到的就是数据库里真实存在的东西；
+3. 点击 `B 整蛊鸽子议会` → 页面出现门卫的回应，回执出现 `art_…` 与 `读回校验 通过（1 条）`；
+4. 再点一次 `C 和门卫协商` → 台词里出现「翻起了旧账」，回执的「复用上一幕」变为「是」；
+5. 点「清空画面，保留记忆」→ 画面清空但身份不变，再点一次按钮仍能接着第 3 幕；
+6. 点「换个新身份」→ 重新回到「第 1 幕」，且历史命中数为 0（隔离生效）。
 
 `GET /api/health` 返回 Dify 与 PowerContext 的连通性：
 
@@ -144,6 +146,18 @@ python3 tests/test_rules.py
  "dify": {"configured": true, "status": 200, "step": "finished"},
  "powerContext": {"url": "http://127.0.0.1:8124", "status": 200}}
 ```
+
+`GET /api/memories?playerId=<玩家标识>` 直接查 PowerContext 并返回条目列表（实测 5 条）：
+
+```json
+{"ok": true, "scope_id": "scp_7xsszncjzq8qr36w2h7q20qb8v", "mode": "text", "count": 5,
+ "entries": [{"artifact_id": "art_6321827520154aa7afe37d6aafcbe556", "revision": 1,
+              "kind": "decision", "state": "active",
+              "text": "记忆剧场\n{\"message\": \"A 调查移动的出口\", \"answer\": \"第 1 幕 · 荒诞城门…"}]}
+```
+
+页面截图见 `evidence/ui-desktop.png`（1440×1000）与 `evidence/ui-mobile.png`（390×844，
+无横向溢出），由 `scripts/capture-ui.py` 用 Playwright + 本机 Edge 真实操作生成，页面脚本报错数为 0。
 
 ## 9. 原始证据文件
 

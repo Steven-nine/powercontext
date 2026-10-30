@@ -16,6 +16,7 @@ import json
 import os
 import pathlib
 import urllib.error
+import urllib.parse
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -82,8 +83,19 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):  # noqa: N802
         path = self.path.split("?", 1)[0]
+        query = self.path.split("?", 1)[1] if "?" in self.path else ""
         if path in ("/", "/index.html"):
             self._send(200, (UI_DIR / "index.html").read_text(encoding="utf-8"), "text/html; charset=utf-8")
+            return
+        if path == "/api/memories":
+            player_id = ""
+            for part in query.split("&"):
+                if part.startswith("playerId="):
+                    player_id = urllib.parse.unquote(part.split("=", 1)[1])
+            if not player_id:
+                self._send(400, json.dumps({"error": "缺少 playerId"}, ensure_ascii=False))
+                return
+            self._send(200, json.dumps(self._memories(player_id), ensure_ascii=False))
             return
         if path == "/api/health":
             dify_status, dify_body = http_json("GET", DIFY_BASE + "/console/api/setup", timeout=10)
@@ -102,6 +114,48 @@ class Handler(BaseHTTPRequestHandler):
             )
             return
         self._send(404, json.dumps({"error": "not found"}, ensure_ascii=False))
+
+    def _memories(self, player_id):
+        """直接读 PowerContext：列出该玩家已经落库的记忆条目。"""
+        status, scope = http_json(
+            "POST",
+            PC_URL + "/v1/scopes",
+            {
+                "title": "记忆剧场 · " + player_id,
+                "summary": "一个玩家在记忆剧场里的全部幕次与记忆。",
+                "idempotency_key": "memory-theatre-" + player_id,
+            },
+        )
+        if status not in (200, 201) or not scope.get("scope_id"):
+            return {"ok": False, "error": "无法定位该玩家的记忆空间", "detail": scope}
+        scope_id = scope["scope_id"]
+        status, found = http_json(
+            "POST",
+            PC_URL + "/v1/memory/search",
+            {"scope_id": scope_id, "query": "记忆剧场", "limit": 50},
+        )
+        if status != 200:
+            return {"ok": False, "error": "PowerContext 检索失败", "detail": found}
+        entries = []
+        for item in found.get("hits", []):
+            memory = item.get("memory") or {}
+            artifact = memory.get("artifact") or {}
+            entries.append(
+                {
+                    "artifact_id": artifact.get("artifact_id"),
+                    "revision": artifact.get("revision"),
+                    "kind": memory.get("kind"),
+                    "state": memory.get("state"),
+                    "text": (memory.get("text") or "")[:400],
+                }
+            )
+        return {
+            "ok": True,
+            "scope_id": scope_id,
+            "mode": found.get("mode"),
+            "count": len(entries),
+            "entries": entries,
+        }
 
     def do_POST(self):  # noqa: N802
         path = self.path.split("?", 1)[0]

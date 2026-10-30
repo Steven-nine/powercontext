@@ -1,148 +1,11 @@
 {
   "runtime": "Dify 1.9.2 (langgenius/dify-api) + PostgreSQL 15",
   "source": "workflow_node_executions 表（只导出状态/耗时/截断的输入输出）",
-  "runCount": 6,
-  "nodeCount": 72,
+  "runCount": 8,
+  "nodeCount": 96,
   "runs": [
     {
-      "run_id": "2943a635-3665-4b94-aea3-edbc75c7bb49",
-      "nodes": [
-        {
-          "index": 12,
-          "node_id": "end",
-          "node_type": "end",
-          "title": "本幕剧情与记忆回执",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"answer\": \"\\u7b2c 5 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u518d\\u6b21\\u534f\\u5546\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u5708\\uff0c\\u53d1\\u73b0",
-          "outputs": "{\"answer\": \"\\u7b2c 5 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u518d\\u6b21\\u534f\\u5546\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u5708\\uff0c\\u53d1\\u73b0",
-          "error": ""
-        },
-        {
-          "index": 11,
-          "node_id": "receipt",
-          "node_type": "code",
-          "title": "生成记忆回执",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
-          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_1b11185352394b6c903dd83eded9f1ec\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 5, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 5, \\\"trust\\\": 6, \\\"chaos\\\": 1, \\\"coins\\\": 1, \\\"action_kind\\\": \\\"investigate\\\", \\\"cha",
-          "error": ""
-        },
-        {
-          "index": 10,
-          "node_id": "verify_read",
-          "node_type": "http-request",
-          "title": "读回校验本幕记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
-          "error": ""
-        },
-        {
-          "index": 9,
-          "node_id": "verify_req",
-          "node_type": "code",
-          "title": "校验写入结果",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_1b11185352394b6c903dd83eded9f1ec\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 5 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
-          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_1b11185352394b6c903dd83eded9f1ec\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
-          "error": ""
-        },
-        {
-          "index": 8,
-          "node_id": "remember",
-          "node_type": "http-request",
-          "title": "写入本幕记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_1b11185352394b6c903dd83eded9f1ec\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 5 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57c",
-          "error": ""
-        },
-        {
-          "index": 7,
-          "node_id": "remember_req",
-          "node_type": "code",
-          "title": "组装记忆写入请求",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"A \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\", \\\"answer\\\": \\\"\\u7b2c 5 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u518d\\u6b21\\u534f\\u5546\\u2019\\u3002\\\\n",
-          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 5 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7",
-          "error": ""
-        },
-        {
-          "index": 6,
-          "node_id": "rules",
-          "node_type": "code",
-          "title": "剧情规则引擎",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
-          "outputs": "{\"answer\": \"\\u7b2c 5 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u518d\\u6b21\\u534f\\u5546\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u5708\\uff0c\\u53d1\\u73b0",
-          "error": ""
-        },
-        {
-          "index": 5,
-          "node_id": "search",
-          "node_type": "http-request",
-          "title": "检索该玩家的历史记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
-          "error": ""
-        },
-        {
-          "index": 4,
-          "node_id": "scope_parse",
-          "node_type": "code",
-          "title": "取出 scope_id",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
-          "outputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
-          "error": ""
-        },
-        {
-          "index": 3,
-          "node_id": "scope_create",
-          "node_type": "http-request",
-          "title": "打开玩家记忆空间",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
-          "error": ""
-        },
-        {
-          "index": 2,
-          "node_id": "scope_req",
-          "node_type": "code",
-          "title": "准备记忆空间请求",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\"}",
-          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-61c0dbca\\\"}\"}",
-          "error": ""
-        },
-        {
-          "index": 1,
-          "node_id": "start",
-          "node_type": "start",
-          "title": "玩家输入",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"2943a635-3665-4b94-aea",
-          "outputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u91cd\\u542f\\u540e\\u4ecd\\u5728\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"2943a635-3665-4b94-aea",
-          "error": ""
-        }
-      ]
-    },
-    {
-      "run_id": "2e6647be-2512-4f8e-810b-90c4bfdb1adb",
+      "run_id": "c8954ff8-f86a-434f-b1bf-f6fc5800f3ba",
       "nodes": [
         {
           "index": 12,
@@ -162,8 +25,693 @@
           "title": "生成记忆回执",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_3524da030ad14f0c9b6d849da63a4f5b\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u66",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_6ptssjgvtn66r3k0mwghmrgtzd\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_3524da030ad14f0c9b6d849da63a4f5b\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 1, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 1, \\\"trust\\\": 0, \\\"chaos\\\": 1, \\\"coins\\\": 3, \\\"action_kind\\\": \\\"prank\\\", \\\"channel\\\"",
+          "error": ""
+        },
+        {
+          "index": 10,
+          "node_id": "verify_read",
+          "node_type": "http-request",
+          "title": "读回校验本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_3524da030ad14f0c9b6d849da63a4f5b\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u",
+          "error": ""
+        },
+        {
+          "index": 9,
+          "node_id": "verify_req",
+          "node_type": "code",
+          "title": "校验写入结果",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_3524da030ad14f0c9b6d849da63a4f5b\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_6ptssjgvtn66r3k0mwghmrgtzd\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_3524da030ad14f0c9b6d849da63a4f5b\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 8,
+          "node_id": "remember",
+          "node_type": "http-request",
+          "title": "写入本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_3524da030ad14f0c9b6d849da63a4f5b\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c",
+          "error": ""
+        },
+        {
+          "index": 7,
+          "node_id": "remember_req",
+          "node_type": "code",
+          "title": "组装记忆写入请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"scope_id\": \"scp_6ptssjgvtn66r3k0mwghmrgtzd\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\", \\\"answer\\\": \\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_6ptssjgvtn66r3k0mwghmrgtzd\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5",
+          "error": ""
+        },
+        {
+          "index": 6,
+          "node_id": "rules",
+          "node_type": "code",
+          "title": "剧情规则引擎",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"status_code\": 200, \"player_id\": \"theatre-isolated-259024b5\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\"}",
+          "outputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u7ed9\\u963f\\u94c1\\u7684\\u767b\\u8bb0\\u7c3f\\u",
+          "error": ""
+        },
+        {
+          "index": 5,
+          "node_id": "search",
+          "node_type": "http-request",
+          "title": "检索该玩家的历史记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"headers\": {\"date\": \"Fri, 30 Oct 2026 14:53:11 GMT\", \"server\": \"uvicorn\", \"content-length\": \"25\", \"content-type\": \"application/json\", \"x-powercontext-dream-contract\": \"2\", \"x-powercontext-request-id\": \"6c89d1e07c4e0bb6\"}, \"files\": []}",
+          "error": ""
+        },
+        {
+          "index": 4,
+          "node_id": "scope_parse",
+          "node_type": "code",
+          "title": "取出 scope_id",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_6ptssjgvtn66r3k0mwghmrgtzd\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-isolated-259024b5\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
+          "outputs": "{\"scope_id\": \"scp_6ptssjgvtn66r3k0mwghmrgtzd\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_6ptssjgvtn66r3k0mwghmrgtzd\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
+          "error": ""
+        },
+        {
+          "index": 3,
+          "node_id": "scope_create",
+          "node_type": "http-request",
+          "title": "打开玩家记忆空间",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_6ptssjgvtn66r3k0mwghmrgtzd\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-isolated-259024b5\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fr",
+          "error": ""
+        },
+        {
+          "index": 2,
+          "node_id": "scope_req",
+          "node_type": "code",
+          "title": "准备记忆空间请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-isolated-259024b5\"}",
+          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-isolated-259024b5\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-isolated-259024b5\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 1,
+          "node_id": "start",
+          "node_type": "start",
+          "title": "玩家输入",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-isolated-259024b5\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-isolated-259024b5\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"c8954ff8-f86a-434f-b1bf-f6fc5800f3ba\"}",
+          "outputs": "{\"player_id\": \"theatre-isolated-259024b5\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-isolated-259024b5\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"c8954ff8-f86a-434f-b1bf-f6fc5800f3ba\"}",
+          "error": ""
+        }
+      ]
+    },
+    {
+      "run_id": "9cba147e-76df-449e-996d-0125d57359bc",
+      "nodes": [
+        {
+          "index": 12,
+          "node_id": "end",
+          "node_type": "end",
+          "title": "本幕剧情与记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"answer\": \"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\u5546\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aC \\u518d\\u6b21\\u534f\\u5546\\n\\u4f60\\u538b\\u4f4e\\u58f0\\u97f3\\u95ee\\u95e8\\u536b\\u7684\\u5e95\\u7ebf\\uff0c\\u4ed6\\u54b3\\u4e86\\u4e00\\u58f0\\uff1a\\u201c",
+          "outputs": "{\"answer\": \"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\u5546\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aC \\u518d\\u6b21\\u534f\\u5546\\n\\u4f60\\u538b\\u4f4e\\u58f0\\u97f3\\u95ee\\u95e8\\u536b\\u7684\\u5e95\\u7ebf\\uff0c\\u4ed6\\u54b3\\u4e86\\u4e00\\u58f0\\uff1a\\u201c",
+          "error": ""
+        },
+        {
+          "index": 11,
+          "node_id": "receipt",
+          "node_type": "code",
+          "title": "生成记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_6ba65beb679c4eab902a03f664e03bdc\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 4, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 4, \\\"trust\\\": 5, \\\"chaos\\\": 1, \\\"coins\\\": 1, \\\"action_kind\\\": \\\"negotiate\\\", \\\"chann",
+          "error": ""
+        },
+        {
+          "index": 10,
+          "node_id": "verify_read",
+          "node_type": "http-request",
+          "title": "读回校验本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "error": ""
+        },
+        {
+          "index": 9,
+          "node_id": "verify_req",
+          "node_type": "code",
+          "title": "校验写入结果",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6ba65beb679c4eab902a03f664e03bdc\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_6ba65beb679c4eab902a03f664e03bdc\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 8,
+          "node_id": "remember",
+          "node_type": "http-request",
+          "title": "写入本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6ba65beb679c4eab902a03f664e03bdc\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f",
+          "error": ""
+        },
+        {
+          "index": 7,
+          "node_id": "remember_req",
+          "node_type": "code",
+          "title": "组装记忆写入请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"C \\u518d\\u6b21\\u534f\\u5546\\\", \\\"answer\\\": \\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\u5546\\u2019\\u3002\\\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aC \\u5",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\",
+          "error": ""
+        },
+        {
+          "index": 6,
+          "node_id": "rules",
+          "node_type": "code",
+          "title": "剧情规则引擎",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
+          "outputs": "{\"answer\": \"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\u5546\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aC \\u518d\\u6b21\\u534f\\u5546\\n\\u4f60\\u538b\\u4f4e\\u58f0\\u97f3\\u95ee\\u95e8\\u536b\\u7684\\u5e95\\u7ebf\\uff0c\\u4ed6\\u54b3\\u4e86\\u4e00\\u58f0\\uff1a\\u201c",
+          "error": ""
+        },
+        {
+          "index": 5,
+          "node_id": "search",
+          "node_type": "http-request",
+          "title": "检索该玩家的历史记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "error": ""
+        },
+        {
+          "index": 4,
+          "node_id": "scope_parse",
+          "node_type": "code",
+          "title": "取出 scope_id",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
+          "outputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
+          "error": ""
+        },
+        {
+          "index": 3,
+          "node_id": "scope_create",
+          "node_type": "http-request",
+          "title": "打开玩家记忆空间",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
+          "error": ""
+        },
+        {
+          "index": 2,
+          "node_id": "scope_req",
+          "node_type": "code",
+          "title": "准备记忆空间请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\"}",
+          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-ca2a3248\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 1,
+          "node_id": "start",
+          "node_type": "start",
+          "title": "玩家输入",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u518d\\u6b21\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"9cba147e-76df-449e-996d-0125d57359bc\"}",
+          "outputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u518d\\u6b21\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"9cba147e-76df-449e-996d-0125d57359bc\"}",
+          "error": ""
+        }
+      ]
+    },
+    {
+      "run_id": "83e2c90b-fe2d-43a2-a55c-e27170ecac59",
+      "nodes": [
+        {
+          "index": 12,
+          "node_id": "end",
+          "node_type": "end",
+          "title": "本幕剧情与记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"answer\": \"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb\\u8d77\\u4e86\\u65e7\\u8d26\\uff1a\\u2018\\u4e0a\\u56de\\u4f60\\u5e72\\u7684\\u90a3\\u4e8b\\u2014\\u2014B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2014\\u2014\\u6",
+          "outputs": "{\"answer\": \"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb\\u8d77\\u4e86\\u65e7\\u8d26\\uff1a\\u2018\\u4e0a\\u56de\\u4f60\\u5e72\\u7684\\u90a3\\u4e8b\\u2014\\u2014B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2014\\u2014\\u6",
+          "error": ""
+        },
+        {
+          "index": 11,
+          "node_id": "receipt",
+          "node_type": "code",
+          "title": "生成记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_357200ce113f4e3281e3bbb3acae6ca5\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 3, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 3, \\\"trust\\\": 3, \\\"chaos\\\": 1, \\\"coins\\\": 2, \\\"action_kind\\\": \\\"negotiate\\\", \\\"chann",
+          "error": ""
+        },
+        {
+          "index": 10,
+          "node_id": "verify_read",
+          "node_type": "http-request",
+          "title": "读回校验本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "error": ""
+        },
+        {
+          "index": 9,
+          "node_id": "verify_req",
+          "node_type": "code",
+          "title": "校验写入结果",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_357200ce113f4e3281e3bbb3acae6ca5\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_357200ce113f4e3281e3bbb3acae6ca5\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 8,
+          "node_id": "remember",
+          "node_type": "http-request",
+          "title": "写入本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_357200ce113f4e3281e3bbb3acae6ca5\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b",
+          "error": ""
+        },
+        {
+          "index": 7,
+          "node_id": "remember_req",
+          "node_type": "code",
+          "title": "组装记忆写入请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\", \\\"answer\\\": \\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\",
+          "error": ""
+        },
+        {
+          "index": 6,
+          "node_id": "rules",
+          "node_type": "code",
+          "title": "剧情规则引擎",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
+          "outputs": "{\"answer\": \"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb\\u8d77\\u4e86\\u65e7\\u8d26\\uff1a\\u2018\\u4e0a\\u56de\\u4f60\\u5e72\\u7684\\u90a3\\u4e8b\\u2014\\u2014B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2014\\u2014\\u6",
+          "error": ""
+        },
+        {
+          "index": 5,
+          "node_id": "search",
+          "node_type": "http-request",
+          "title": "检索该玩家的历史记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "error": ""
+        },
+        {
+          "index": 4,
+          "node_id": "scope_parse",
+          "node_type": "code",
+          "title": "取出 scope_id",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
+          "outputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
+          "error": ""
+        },
+        {
+          "index": 3,
+          "node_id": "scope_create",
+          "node_type": "http-request",
+          "title": "打开玩家记忆空间",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
+          "error": ""
+        },
+        {
+          "index": 2,
+          "node_id": "scope_req",
+          "node_type": "code",
+          "title": "准备记忆空间请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\"}",
+          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-ca2a3248\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 1,
+          "node_id": "start",
+          "node_type": "start",
+          "title": "玩家输入",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u548c\\u95e8\\u536b\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"83e2c90b-fe2d-43a2-a55c-e27170ecac59\"}",
+          "outputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u548c\\u95e8\\u536b\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"83e2c90b-fe2d-43a2-a55c-e27170ecac59\"}",
+          "error": ""
+        }
+      ]
+    },
+    {
+      "run_id": "2093ded3-f62b-44f5-bc1b-52143cb492c9",
+      "nodes": [
+        {
+          "index": 12,
+          "node_id": "end",
+          "node_type": "end",
+          "title": "本幕剧情与记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u628a\\u963f\\u94c1\\u7684\\u5e3d\\u5b50\\u6302\\u5230\\u4e86\\u9e3d\\u5b50\\u8bae\\u4f1a\\u7684",
+          "outputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u628a\\u963f\\u94c1\\u7684\\u5e3d\\u5b50\\u6302\\u5230\\u4e86\\u9e3d\\u5b50\\u8bae\\u4f1a\\u7684",
+          "error": ""
+        },
+        {
+          "index": 11,
+          "node_id": "receipt",
+          "node_type": "code",
+          "title": "生成记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_ff8c993274c34d10aa31d33c98fbd13e\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 2, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 2, \\\"trust\\\": 1, \\\"chaos\\\": 1, \\\"coins\\\": 3, \\\"action_kind\\\": \\\"prank\\\", \\\"channel\\\"",
+          "error": ""
+        },
+        {
+          "index": 10,
+          "node_id": "verify_read",
+          "node_type": "http-request",
+          "title": "读回校验本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "error": ""
+        },
+        {
+          "index": 9,
+          "node_id": "verify_req",
+          "node_type": "code",
+          "title": "校验写入结果",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_ff8c993274c34d10aa31d33c98fbd13e\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_ff8c993274c34d10aa31d33c98fbd13e\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 8,
+          "node_id": "remember",
+          "node_type": "http-request",
+          "title": "写入本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_ff8c993274c34d10aa31d33c98fbd13e\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8",
+          "error": ""
+        },
+        {
+          "index": 7,
+          "node_id": "remember_req",
+          "node_type": "code",
+          "title": "组装记忆写入请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\", \\\"answer\\\": \\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\\\n\\u25b8 \\u4f60\\u768",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\",
+          "error": ""
+        },
+        {
+          "index": 6,
+          "node_id": "rules",
+          "node_type": "code",
+          "title": "剧情规则引擎",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
+          "outputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u628a\\u963f\\u94c1\\u7684\\u5e3d\\u5b50\\u6302\\u5230\\u4e86\\u9e3d\\u5b50\\u8bae\\u4f1a\\u7684",
+          "error": ""
+        },
+        {
+          "index": 5,
+          "node_id": "search",
+          "node_type": "http-request",
+          "title": "检索该玩家的历史记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "error": ""
+        },
+        {
+          "index": 4,
+          "node_id": "scope_parse",
+          "node_type": "code",
+          "title": "取出 scope_id",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
+          "outputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
+          "error": ""
+        },
+        {
+          "index": 3,
+          "node_id": "scope_create",
+          "node_type": "http-request",
+          "title": "打开玩家记忆空间",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
+          "error": ""
+        },
+        {
+          "index": 2,
+          "node_id": "scope_req",
+          "node_type": "code",
+          "title": "准备记忆空间请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\"}",
+          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-ca2a3248\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 1,
+          "node_id": "start",
+          "node_type": "start",
+          "title": "玩家输入",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"2093ded3-f62b-44f5-bc1b-52143cb492c9\"}",
+          "outputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"2093ded3-f62b-44f5-bc1b-52143cb492c9\"}",
+          "error": ""
+        }
+      ]
+    },
+    {
+      "run_id": "8abbd46e-19e0-46e1-ae35-0a943b3a71de",
+      "nodes": [
+        {
+          "index": 12,
+          "node_id": "end",
+          "node_type": "end",
+          "title": "本幕剧情与记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u",
+          "outputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u",
+          "error": ""
+        },
+        {
+          "index": 11,
+          "node_id": "receipt",
+          "node_type": "code",
+          "title": "生成记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_167d299a617143aeab21db31ebfc86d7\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 1, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 1, \\\"trust\\\": 1, \\\"chaos\\\": 0, \\\"coins\\\": 3, \\\"action_kind\\\": \\\"investigate\\\", \\\"cha",
+          "error": ""
+        },
+        {
+          "index": 10,
+          "node_id": "verify_read",
+          "node_type": "http-request",
+          "title": "读回校验本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "error": ""
+        },
+        {
+          "index": 9,
+          "node_id": "verify_req",
+          "node_type": "code",
+          "title": "校验写入结果",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_167d299a617143aeab21db31ebfc86d7\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 8,
+          "node_id": "remember",
+          "node_type": "http-request",
+          "title": "写入本幕记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_167d299a617143aeab21db31ebfc86d7\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c",
+          "error": ""
+        },
+        {
+          "index": 7,
+          "node_id": "remember_req",
+          "node_type": "code",
+          "title": "组装记忆写入请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\", \\\"answer\\\": \\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5",
+          "error": ""
+        },
+        {
+          "index": 6,
+          "node_id": "rules",
+          "node_type": "code",
+          "title": "剧情规则引擎",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"status_code\": 200, \"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\"}",
+          "outputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u",
+          "error": ""
+        },
+        {
+          "index": 5,
+          "node_id": "search",
+          "node_type": "http-request",
+          "title": "检索该玩家的历史记忆",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"headers\": {\"date\": \"Fri, 30 Oct 2026 14:53:09 GMT\", \"server\": \"uvicorn\", \"content-length\": \"25\", \"content-type\": \"application/json\", \"x-powercontext-dream-contract\": \"2\", \"x-powercontext-request-id\": \"5f20637071bbb2b0\"}, \"files\": []}",
+          "error": ""
+        },
+        {
+          "index": 4,
+          "node_id": "scope_parse",
+          "node_type": "code",
+          "title": "取出 scope_id",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
+          "outputs": "{\"scope_id\": \"scp_68bs5nvdrntv7z2421hqvpbjnc\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
+          "error": ""
+        },
+        {
+          "index": 3,
+          "node_id": "scope_create",
+          "node_type": "http-request",
+          "title": "打开玩家记忆空间",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{}",
+          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_68bs5nvdrntv7z2421hqvpbjnc\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
+          "error": ""
+        },
+        {
+          "index": 2,
+          "node_id": "scope_req",
+          "node_type": "code",
+          "title": "准备记忆空间请求",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\"}",
+          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-ca2a3248\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-ca2a3248\\\"}\"}",
+          "error": ""
+        },
+        {
+          "index": 1,
+          "node_id": "start",
+          "node_type": "start",
+          "title": "玩家输入",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"8abbd46e-19e0-46e1-ae35-0a943b3a71de\"}",
+          "outputs": "{\"player_id\": \"theatre-player-ca2a3248\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-ca2a3248\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"8abbd46e-19e0-46e1-ae35-0a943b3a71de\"}",
+          "error": ""
+        }
+      ]
+    },
+    {
+      "run_id": "5ebf6d24-da96-4eb0-8022-f2fc7536542c",
+      "nodes": [
+        {
+          "index": 12,
+          "node_id": "end",
+          "node_type": "end",
+          "title": "本幕剧情与记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
+          "inputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u8def\\u4eba\\u7532\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb\\u8d77\\u4e86\\u65e7\\u8d26\\uff1a\\u2018\\u4e0a\\u56de\\u4f60\\u5e72\\u7684\\u90a3\\u4e8b\\u2014\\u2014B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2014\\u2",
+          "outputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u8def\\u4eba\\u7532\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb\\u8d77\\u4e86\\u65e7\\u8d26\\uff1a\\u2018\\u4e0a\\u56de\\u4f60\\u5e72\\u7684\\u90a3\\u4e8b\\u2014\\u2014B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2014\\u2",
+          "error": ""
+        },
+        {
+          "index": 11,
+          "node_id": "receipt",
+          "node_type": "code",
+          "title": "生成记忆回执",
+          "status": "succeeded",
+          "elapsed_seconds": 0.0,
           "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_133840efd0c3495ab3b7ff21b06de0a1\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u66",
-          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_28mc7v7damnzvdrhsyrgnz8xxr\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_133840efd0c3495ab3b7ff21b06de0a1\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 1, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 1, \\\"trust\\\": 0, \\\"chaos\\\": 1, \\\"coins\\\": 3, \\\"action_kind\\\": \\\"prank\\\", \\\"channel\\\"",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_28mc7v7damnzvdrhsyrgnz8xxr\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_f2a26cf4a0184a46a2e3dd5085dfc981\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 2, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 2, \\\"trust\\\": 0, \\\"chaos\\\": 2, \\\"coins\\\": 3, \\\"action_kind\\\": \\\"prank\\\", \\\"channel\\\"",
           "error": ""
         },
         {
@@ -184,8 +732,8 @@
           "title": "校验写入结果",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_133840efd0c3495ab3b7ff21b06de0a1\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u",
-          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_28mc7v7damnzvdrhsyrgnz8xxr\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_133840efd0c3495ab3b7ff21b06de0a1\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_f2a26cf4a0184a46a2e3dd5085dfc981\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u95e8\\u536b\\u963f\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_28mc7v7damnzvdrhsyrgnz8xxr\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_f2a26cf4a0184a46a2e3dd5085dfc981\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
           "error": ""
         },
         {
@@ -196,7 +744,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_133840efd0c3495ab3b7ff21b06de0a1\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_f2a26cf4a0184a46a2e3dd5085dfc981\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c",
           "error": ""
         },
         {
@@ -206,8 +754,8 @@
           "title": "组装记忆写入请求",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"scope_id\": \"scp_28mc7v7damnzvdrhsyrgnz8xxr\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\", \\\"answer\\\": \\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb",
-          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_28mc7v7damnzvdrhsyrgnz8xxr\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5",
+          "inputs": "{\"scope_id\": \"scp_28mc7v7damnzvdrhsyrgnz8xxr\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\", \\\"answer\\\": \\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\\\n\\u800c\\u4e14\\u963f",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_28mc7v7damnzvdrhsyrgnz8xxr\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\",
           "error": ""
         },
         {
@@ -217,8 +765,8 @@
           "title": "剧情规则引擎",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"status_code\": 200, \"player_id\": \"theatre-player-isolated\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\"}",
-          "outputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u8def\\u4eba\\u7532\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u7ed9\\u963f\\u94c1\\u7684\\u767b\\u8bb0\\u7c3f\\u",
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_133840efd0c3495ab3b7ff21b06de0a1\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u7532\\uff0c\\u8",
+          "outputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u8def\\u4eba\\u7532\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb\\u8d77\\u4e86\\u65e7\\u8d26\\uff1a\\u2018\\u4e0a\\u56de\\u4f60\\u5e72\\u7684\\u90a3\\u4e8b\\u2014\\u2014B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2014\\u2",
           "error": ""
         },
         {
@@ -229,7 +777,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"headers\": {\"date\": \"Fri, 30 Oct 2026 14:46:45 GMT\", \"server\": \"uvicorn\", \"content-length\": \"25\", \"content-type\": \"application/json\", \"x-powercontext-dream-contract\": \"2\", \"x-powercontext-request-id\": \"b5fffbac12fee971\"}, \"files\": []}",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_133840efd0c3495ab3b7ff21b06de0a1\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u8def\\u4eba\\u",
           "error": ""
         },
         {
@@ -272,14 +820,14 @@
           "title": "玩家输入",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-isolated\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-isolated\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"2e6647be-2512-4f8e-810b-90c4bfdb1adb\"}",
-          "outputs": "{\"player_id\": \"theatre-player-isolated\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-isolated\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"2e6647be-2512-4f8e-810b-90c4bfdb1adb\"}",
+          "inputs": "{\"player_id\": \"theatre-player-isolated\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-isolated\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"5ebf6d24-da96-4eb0-8022-f2fc7536542c\"}",
+          "outputs": "{\"player_id\": \"theatre-player-isolated\", \"player_name\": \"\\u8def\\u4eba\\u7532\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-isolated\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"5ebf6d24-da96-4eb0-8022-f2fc7536542c\"}",
           "error": ""
         }
       ]
     },
     {
-      "run_id": "93ff6c88-b05e-49e5-b98d-6abe63ba0dbf",
+      "run_id": "7d9d80a9-039c-4d0e-800c-9fda976cfae1",
       "nodes": [
         {
           "index": 12,
@@ -299,8 +847,8 @@
           "title": "生成记忆回执",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
-          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_58644af21cf44800b8f9c3897d0f0174\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 4, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 4, \\\"trust\\\": 5, \\\"chaos\\\": 1, \\\"coins\\\": 1, \\\"action_kind\\\": \\\"negotiate\\\", \\\"chann",
+          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_e0d6fc01a44140ce8ba3af7691e06028\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 4, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 4, \\\"trust\\\": 5, \\\"chaos\\\": 1, \\\"coins\\\": 1, \\\"action_kind\\\": \\\"negotiate\\\", \\\"chann",
           "error": ""
         },
         {
@@ -311,7 +859,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
           "error": ""
         },
         {
@@ -321,8 +869,8 @@
           "title": "校验写入结果",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_58644af21cf44800b8f9c3897d0f0174\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u",
-          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_58644af21cf44800b8f9c3897d0f0174\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_e0d6fc01a44140ce8ba3af7691e06028\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_e0d6fc01a44140ce8ba3af7691e06028\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
           "error": ""
         },
         {
@@ -333,7 +881,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_58644af21cf44800b8f9c3897d0f0174\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_e0d6fc01a44140ce8ba3af7691e06028\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f",
           "error": ""
         },
         {
@@ -343,8 +891,8 @@
           "title": "组装记忆写入请求",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"C \\u518d\\u6b21\\u534f\\u5546\\\", \\\"answer\\\": \\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\u5546\\u2019\\u3002\\\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aC \\u5",
-          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\",
+          "inputs": "{\"scope_id\": \"scp_7bbr7sm0xn8a7c9z45e4gz2atz\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"C \\u518d\\u6b21\\u534f\\u5546\\\", \\\"answer\\\": \\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\u5546\\u2019\\u3002\\\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aC \\u5",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u518d\\u6b21\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\",
           "error": ""
         },
         {
@@ -354,7 +902,7 @@
           "title": "剧情规则引擎",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
           "outputs": "{\"answer\": \"\\u7b2c 4 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018C \\u548c\\u95e8\\u536b\\u534f\\u5546\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aC \\u518d\\u6b21\\u534f\\u5546\\n\\u4f60\\u538b\\u4f4e\\u58f0\\u97f3\\u95ee\\u95e8\\u536b\\u7684\\u5e95\\u7ebf\\uff0c\\u4ed6\\u54b3\\u4e86\\u4e00\\u58f0\\uff1a\\u201c",
           "error": ""
         },
@@ -366,7 +914,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
           "error": ""
         },
         {
@@ -376,8 +924,8 @@
           "title": "取出 scope_id",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
-          "outputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
+          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-b3eff52d\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
+          "outputs": "{\"scope_id\": \"scp_7bbr7sm0xn8a7c9z45e4gz2atz\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
           "error": ""
         },
         {
@@ -388,7 +936,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
+          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-b3eff52d\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
           "error": ""
         },
         {
@@ -398,8 +946,8 @@
           "title": "准备记忆空间请求",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\"}",
-          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-61c0dbca\\\"}\"}",
+          "inputs": "{\"player_id\": \"theatre-player-b3eff52d\"}",
+          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-b3eff52d\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-b3eff52d\\\"}\"}",
           "error": ""
         },
         {
@@ -409,14 +957,14 @@
           "title": "玩家输入",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u518d\\u6b21\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"93ff6c88-b05e-49e5-b98d-6abe63ba0dbf\"}",
-          "outputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u518d\\u6b21\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"93ff6c88-b05e-49e5-b98d-6abe63ba0dbf\"}",
+          "inputs": "{\"player_id\": \"theatre-player-b3eff52d\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u518d\\u6b21\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-b3eff52d\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"7d9d80a9-039c-4d0e-800c-9fda976cfae1\"}",
+          "outputs": "{\"player_id\": \"theatre-player-b3eff52d\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u518d\\u6b21\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-b3eff52d\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"7d9d80a9-039c-4d0e-800c-9fda976cfae1\"}",
           "error": ""
         }
       ]
     },
     {
-      "run_id": "6467a507-0f25-4dc9-9884-da19daf23f56",
+      "run_id": "de111d27-ac73-4c12-bc35-5ab9e8eab10b",
       "nodes": [
         {
           "index": 12,
@@ -436,8 +984,8 @@
           "title": "生成记忆回执",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
-          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_2a8f8e94ac64402da515af389bde4ad8\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 3, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 3, \\\"trust\\\": 3, \\\"chaos\\\": 1, \\\"coins\\\": 2, \\\"action_kind\\\": \\\"negotiate\\\", \\\"chann",
+          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
+          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_7fc6936b428246d58e607c7ced788bb8\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 3, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 3, \\\"trust\\\": 3, \\\"chaos\\\": 1, \\\"coins\\\": 2, \\\"action_kind\\\": \\\"negotiate\\\", \\\"chann",
           "error": ""
         },
         {
@@ -448,7 +996,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
           "error": ""
         },
         {
@@ -458,8 +1006,8 @@
           "title": "校验写入结果",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_2a8f8e94ac64402da515af389bde4ad8\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u",
-          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_2a8f8e94ac64402da515af389bde4ad8\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
+          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7fc6936b428246d58e607c7ced788bb8\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u",
+          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_7fc6936b428246d58e607c7ced788bb8\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
           "error": ""
         },
         {
@@ -470,7 +1018,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_2a8f8e94ac64402da515af389bde4ad8\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7fc6936b428246d58e607c7ced788bb8\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b",
           "error": ""
         },
         {
@@ -480,8 +1028,8 @@
           "title": "组装记忆写入请求",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\", \\\"answer\\\": \\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb",
-          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\",
+          "inputs": "{\"scope_id\": \"scp_7bbr7sm0xn8a7c9z45e4gz2atz\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\", \\\"answer\\\": \\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb",
+          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"C \\u548c\\u95e8\\u536b\\u534f\\u5546\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\",
           "error": ""
         },
         {
@@ -491,7 +1039,7 @@
           "title": "剧情规则引擎",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
+          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
           "outputs": "{\"answer\": \"\\u7b2c 3 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2019\\u3002\\n\\u800c\\u4e14\\u963f\\u94c1\\u7ffb\\u8d77\\u4e86\\u65e7\\u8d26\\uff1a\\u2018\\u4e0a\\u56de\\u4f60\\u5e72\\u7684\\u90a3\\u4e8b\\u2014\\u2014B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\u2014\\u2014\\u6",
           "error": ""
         },
@@ -503,7 +1051,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
+          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_7b6612a2d4bd4dcab842c5f8cbac3645\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
           "error": ""
         },
         {
@@ -513,8 +1061,8 @@
           "title": "取出 scope_id",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
-          "outputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
+          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-b3eff52d\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
+          "outputs": "{\"scope_id\": \"scp_7bbr7sm0xn8a7c9z45e4gz2atz\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
           "error": ""
         },
         {
@@ -525,7 +1073,7 @@
           "status": "succeeded",
           "elapsed_seconds": 0.0,
           "inputs": "{}",
-          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
+          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_7bbr7sm0xn8a7c9z45e4gz2atz\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-b3eff52d\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
           "error": ""
         },
         {
@@ -535,8 +1083,8 @@
           "title": "准备记忆空间请求",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\"}",
-          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-61c0dbca\\\"}\"}",
+          "inputs": "{\"player_id\": \"theatre-player-b3eff52d\"}",
+          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-b3eff52d\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-b3eff52d\\\"}\"}",
           "error": ""
         },
         {
@@ -546,282 +1094,8 @@
           "title": "玩家输入",
           "status": "succeeded",
           "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u548c\\u95e8\\u536b\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"6467a507-0f25-4dc9-9884-da19daf23f56\"}",
-          "outputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u548c\\u95e8\\u536b\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"6467a507-0f25-4dc9-9884-da19daf23f56\"}",
-          "error": ""
-        }
-      ]
-    },
-    {
-      "run_id": "1eef26da-814f-4b51-bd4a-9bd3c34a8444",
-      "nodes": [
-        {
-          "index": 12,
-          "node_id": "end",
-          "node_type": "end",
-          "title": "本幕剧情与记忆回执",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u628a\\u963f\\u94c1\\u7684\\u5e3d\\u5b50\\u6302\\u5230\\u4e86\\u9e3d\\u5b50\\u8bae\\u4f1a\\u7684",
-          "outputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u628a\\u963f\\u94c1\\u7684\\u5e3d\\u5b50\\u6302\\u5230\\u4e86\\u9e3d\\u5b50\\u8bae\\u4f1a\\u7684",
-          "error": ""
-        },
-        {
-          "index": 11,
-          "node_id": "receipt",
-          "node_type": "code",
-          "title": "生成记忆回执",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
-          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_a94b81b9b98a418fb35c32f7315fbd1c\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 2, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 2, \\\"trust\\\": 1, \\\"chaos\\\": 1, \\\"coins\\\": 3, \\\"action_kind\\\": \\\"prank\\\", \\\"channel\\\"",
-          "error": ""
-        },
-        {
-          "index": 10,
-          "node_id": "verify_read",
-          "node_type": "http-request",
-          "title": "读回校验本幕记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
-          "error": ""
-        },
-        {
-          "index": 9,
-          "node_id": "verify_req",
-          "node_type": "code",
-          "title": "校验写入结果",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_a94b81b9b98a418fb35c32f7315fbd1c\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u",
-          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_a94b81b9b98a418fb35c32f7315fbd1c\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
-          "error": ""
-        },
-        {
-          "index": 8,
-          "node_id": "remember",
-          "node_type": "http-request",
-          "title": "写入本幕记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_a94b81b9b98a418fb35c32f7315fbd1c\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8",
-          "error": ""
-        },
-        {
-          "index": 7,
-          "node_id": "remember_req",
-          "node_type": "code",
-          "title": "组装记忆写入请求",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\", \\\"answer\\\": \\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\\\n\\u25b8 \\u4f60\\u768",
-          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\",
-          "error": ""
-        },
-        {
-          "index": 6,
-          "node_id": "rules",
-          "node_type": "code",
-          "title": "剧情规则引擎",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8",
-          "outputs": "{\"answer\": \"\\u7b2c 2 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u95e8\\u536b\\u963f\\u94c1\\u8fd8\\u8bb0\\u5f97\\u4f60\\u4e0a\\u4e00\\u5e55\\u5e72\\u7684\\u4e8b\\uff1a\\u2018A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\u2019\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aB \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\\n\\u4f60\\u628a\\u963f\\u94c1\\u7684\\u5e3d\\u5b50\\u6302\\u5230\\u4e86\\u9e3d\\u5b50\\u8bae\\u4f1a\\u7684",
-          "error": ""
-        },
-        {
-          "index": 5,
-          "node_id": "search",
-          "node_type": "http-request",
-          "title": "检索该玩家的历史记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
-          "error": ""
-        },
-        {
-          "index": 4,
-          "node_id": "scope_parse",
-          "node_type": "code",
-          "title": "取出 scope_id",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
-          "outputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
-          "error": ""
-        },
-        {
-          "index": 3,
-          "node_id": "scope_create",
-          "node_type": "http-request",
-          "title": "打开玩家记忆空间",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
-          "error": ""
-        },
-        {
-          "index": 2,
-          "node_id": "scope_req",
-          "node_type": "code",
-          "title": "准备记忆空间请求",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\"}",
-          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-61c0dbca\\\"}\"}",
-          "error": ""
-        },
-        {
-          "index": 1,
-          "node_id": "start",
-          "node_type": "start",
-          "title": "玩家输入",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"1eef26da-814f-4b51-bd4a-9bd3c34a8444\"}",
-          "outputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"B \\u6574\\u86ca\\u9e3d\\u5b50\\u8bae\\u4f1a\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"1eef26da-814f-4b51-bd4a-9bd3c34a8444\"}",
-          "error": ""
-        }
-      ]
-    },
-    {
-      "run_id": "5875b4bd-c2f8-4ba9-b1d2-8b486ed104c8",
-      "nodes": [
-        {
-          "index": 12,
-          "node_id": "end",
-          "node_type": "end",
-          "title": "本幕剧情与记忆回执",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u",
-          "outputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u",
-          "error": ""
-        },
-        {
-          "index": 11,
-          "node_id": "receipt",
-          "node_type": "code",
-          "title": "生成记忆回执",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u66",
-          "outputs": "{\"receipt\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"memory_artifact\\\": {\\\"artifact_id\\\": \\\"art_6321827520154aa7afe37d6aafcbe556\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}, \\\"read_back_hits\\\": 1, \\\"read_back_verified\\\": true, \\\"round\\\": {\\\"turn\\\": 1, \\\"trust\\\": 1, \\\"chaos\\\": 0, \\\"coins\\\": 3, \\\"action_kind\\\": \\\"investigate\\\", \\\"cha",
-          "error": ""
-        },
-        {
-          "index": 10,
-          "node_id": "verify_read",
-          "node_type": "http-request",
-          "title": "读回校验本幕记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[{\\\"memory\\\":{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u",
-          "error": ""
-        },
-        {
-          "index": 9,
-          "node_id": "verify_req",
-          "node_type": "code",
-          "title": "校验写入结果",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u",
-          "outputs": "{\"verify_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 10}\", \"saved\": \"{\\\"artifact_id\\\": \\\"art_6321827520154aa7afe37d6aafcbe556\\\", \\\"revision\\\": 1, \\\"family\\\": \\\"atomic-memory\\\", \\\"kind\\\": \\\"decision\\\", \\\"state\\\": \\\"active\\\"}\"}",
-          "error": ""
-        },
-        {
-          "index": 8,
-          "node_id": "remember",
-          "node_type": "http-request",
-          "title": "写入本幕记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"changed\\\":true,\\\"records\\\":[{\\\"artifact\\\":{\\\"family\\\":\\\"atomic-memory\\\",\\\"artifact_id\\\":\\\"art_6321827520154aa7afe37d6aafcbe556\\\",\\\"revision\\\":1},\\\"kind\\\":\\\"decision\\\",\\\"text\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c",
-          "error": ""
-        },
-        {
-          "index": 7,
-          "node_id": "remember_req",
-          "node_type": "code",
-          "title": "组装记忆写入请求",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"save_text\": \"\\u8bb0\\u5fc6\\u5267\\u573a\\n{\\\"message\\\": \\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\", \\\"answer\\\": \\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb",
-          "outputs": "{\"remember_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"kind\\\": \\\"decision\\\", \\\"text\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\\n{\\\\\\\"message\\\\\\\": \\\\\\\"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\\\\\\", \\\\\\\"answer\\\\\\\": \\\\\\\"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\\\\\\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5",
-          "error": ""
-        },
-        {
-          "index": 6,
-          "node_id": "rules",
-          "node_type": "code",
-          "title": "剧情规则引擎",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"search_json\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"status_code\": 200, \"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\"}",
-          "outputs": "{\"answer\": \"\\u7b2c 1 \\u5e55 \\u00b7 \\u8352\\u8bde\\u57ce\\u95e8\\n\\u963f\\u821f\\uff0c\\u8fd9\\u662f\\u4f60\\u4eec\\u7b2c\\u4e00\\u6b21\\u89c1\\u9762\\uff0c\\u963f\\u94c1\\u628a\\u4f60\\u7684\\u540d\\u5b57\\u5199\\u5728\\u4e86\\u4f1a\\u81ea\\u5df1\\u9003\\u8dd1\\u7684\\u767b\\u8bb0\\u7c3f\\u4e0a\\u3002\\n\\u25b8 \\u4f60\\u7684\\u884c\\u52a8\\uff1aA \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\\n\\u4f60\\u6cbf\\u7740\\u5899\\u6839\\u8d70\\u4e86\\u4e00\\u",
-          "error": ""
-        },
-        {
-          "index": 5,
-          "node_id": "search",
-          "node_type": "http-request",
-          "title": "检索该玩家的历史记忆",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 200, \"body\": \"{\\\"mode\\\":\\\"text\\\",\\\"hits\\\":[]}\", \"headers\": {\"date\": \"Fri, 30 Oct 2026 14:46:42 GMT\", \"server\": \"uvicorn\", \"content-length\": \"25\", \"content-type\": \"application/json\", \"x-powercontext-dream-contract\": \"2\", \"x-powercontext-request-id\": \"2328a5cdc7245673\"}, \"files\": []}",
-          "error": ""
-        },
-        {
-          "index": 4,
-          "node_id": "scope_parse",
-          "node_type": "code",
-          "title": "取出 scope_id",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"status_code\": 201}",
-          "outputs": "{\"scope_id\": \"scp_7xsszncjzq8qr36w2h7q20qb8v\", \"search_body\": \"{\\\"scope_id\\\": \\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\", \\\"query\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a\\\", \\\"limit\\\": 50}\"}",
-          "error": ""
-        },
-        {
-          "index": 3,
-          "node_id": "scope_create",
-          "node_type": "http-request",
-          "title": "打开玩家记忆空间",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{}",
-          "outputs": "{\"status_code\": 201, \"body\": \"{\\\"scope_id\\\":\\\"scp_7xsszncjzq8qr36w2h7q20qb8v\\\",\\\"title\\\":\\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\",\\\"summary\\\":\\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\",\\\"parent_scope_id\\\":null,\\\"context_references\\\":[],\\\"external_references\\\":[],\\\"version\\\":1}\", \"headers\": {\"date\": \"Fri,",
-          "error": ""
-        },
-        {
-          "index": 2,
-          "node_id": "scope_req",
-          "node_type": "code",
-          "title": "准备记忆空间请求",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\"}",
-          "outputs": "{\"scope_body\": \"{\\\"title\\\": \\\"\\u8bb0\\u5fc6\\u5267\\u573a \\u00b7 theatre-player-61c0dbca\\\", \\\"summary\\\": \\\"\\u4e00\\u4e2a\\u73a9\\u5bb6\\u5728\\u8bb0\\u5fc6\\u5267\\u573a\\u91cc\\u7684\\u5168\\u90e8\\u5e55\\u6b21\\u4e0e\\u8bb0\\u5fc6\\u3002\\\", \\\"idempotency_key\\\": \\\"memory-theatre-theatre-player-61c0dbca\\\"}\"}",
-          "error": ""
-        },
-        {
-          "index": 1,
-          "node_id": "start",
-          "node_type": "start",
-          "title": "玩家输入",
-          "status": "succeeded",
-          "elapsed_seconds": 0.0,
-          "inputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"5875b4bd-c2f8-4ba9-b1d2-8b486ed104c8\"}",
-          "outputs": "{\"player_id\": \"theatre-player-61c0dbca\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"A \\u8c03\\u67e5\\u79fb\\u52a8\\u7684\\u51fa\\u53e3\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-61c0dbca\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"5875b4bd-c2f8-4ba9-b1d2-8b486ed104c8\"}",
+          "inputs": "{\"player_id\": \"theatre-player-b3eff52d\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u548c\\u95e8\\u536b\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-b3eff52d\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"de111d27-ac73-4c12-bc35-5ab9e8eab10b\"}",
+          "outputs": "{\"player_id\": \"theatre-player-b3eff52d\", \"player_name\": \"\\u963f\\u821f\", \"action\": \"C \\u548c\\u95e8\\u536b\\u534f\\u5546\", \"channel\": \"surreal\", \"sys.files\": [], \"sys.user_id\": \"theatre-player-b3eff52d\", \"sys.app_id\": \"e2424161-bc79-44de-abef-c80b5a787729\", \"sys.workflow_id\": \"9a8fa145-0db8-4490-880d-126dd98172dc\", \"sys.workflow_run_id\": \"de111d27-ac73-4c12-bc35-5ab9e8eab10b\"}",
           "error": ""
         }
       ]

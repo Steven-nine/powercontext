@@ -53,6 +53,9 @@
   .pill.on { background: rgba(90,196,138,.15); color: var(--ok); }
   .pill.off { background: rgba(232,112,95,.15); color: var(--err); }
   .hint { color: var(--muted); font-size: 12px; margin-top: 10px; line-height: 1.6; }
+  .mem { border-left: 2px solid #3a3352; padding: 4px 0 6px 8px; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+  .mem .aid { color: var(--accent-2); word-break: break-all; }
+  .mem .txt { color: var(--ink); opacity: .85; margin-top: 3px; white-space: pre-wrap; word-break: break-all; max-height: 88px; overflow: hidden; }
 </style>
 </head>
 <body>
@@ -97,6 +100,10 @@
       </div>
       <h3 style="margin-top:18px">记忆回执</h3>
       <div id="trace"><div class="kv"><span>状态</span><span>还没有开始</span></div></div>
+      <h3 style="margin-top:18px">门卫的笔记本
+        <button id="reload-mem" style="padding:2px 8px;font-size:12px;margin-left:6px">刷新</button>
+      </h3>
+      <div id="notebook" class="hint">还没有查到记忆条目。</div>
       <div class="hint">回执来自 Dify 工作流的最后一个节点：它会把刚写入的记忆再检索一次，确认真的落库后才算成功。</div>
     </aside>
   </div>
@@ -151,6 +158,21 @@ async function health() {
     $("pill-pc").textContent = "PowerContext 未连接"; $("pill-pc").className = "pill off";
   }
 }
+async function loadMemories() {
+  const box = $("notebook");
+  try {
+    const res = await fetch("/api/memories?playerId=" + encodeURIComponent(playerId()));
+    const data = await res.json();
+    if (!data.ok) { box.textContent = data.error || "查询失败"; return; }
+    if (!data.count) { box.textContent = "还没有查到记忆条目。"; return; }
+    box.innerHTML = data.entries.map((e) =>
+      `<div class="mem"><div class="aid">${e.artifact_id} · rev ${e.revision} · ${e.kind}</div>` +
+      `<div class="txt">${(e.text || "").replace(/</g, "&lt;")}</div></div>`).join("") +
+      `<div class="hint">共 ${data.count} 条，scope ${data.scope_id}</div>`;
+  } catch (e) {
+    box.textContent = "查询失败：" + e;
+  }
+}
 async function send(message) {
   const text = (message || "").trim();
   if (!text) return;
@@ -170,6 +192,7 @@ async function send(message) {
     if (!res.ok) { addAct("（舞台灯光突然熄灭）" + (data.error || "未知错误"), "系统"); return; }
     addAct(data.answer, "门卫阿铁");
     renderTrace(data.receipt);
+    loadMemories();
   } catch (e) {
     addAct("（联系不上后台）" + e, "系统");
   } finally {
@@ -184,13 +207,16 @@ $("newplayer").onclick = () => {
   localStorage.removeItem(KEY_ID);
   log.innerHTML = ""; renderTrace(null);
   addAct("（你换了一个身份，门卫阿铁还没记住你）", "系统");
+  loadMemories();
 };
+$("reload-mem").onclick = loadMemories;
 $("name").value = localStorage.getItem(KEY_NAME) || "小小探险家";
 $("channel").value = localStorage.getItem(KEY_CHANNEL) || "surreal";
 $("name").onchange = () => localStorage.setItem(KEY_NAME, $("name").value);
 $("channel").onchange = () => localStorage.setItem(KEY_CHANNEL, $("channel").value);
 addAct("欢迎来到记忆剧场。门卫阿铁值班三百年，最擅长的事是记住旅人对他做过的每一件坏事。\n先试试上面的三个按钮，或者直接写一句你想做的事。", "系统");
 health();
+loadMemories();
 setInterval(health, 15000);
 </script>
 </body>

@@ -218,11 +218,15 @@ def main():
     check("门卫合伙人" in evidence["turns"][-1]["answer"], "第四幕达成成就【门卫合伙人】")
 
     print("\n== 另一个玩家：记忆隔离 ==")
-    other = run_turn("theatre-player-isolated", "路人甲", "B 整蛊鸽子议会")
+    import uuid
+
+    isolated_id = "theatre-isolated-" + uuid.uuid4().hex[:8]
+    other = run_turn(isolated_id, "路人甲", "B 整蛊鸽子议会")
     print(other["answer"])
     check(other["receipt"].get("round", {}).get("history_hits") == 0, "新玩家没有任何历史记忆")
     check(other["receipt"].get("scope_id") != evidence["scopeId"], "新玩家使用不同的记忆空间")
     evidence["isolatedPlayer"] = {
+        "playerId": isolated_id,
         "run_id": other["run_id"],
         "answer": other["answer"],
         "receipt": other["receipt"],
